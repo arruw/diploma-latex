@@ -8,12 +8,15 @@
     },
     "cSpell.enabled": false,
     "editor.wordWrap": "wordWrapColumn",
+    "latex-workshop.latex.outputDir": "./build",
+    "latex-workshop.latex.clean.enabled": true,
     "latex-workshop.latex.tools": [
         {
             "name": "latexmk",
             "command": "latexmk",
             "args": [
-                "--shell-escape", // added arg to default
+                "-output-directory=build",
+                "-shell-escape", // added arg to default
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
@@ -26,7 +29,8 @@
             "name": "pdflatex",
             "command": "pdflatex",
             "args": [
-                "--shell-escape", // added arg to default
+                "-output-directory=build",
+                "-shell-escape", // added arg to default
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
