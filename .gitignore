@@ -1,2 +1,5 @@
 build/**
 !build/main.pdf
+
+diff/**
+!diff/main.pdf
