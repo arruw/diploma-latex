@@ -146,7 +146,7 @@
     "*.glstex": "explorerExcludedFiles"
   },
   "search.useIgnoreFiles": false,
-  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrap": "bounded",
   "latex-workshop.latex.clean.enabled": true,
   "latex-workshop.latex.tools": [
     {

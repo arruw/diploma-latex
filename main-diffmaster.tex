@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-20184.tex   Sat Aug  4 13:32:55 2018
-%DIF ADD main.tex                Sat Aug  4 12:45:54 2018
+%DIF DEL main-oldtmp-15397.tex   Sat Aug  4 15:41:42 2018
+%DIF ADD main.tex                Sat Aug  4 15:40:34 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -23,11 +23,7 @@
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
-%DIF 23c23
-%DIF < \usepackage{minted}     % dodal jaz
-%DIF -------
-\usepackage{minted}      % dodal jaz [outputdir=build] %DIF > 
-%DIF -------
+\usepackage{minted}      % dodal jaz
 \usemintedstyle{bw}    % dodal jaz
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -379,7 +375,7 @@ večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture. \DIFaddbegi
 
 
 \chapter{NewSQL}
-NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnosti tako relacijskih SQL kakor tudi ne-relacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett Aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz \cite{oliveira2017newsql}. Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
+NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnosti tako relacijskih SQL kakor tudi ne-relacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett \DIFdelbegin \DIFdel{Aprila }\DIFdelend \DIFaddbegin \DIFadd{aprila }\DIFaddend 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz \cite{oliveira2017newsql}. Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
     \item Izvajajo veliko število kratkotrajnih bralno-pisalne transakcij.
     \item Vsaka transakcija se dotika majhnega dela podatkov z uporabo indeksnih poizvedb.
@@ -390,8 +386,8 @@ Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
     \item Uporabljajo standardni SQL kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
-    \item Uporabljajo ne-blokajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
-    \item Implementirajo distribuirano ne-deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
+    \item Uporabljajo \DIFdelbegin \DIFdel{ne-blokajoče }\DIFdelend \DIFaddbegin \DIFadd{ne blokajoče }\DIFaddend mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
+    \item Implementirajo distribuirano \DIFdelbegin \DIFdel{ne-deljeno }\DIFdelend \DIFaddbegin \DIFadd{ne deljeno }\DIFaddend (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja \DIFdelbegin \DIFdel{zagotavlja }\DIFdelend horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
     \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat boj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
@@ -399,34 +395,34 @@ Lastnosti NewSQL podatkovnih baz so:
 Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz. \cite{NewSQLNewWayToHandleBigData} NewSQL podatkovne baze se v grobem delijo na štiri kategorije \cite{Mikuletic2015Feb}:
 
 \begin{enumerate}
-    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katera so optimizirane so za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
+    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katera so optimizirane \DIFdelbegin \DIFdel{so }\DIFdelend za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
     \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. \cite{Pavlo2016Sep}
-    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo z podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Primer takega transparentnega vmesnika je MariaDB MaxScale. \cite{Pavlo2016Sep}
+    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Primer takega transparentnega vmesnika je MariaDB MaxScale. \cite{Pavlo2016Sep}
     \item \textbf{Novi shranjevalni motorji in razširitve:}\\V to kategorijo spadajo novi shranjevalni motorji in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za PostgreSQL podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na neke vire \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz. 
 \end{enumerate}
 
 \section{Nadzor sočasnosti}
-Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
+Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati\DIFaddbegin \DIFadd{, }\DIFaddend med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
 
-Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor sočasnosti (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
-Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni z pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo atomičnih ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
+Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor \DIFdelbegin \DIFdel{sočasnosti }\DIFdelend \DIFaddbegin \DIFadd{so\-čas\-no\-sti }\DIFaddend (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
+Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo atomičnih ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
 
 Poleg MVCC mehanizma nekatere implementacije podatkovnih baz uporabljajo kombinacijo MVCC ter dvo-fazno zaklepanje (angl. two-phase locking) oziroma 2PL. V nekaterih primerih pa uporabljajo mehanizem razbitega sekvenčnega izvajanja (angl. partitioned serial
 execution). \cite{Pavlo2016Sep, MainMemoryDatabaseSystems}.
 
 \section{Glavni pomnilnik}
 
-Večina tradicionalnih relacijskih podatkovnih baz uporablja diskovno usmerjeno arhitekturo za shranjevanje podatkov. V teh sistemih je primarna lokacija za shranjevanje največkrat kar blokovno naslovljiv disk kot na primer HDD oziroma SSD. Ker so bralne in pisalne operacije v te te pomnilne enote relativno počasne, se v ta namen uporablja glavni pomnilnik kot predpomnilnik \cite{Pavlo2016Sep}.
+Večina tradicionalnih relacijskih podatkovnih baz uporablja diskovno usmerjeno arhitekturo za shranjevanje podatkov. V teh sistemih je primarna lokacija za shranjevanje največkrat kar blokovno naslovljiv disk kot na primer HDD oziroma SSD. Ker so bralne in pisalne operacije v te \DIFdelbegin \DIFdel{te }\DIFdelend pomnilne enote relativno počasne, se v ta namen uporablja glavni pomnilnik kot predpomnilnik \cite{Pavlo2016Sep}.
 
-Historično je bil pomnilnik predrag, sedaj pa so cene pomnilnikov nižje tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. S tem pa so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse podatkov hranimo v pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za varnost kopiranje glavnega pomnilnika. Ta ideja izvira že z leta 1980.
-NewSQL podatkovne baze pa dodajo mehanizem, da lahko v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se poizvedbe velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
+Historično je bil pomnilnik predrag, sedaj pa so cene pomnilnikov nižje tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. S tem pa so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse \DIFdelbegin \DIFdel{podatkov }\DIFdelend \DIFaddbegin \DIFadd{podatke }\DIFaddend hranimo v pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za varnost kopiranje glavnega pomnilnika. Ta ideja izvira že z leta 1980.
+NewSQL podatkovne baze pa dodajo mehanizem, da lahko v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se \DIFdelbegin \DIFdel{poizvedbe }\DIFdelend \DIFaddbegin \DIFadd{po\-iz\-ved\-be }\DIFaddend velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
 
 Tukaj se pojavi vprašanje kateri pristop je boljše izbrati, glavni pomnilnik ali blokovno naslovljivi disk z velikim predpomnilnikom. Res je, da bo podatkovna baza katera nosi vse podatke v predpomnilniku delovala bistveno hitreje, kljub temu pa tak sistem ni optimiziran za tak scenarij \cite{garcia1992main}.
 
-Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato te sistemi poizkušajo minimizirati število \cite{MainMemoryDatabaseSystems} teh operacij. Obstajajo nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
+Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato te sistemi poizkušajo minimizirati število \cite{MainMemoryDatabaseSystems} teh operacij. \DIFdelbegin \DIFdel{Obstajajo }\DIFdelend \DIFaddbegin \DIFadd{Obstaja }\DIFaddend nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
 
 \begin{itemize}
-    \item Ključavnica nad dnevnikom se odkleni čim prej. S tem se zmanjša čas blokiranja ter omogoči, da ostale sočasne transakcije hitreje pišejo v dnevnik. \cite{NewSqlInMemoryAnalytics}
+    \item Ključavnica nad dnevnikom se odkleni čim prej. S tem se zmanjša čas blokiranja ter omogoči, da \DIFaddbegin \DIFadd{se }\DIFaddend ostale sočasne transakcije hitreje \DIFdelbegin \DIFdel{pišejo }\DIFdelend \DIFaddbegin \DIFadd{zapišejo }\DIFaddend v dnevnik. \cite{NewSqlInMemoryAnalytics}
     \item Beleženje samo dogodkov, kateri spreminjajo stanje podatkov, saj so samo te dogodki potrebni za obnovo podatkov. \cite{MainMemoryDatabaseSystems}
     \item Grupiranje dogodkov ter periodično beleženje v dnevnik. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
     \item Asinhrono potrjevanje ne čaka potrditve transakcije. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
@@ -440,34 +436,33 @@ Ker imajo IMDB podatkovne baze zelo majhne stroške operacij, lahko bolje izkori
 Drobljenje (angl. sharding) je pristop s katerim večina NewSQL podatkovnih baz dosega horizontalno skalabilnost \cite{Pavlo2016Sep}. Drobljenje je vrsta horizontalnega particioniranja (angl. horizontal partitioning) podatkov, pri katerem se vsaka particija hrani na ločenem strežniku (logičnem ali fizičnem) \cite{WikiSharding}. Podatki so razdeljeni horizontalno (po vrsticah) na več delov glede na vrednosti v izbranih stolpcev v tabeli, te stolpce imenujemo delitveni atributi (angl. partitioning attributes). Najbolj poznana sta dva tipa delitve:
 
 \begin{enumerate}
-    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane ne-prekrivajoče intervale se zapisi delijo na particij. Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
+    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane \DIFdelbegin \DIFdel{ne-prekrivajoče }\DIFdelend \DIFaddbegin \DIFadd{ne prekrivajoče }\DIFaddend intervale se zapisi delijo na particij. Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
     \item \textbf{Razpršena delitev:}\\Ta delitev za delovanje uporablja razpršitveno funkcijo (angl. hash function), katera podatke deli enakomerno preko vseh particij.
 \end{enumerate}
 
-Idealno podatkovna baza z poizvedbe prepozna katerih particij se poizvedba dotika ter nato izvede poizvedbo porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
+Idealno podatkovna baza \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend poizvedbe prepozna katerih particij se poizvedba dotika ter nato izvede poizvedbo porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
 
-Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particij rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno potrebujemo podatke ponovno razdeliti enakomerno. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen saj NewSQL podatkovne baze 
+Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere \DIFdelbegin \DIFdel{particij }\DIFdelend \DIFaddbegin \DIFadd{particije }\DIFaddend rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno\DIFaddbegin \DIFadd{, }\DIFaddend potrebujemo podatke ponovno razdeliti enakomerno. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen\DIFaddbegin \DIFadd{, }\DIFaddend saj NewSQL podatkovne baze 
 potrebujejo zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
 
 \section{Replikacija}
 
-Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira neko vrsto replikacije \cite{Pavlo2016Sep} . V osnovi obstaja dva pristopa replikacije:
+Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira neko vrsto replikacije \cite{Pavlo2016Sep} . V osnovi obstaja dva pristopa \DIFdelbegin \DIFdel{replikacije}\DIFdelend \DIFaddbegin \DIFadd{repliciranja}\DIFaddend :
 \begin{enumerate}
     \item \textbf{Aktivna replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) oziroma več-gospodarska (angl. multi-master) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
     \item \textbf{Pasivna replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) oziroma \DIFdelbegin \DIFdel{gospodar-suženj }\DIFdelend \DIFaddbegin \DIFadd{gos\-po\-dar-su\-ženj }\DIFaddend (angl. master-slave) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočasnosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep}.
 \end{enumerate}
 
-\hl{TODO:}
-Sinhrona in asinhrona replikacija
+\hl{TODO:}Sinhrona in asinhrona replikacija
 
-V visoko konsistentnih podatkovnih bazah morajo biti transakcije potrjene na vseh replikah šele takrat se smatra, da je transakcija potrjena \cite{NewSqlInMemoryAnalytics}.
+V visoko konsistentnih podatkovnih bazah morajo biti transakcije potrjene na vseh replikah\DIFaddbegin \DIFadd{, }\DIFaddend šele takrat se smatra, da je transakcija potrjena \cite{NewSqlInMemoryAnalytics}.
 
 \section{Obnova}
-Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
+Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake\DIFaddbegin \DIFadd{, }\DIFaddend je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
 
 Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in \DIFdelbegin \DIFdel{največkrat }\DIFdelend \DIFaddbegin \DIFadd{naj\-več\-krat }\DIFaddend uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve, ponovi vse spremembe zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
 
-Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove si ostala vozlišča avtomatsko razdelijo obremenitev sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in z ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
+Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove\DIFaddbegin \DIFadd{, }\DIFaddend si ostala vozlišča avtomatsko razdelijo obremenitev\DIFaddbegin \DIFadd{, }\DIFaddend sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
 
 
 
@@ -476,9 +471,9 @@ Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne p
 
 CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in visoko konsistenti ključ-vrednost shranjevalnem mehanizmu. Zagotavlja ACID transakcijske lastnosti, kot primarni vmesnik za interakcijo pa uporablja standardni ANSI SQL. Je horizontalno skalabilna in je odporna na napake strežnika ali pa celotnega podatkovnega centra. Prilagojena je za izvajanje v oblak in namenjena globalnim oblačnim storitvam. Je transakcijska podatkovna baza in ni primerna za večje analitične obremenitve. Je zelo enostavna za upravljanje ter uporabo. \cite{CRDB-FAQ}
 
-Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs njihov glavni produkt pa je v celoti odprto kodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili prej inženirji zaposleni v Googlu. Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
+Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs\DIFdelbegin \DIFdel{njihov glavni produkt pa }\DIFdelend \DIFaddbegin \DIFadd{. Njihov glavni produkt }\DIFaddend je v celoti odprto kodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili \DIFdelbegin \DIFdel{prej }\DIFdelend \DIFaddbegin \DIFadd{predhodno }\DIFaddend inženirji \DIFdelbegin \DIFdel{zaposleni v Googlu}\DIFdelend \DIFaddbegin \DIFadd{v podjetju Google}\DIFaddend . Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
 
-Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je odprto kodna in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
+Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
 
 \section{Arhitektura}
 
@@ -511,7 +506,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
 \end{figure}
 
 \subsubsection{Plasti}
-Podatkovna baza CockroachDB je sestavljena z petih plasti. Plasti med seboj delujejo kot črne škatle. Vsaka plast pa sodeluje le z plastjo direktno nad in pod seboj.
+Podatkovna baza CockroachDB je sestavljena \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend petih plasti. Plasti med seboj delujejo kot črne škatle. Vsaka plast pa sodeluje le z plastjo direktno nad in pod seboj.
 
 \begin{enumerate}
     \item \textbf{SQL plast:} Prevede SQL poizvedbe v KV operacije.
@@ -527,7 +522,7 @@ SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Po
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
-Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktično drevo. Potem CockroachDB začne z pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi sintaktično pravilnost poizvedb ter nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije.
+Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktično drevo. Potem CockroachDB začne \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi sintaktično pravilnost poizvedb ter nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije.
 
 \begin{table}[H]
 \begin{center}
@@ -544,19 +539,19 @@ Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktičn
 \hline
 \end{tabular}
 \end{center}
-\caption{Poenostavljen primer preslikave SQL v KV model \cite{CRDB-design}. V podatkovni bazi \texttt{mydb} se nahaja tabela \texttt{customer}, katera ima pog primarnega ključa še dva stolpca \texttt{address} in \texttt{url}. Zadnji zva zapisa v tabeli predstavljata en vrstico v tabeli \texttt{customer} z primarnim ključem \texttt{Apple}.}
+\caption{Poenostavljen primer preslikave SQL v KV model \cite{CRDB-design}. V podatkovni bazi \texttt{mydb} se nahaja tabela \texttt{customer}, katera ima pog primarnega ključa še dva stolpca \texttt{address} in \texttt{url}. \DIFdelbeginFL \DIFdelFL{Zadnji zva }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Zadnja dva }\DIFaddendFL zapisa v tabeli predstavljata en vrstico v tabeli \texttt{customer} z primarnim ključem \texttt{Apple}.}
 \label{tbl_crdb_sql_kv_mapping}
 \end{table}
 
 \subsection{Transakcijska plast}
-Podatkovna baza CockroachDB je konsistentna to dosega tako da, transakcijska plast implementira celotno semantiko ACID transakcij. Vsak stavek predstavlja svojo transakcijo, transakcije pa niso omejene samo na določeno tabelo, obseg ali vozlišče in delujejo preko celotne gruče. To dosežejo z dvofaznim potrditvenim postopkom (angl. two-phase commit):
+Podatkovna baza CockroachDB je konsistentna\DIFaddbegin \DIFadd{, }\DIFaddend to dosega tako da, transakcijska plast implementira celotno semantiko ACID transakcij. Vsak stavek predstavlja svojo transakcijo, transakcije pa niso omejene samo na določeno tabelo, obseg ali vozlišče in delujejo preko celotne gruče. To dosežejo z dvofaznim potrditvenim postopkom (angl. two-phase commit):
 
 \begin{enumerate}
-    \item \textbf{Faza 1:} Vsaka transakcija najprej kreira transakcijski zapis z statusom v teku (angl. pending). To je podatkovna struktura katera nosi transakcijski ključ in status transakcije. Sočasno, se za pisalne operacije kreira pisalni namen (angl. write intent). Pisalni namen je v osnovi MVCC vrednost označena z zastavico "namen" in kazalcem na transakcijski zapis. Primer MVCC shrambe je prikazan v tabeli \ref{tbl_crdb_mvcc_store}.
+    \item \textbf{Faza 1:} Vsaka transakcija najprej kreira transakcijski zapis \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend statusom v teku (angl. pending). To je podatkovna struktura katera nosi transakcijski ključ in status transakcije. Sočasno, se za pisalne operacije kreira pisalni namen (angl. write intent). Pisalni namen je v osnovi MVCC vrednost označena z zastavico \DIFdelbegin \DIFdel{"namen" }\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}} \DIFaddend in kazalcem na transakcijski zapis. Primer MVCC shrambe je prikazan v tabeli \ref{tbl_crdb_mvcc_store}.
     \item \textbf{Faza 2:} V kolikor je transakcijski zapis v status prekinjeno (angl. aborted), se transakcija ponovno izvrši.
 
-    Če pa so izpolnjeni vsi pogoji se transakcija potrdi. Status v transakcijskem zapisu se spremeni v potrjeno (angl. commited). Sočasno se vsem pisalnim namenom povezanim z trenutno transakcijo odstrani zastavico "namen". 
-    \item \textbf{Faza 3 (asinhrono):} Ko se transakcija konča se vsem potrjenim pisalnim namenom odstrani zastavico "namen" in kazalec na transakcijski zapis. Nepotrjeni pisalni nameni se samo izbrišejo. To se izvede asinhrono, zato vse operacije, preden kreirajo pisalni namen preverijo obstoječi pisalni namen z transakcijskim zapisom in ga ustrezno upoštevajo.
+    Če pa so izpolnjeni vsi pogoji\DIFaddbegin \DIFadd{, }\DIFaddend se transakcija potrdi. Status v transakcijskem zapisu se spremeni v potrjeno (angl. commited). Sočasno se vsem pisalnim namenom povezanim \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend trenutno transakcijo odstrani zastavico \DIFdelbegin \DIFdel{"namen"}\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}}\DIFaddend . 
+    \item \textbf{Faza 3 (asinhrono):} Ko se transakcija konča\DIFaddbegin \DIFadd{, }\DIFaddend se vsem potrjenim pisalnim namenom odstrani zastavico \DIFdelbegin \DIFdel{"namen" }\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}} \DIFaddend in kazalec na transakcijski zapis. Nepotrjeni pisalni nameni se samo izbrišejo. To se izvede asinhrono, zato vse operacije, preden kreirajo pisalni namen preverijo obstoječi pisalni namen \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend transakcijskim zapisom in ga ustrezno upoštevajo.
 \end{enumerate}
 
 \begin{table}[H]
@@ -565,11 +560,11 @@ Podatkovna baza CockroachDB je konsistentna to dosega tako da, transakcijska pla
 \hline
 \textbf{KLJUČ} & \textbf{ČAS} & \textbf{VREDNOST} \\
 \hline
-A$<$namen$>$ & 500 & "nepotrjena vrednost" \\
-A & 400 & "trenutna vrednost" \\ 
-A & 322 & "stara vrednost" \\ 
-A & 50 & "prvotna vrednost" \\
-B & 100 & "vrednost B" \\
+A$<$\DIFdelbeginFL \DIFdelFL{namen}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{intent}\DIFaddendFL $>$ & 500 & \DIFdelbeginFL \DIFdelFL{"nepotrjena vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{nepotrjena vrednost }\DIFaddendFL \\
+A & 400 & \DIFdelbeginFL \DIFdelFL{"trenutna vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{trenutna vrednost }\DIFaddendFL \\ 
+A & 322 & \DIFdelbeginFL \DIFdelFL{"stara vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{stara vrednost }\DIFaddendFL \\ 
+A & 50 & \DIFdelbeginFL \DIFdelFL{"prvotna vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{prvotna vrednost }\DIFaddendFL \\
+B & 100 & \DIFdelbeginFL \DIFdelFL{"vrednost B " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost B }\DIFaddendFL \\
 \hline
 \end{tabular}
 \end{center}
@@ -577,18 +572,18 @@ B & 100 & "vrednost B" \\
 \label{tbl_crdb_mvcc_store}
 \end{table}
 
-Podatkovna baza CockroachDB privzeto podpira najvišji standardni ANSI SQL izolacijski nivo, to je \textit{serializable}. Ta nivo ne dopušča nikakršnih anomalij v podatkih, če obstaja možnost anomalije se transakcija ponovno izvede. Podpira pa tudi zastareli nestandardni izolacijski nivo \textit{snapshot}.
+Podatkovna baza CockroachDB privzeto podpira najvišji standardni \DIFdelbegin \DIFdel{ANSI }\DIFdelend \DIFaddbegin \DIFadd{AN\-SI }\DIFaddend SQL izolacijski nivo, to je \textit{serializable}. Ta nivo ne dopušča nikakršnih anomalij v podatkih, če obstaja možnost anomalije se transakcija ponovno izvede. Podpira pa tudi zastareli nestandardni izolacijski nivo \textit{snapshot}.
 
  
 \subsection{Porazdelitvena plast}
 
-Vsi podatki v gruči so na voljo preko katerega koli vozlišča. CockroachDB shranjuje podatke v urejeno vrsto tipa ključ-vrednost. Ta podatkovna struktura je namenjena shranjevanju sistemskih kakor tudi uporabniških podatkov. Z nje CockroachDB razbere kje se nahaja podatek in vrednost samega podatka. Podatki so razdeljeni na koščke, katere imenujemo obsegi (angl. ranges). Obsegi so urejeni koščki podatkov preko katerih CockroachDB lahko hitro in učinkovito izvede \textit{lookup} in \textit{scan} operacije.
+Vsi podatki v gruči so na voljo preko \DIFdelbegin \DIFdel{katerega koli }\DIFdelend \DIFaddbegin \DIFadd{kateregakoli }\DIFaddend vozlišča. CockroachDB shranjuje podatke v urejeno vrsto tipa ključ-vrednost. Ta podatkovna \DIFdelbegin \DIFdel{struktura }\DIFdelend \DIFaddbegin \DIFadd{stru\-ktu\-ra }\DIFaddend je namenjena shranjevanju sistemskih kakor tudi uporabniških podatkov. Z nje CockroachDB razbere kje se nahaja podatek in vrednost samega podatka. Podatki so razdeljeni na koščke, katere imenujemo obsegi (angl. ranges). Obsegi so urejeni koščki podatkov preko katerih CockroachDB lahko hitro in učinkovito izvede \textit{lookup} in \textit{scan} operacije.
 
 Lokacija vseh obsegov je shranjena v dvo-nivojskem indeksu. Ta indeks na prvem nivoju sestavlja meta obseg (angl. meta range) imenovan \texttt{meta1}, kateri kaže na meta obseg na drugem nivoju imenovan \texttt{meta2}. Meta obseg \texttt{meta2} pa kaže na podatkovne obsege.
 
 Ko vozlišče prejme zahtevek, v meta obsegih poišče vozlišče katero hrani obseg v najemu (angl. range lease) ter preko tega vozlišča izvede zahtevek. Meta obsegi so predpomnjeni, zato se lahko zgodi, da kažejo na napačno vozlišče. V tem primeru se vrednosti meta obsegov posodobijo.
 
-Privzeto je velikost podatkovnega obsega omejena na 64MiB.To omogoča lažji prenos obsega med vozlišči poleg tega pa je obseg dovolj velik, da lahko hrani nabor urejenih podatkov, kateri so bolj verjetno dostopani skupaj. Če obseg preseže velikost 64MiB se razdeli v dva 32MiB podatkovna obsega. Ta dvo-nivojska indeksna struktura omogoča, da naslovimo do \(2^{(18 + 18)} = 2^{36}\) obsegov. Vsak obseg pa privzeto naslavlja \(2^{26}B = 64MiB\) pomnilniške prostora. Teoretično podatkovna baza CockroachDB z privzetimi nastavitvami lahko naslovi do \(2^{(36+26)}B = 4EB\) podatkov. 
+Privzeto je velikost podatkovnega obsega omejena na 64MiB. To omogoča lažji prenos obsega med vozlišči\DIFaddbegin \DIFadd{, }\DIFaddend poleg tega pa je obseg dovolj velik, da lahko hrani nabor urejenih podatkov, kateri so bolj verjetno dostopani skupaj. Če obseg preseže velikost 64MiB\DIFaddbegin \DIFadd{, }\DIFaddend se razdeli v dva 32MiB podatkovna obsega. Ta dvo-nivojska indeksna struktura omogoča, da naslovimo do \(2^{(18 + 18)} = 2^{36}\) obsegov. Vsak obseg pa privzeto naslavlja \(2^{26}B = 64MiB\) pomnilniške prostora. Teoretično podatkovna baza CockroachDB \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend privzetimi nastavitvami lahko naslovi do \(2^{(36+26)}B = 4EB\) podatkov. 
 
 \subsection{Replikacijska plast}
 
@@ -596,7 +591,7 @@ Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v 
 
 Število vozlišč, ki lahko odpove brez, da bi s tem vplivalo na delovanje podatkovne baze je enako:
 \[(r - 1)/2 = f \text{, če}\ r = 3, 5, 7, ...\ \text{in}\ r <= N\]
-Kjer je \(N\) število vseh vozlišč v gruči, \(r\) faktor replikacije liho število večje ali enako tri in manjše ali enako številu vseh vozlišč v gruči. Ter \(f\) maksimalno število vozlišč, ki še lahko odpove brez, brez da bi vplivalo na delovanje podatkovne baze. Na primer če je replikacijski faktor \(r = 3\) gruča lahko tolerira odpoved enega vozlišča \(f = 1\).
+Kjer je \(N\) število vseh vozlišč v gruči, \(r\) faktor replikacije liho število večje ali enako tri in manjše ali enako številu vseh vozlišč v gruči. Ter \(f\) maksimalno število vozlišč, ki še lahko odpove brez, \DIFdelbegin \DIFdel{brez }\DIFdelend da bi vplivalo na delovanje podatkovne baze. Na primer če je replikacijski faktor \(r = 3\)\DIFaddbegin \DIFadd{, }\DIFaddend gruča lahko tolerira odpoved enega vozlišča \(f = 1\).
 
 Za vsak obseg obstaja Raft skupina, kjer je eno vozlišče, ki vsebuje repliko, označena kot "vodja". Vodja je izvoljen in koordinira vse pisalne zahtevke za določen obseg. V idealnih pogojih je vodja Raft skupine tudi najemnik obsega (angl. leaseholder).
 
@@ -611,7 +606,7 @@ CockroachDB uporablja MVCC pristop in hrani več verzij vsakega podatka. Podatko
 Razvoj podatkovne baze CockroachDB je bil usmerjen prvotno v funkcionalnosti in še le kasneje v optimizacije. Tako verzija 1.0.0 omogoča razvijalcem večina potrebnih funkcionalnosti, verzija 2.0.0 pa je poleg manjših funkcionalnosti prinesla predvsem optimizacije.
 
 \subsection{Enostavnost}
-Podatkovna baza CockroachDB strmi k enostavnosti upravljanja in vzdrževanja. Večina kompleksnosti je skrite končnemu uporabniku. Izogiba se zunanjim odvisnostim in je na voljo kot ena sama binarna datoteka. Minimalno za zagon gruče je potrebno na vsakem vozlišču zagotoviti sinhronizacije ure, priporočena je uporaba zunanje Google NTP storitve ter namestiti CockroachDB binarno datoteko na vsako vozlišče in jo zagnati.
+Podatkovna baza CockroachDB strmi k enostavnosti upravljanja in \DIFdelbegin \DIFdel{vzdrževanja}\DIFdelend \DIFaddbegin \DIFadd{vzdr\-že\-van\-ja}\DIFaddend . Večina kompleksnosti je skrite končnemu uporabniku. Izogiba se zunanjim odvisnostim in je na voljo kot ena sama binarna datoteka. Minimalno za zagon gruče je potrebno na vsakem vozlišču zagotoviti sinhronizacije ure, priporočena je uporaba zunanje Google NTP storitve ter namestiti CockroachDB binarno datoteko na vsako vozlišče in jo zagnati.
 
 \subsection{Uporabniški vmesnik in nadzorovanje}
 Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik, ki je prikazan na sliki \ref{img_crdb_admin_ui}. Administratorski vmesniki nudi vizualizacije raznih časovnih metrik o delovanju posameznih vozlišč, kakor tudi celotne gruče. Omogoča pregled dnevnikov in pripomore k lažjemu odkrivanju težav v gruči. CockroachDB omogoča tudi izvoz metrik v odprto kodno rešitev Prometheus, katera nam omogoča shrambo, obdelavo, vizualizacije in obveščanje nad časovnimi vrstami.
@@ -625,13 +620,13 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 \end{figure}
 
 \subsection{SQL}
-CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše razširitve, razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
+CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše \DIFdelbegin \DIFdel{razširitve}\DIFdelend \DIFaddbegin \DIFadd{raz\-ši\-rit\-ve}\DIFaddend , razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
 CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{\DIFdelbegin \DIFdel{DECIMAL}\DIFdelend \DIFaddbegin \DIFadd{DE\-CI\-MAL}\DIFaddend }, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
 
 \subsubsection{Shema}
-CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje tabel, stolpcev, omejitev in indeksov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Izjema je \texttt{PRIMARY KEY}, to omejitev lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
+CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje tabel, stolpcev, omejitev in indeksov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Izjema je \texttt{PRIMARY KEY}, to omejitev lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele\DIFaddbegin \DIFadd{, }\DIFaddend CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
 
 Poizvedovanje sheme je na voljo na standardni način, preko virtualne sheme \texttt{informationq\_schema}.
 
@@ -641,7 +636,7 @@ Prožilci še niso podprti in tudi ne planirani za naslednje verzije.
 CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SERIALIZABLE}\DIFdelend \DIFaddbegin \DIFadd{SE\-RI\-AL\-IZ\-ABLE}\DIFaddend }, omogoča pa še zastareli izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SNAPSHOT}\DIFdelend \DIFaddbegin \DIFadd{SNAP\-SHOT}\DIFaddend }. Ostali standardni izolacijski nivoji niso podprti.
 
 \subsubsection{Tabelarični izrazi}
-CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funkcij. Od \texttt{JOIN} operacij omogoča \texttt{INNER}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{FULL}, \texttt{CROSS}, vendar pa te operacije še niso optimizirane, da bi dosegli optimalno delovanje je potrebno \texttt{JOIN} operacije pravilno omejiti.
+CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funkcij. Od \texttt{JOIN} operacij omogoča \texttt{INNER}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{FULL}, \texttt{CROSS}, vendar pa te operacije še niso optimizirane\DIFdelbegin \DIFdel{, da }\DIFdelend \DIFaddbegin \DIFadd{. Da }\DIFaddend bi dosegli optimalno delovanje je potrebno \texttt{JOIN} operacije pravilno omejiti.
 
 \subsubsection{Operatorji, skalarni izrazi, logični izrazi in funkcije}
 CockroachDB implementira večji del standardnih operatorjev, skalarnih izrazov, logičnih izrazov ter funkcij. Slabo podporo zagotavlja konsturktu \texttt{EXISTS} in skalarnim pod-poizvedbam. Podpira poizvedovanje po tipu JSON, omogoča iskanje z POSIX regularnimi izrazi ter implementira okenske funkcije (funkcije katere se izvedejo nad podmnožico, tipično ob uporabi \texttt{GROUP BY}).
@@ -657,8 +652,11 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
     \item tehnično pomoč,
     \item geografsko distribucijo na nivoju ene vrstice,
     \item vizualizacijo geografsko distribuirane gruče na zemljevidu,
-    \item nadzor dostopa na nivoju skupin
-    \item in distribuirano kreiranje in obnova varnostnih kopij.
+    \item nadzor dostopa na nivoju skupin \DIFdelbegin %DIFDELCMD < \item %%%
+\item%DIFAUXCMD
+\DIFdel{in
+    }\DIFdelend \DIFaddbegin \DIFadd{in
+    }\item \DIFaddend distribuirano kreiranje in obnova varnostnih kopij.
 \end{itemize}
 
 \subsection{Podprta orodja, gonilniki in ORMji in skupnost}
