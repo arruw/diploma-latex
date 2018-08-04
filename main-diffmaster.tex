@@ -1,4 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL main-oldtmp-20184.tex   Sat Aug  4 13:32:55 2018
+%DIF ADD main.tex                Sat Aug  4 12:45:54 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -20,7 +23,11 @@
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
-\usepackage{minted}      % dodal jaz
+%DIF 23c23
+%DIF < \usepackage{minted}     % dodal jaz
+%DIF -------
+\usepackage{minted}      % dodal jaz [outputdir=build] %DIF > 
+%DIF -------
 \usemintedstyle{bw}    % dodal jaz
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,6 +159,69 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 \selectlanguage{slovene}
@@ -304,7 +374,8 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture. Motivacija...
+večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture. \DIFaddbegin \DIFadd{Motivacija...
+}\DIFaddend 
 
 
 \chapter{NewSQL}
@@ -383,7 +454,7 @@ potrebujejo zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
 Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira neko vrsto replikacije \cite{Pavlo2016Sep} . V osnovi obstaja dva pristopa replikacije:
 \begin{enumerate}
     \item \textbf{Aktivna replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) oziroma več-gospodarska (angl. multi-master) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
-    \item \textbf{Pasivna replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) oziroma gos\-po\-dar-su\-ženj (angl. master-slave) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočasnosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep}.
+    \item \textbf{Pasivna replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) oziroma \DIFdelbegin \DIFdel{gospodar-suženj }\DIFdelend \DIFaddbegin \DIFadd{gos\-po\-dar-su\-ženj }\DIFaddend (angl. master-slave) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočasnosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep}.
 \end{enumerate}
 
 \hl{TODO:}
@@ -394,7 +465,7 @@ V visoko konsistentnih podatkovnih bazah morajo biti transakcije potrjene na vse
 \section{Obnova}
 Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
 
-Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in naj\-več\-krat uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve, ponovi vse spremembe zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
+Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in \DIFdelbegin \DIFdel{največkrat }\DIFdelend \DIFaddbegin \DIFadd{naj\-več\-krat }\DIFaddend uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve, ponovi vse spremembe zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
 
 Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove si ostala vozlišča avtomatsko razdelijo obremenitev sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in z ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
 
@@ -444,7 +515,7 @@ Podatkovna baza CockroachDB je sestavljena z petih plasti. Plasti med seboj delu
 
 \begin{enumerate}
     \item \textbf{SQL plast:} Prevede SQL poizvedbe v KV operacije.
-    \item \textbf{Transakcijska plast:} Omogoča atomične spremembe nad večjim šte\-vi\-lom KV operacij.
+    \item \textbf{Transakcijska plast:} Omogoča atomične spremembe nad večjim \DIFdelbegin \DIFdel{številom }\DIFdelend \DIFaddbegin \DIFadd{šte\-vi\-lom }\DIFaddend KV operacij.
     \item \textbf{Porazdelitvena plast:} Predstavi replicirana KV območja kot eno entiteto.
     \item \textbf{Replikacijska plast:} Konsistento in sinhrono replicira KV obsege v gruči.
     \item \textbf{Shranjevalna plast:} Izvaja bralne in pisalne operacija na disku.
@@ -483,7 +554,7 @@ Podatkovna baza CockroachDB je konsistentna to dosega tako da, transakcijska pla
 \begin{enumerate}
     \item \textbf{Faza 1:} Vsaka transakcija najprej kreira transakcijski zapis z statusom v teku (angl. pending). To je podatkovna struktura katera nosi transakcijski ključ in status transakcije. Sočasno, se za pisalne operacije kreira pisalni namen (angl. write intent). Pisalni namen je v osnovi MVCC vrednost označena z zastavico "namen" in kazalcem na transakcijski zapis. Primer MVCC shrambe je prikazan v tabeli \ref{tbl_crdb_mvcc_store}.
     \item \textbf{Faza 2:} V kolikor je transakcijski zapis v status prekinjeno (angl. aborted), se transakcija ponovno izvrši.
-    
+
     Če pa so izpolnjeni vsi pogoji se transakcija potrdi. Status v transakcijskem zapisu se spremeni v potrjeno (angl. commited). Sočasno se vsem pisalnim namenom povezanim z trenutno transakcijo odstrani zastavico "namen". 
     \item \textbf{Faza 3 (asinhrono):} Ko se transakcija konča se vsem potrjenim pisalnim namenom odstrani zastavico "namen" in kazalec na transakcijski zapis. Nepotrjeni pisalni nameni se samo izbrišejo. To se izvede asinhrono, zato vse operacije, preden kreirajo pisalni namen preverijo obstoječi pisalni namen z transakcijskim zapisom in ga ustrezno upoštevajo.
 \end{enumerate}
@@ -557,7 +628,7 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše razširitve, razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
-CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{DE\-CI\-MAL}, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
+CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{\DIFdelbegin \DIFdel{DECIMAL}\DIFdelend \DIFaddbegin \DIFadd{DE\-CI\-MAL}\DIFaddend }, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
 
 \subsubsection{Shema}
 CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje tabel, stolpcev, omejitev in indeksov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Izjema je \texttt{PRIMARY KEY}, to omejitev lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
@@ -567,7 +638,7 @@ Poizvedovanje sheme je na voljo na standardni način, preko virtualne sheme \tex
 Prožilci še niso podprti in tudi ne planirani za naslednje verzije.
 
 \subsubsection{Transakcije}
-CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{SE\-RI\-AL\-IZ\-ABLE}, omogoča pa še zastareli izolacijski nivo \texttt{SNAP\-SHOT}. Ostali standardni izolacijski nivoji niso podprti.
+CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SERIALIZABLE}\DIFdelend \DIFaddbegin \DIFadd{SE\-RI\-AL\-IZ\-ABLE}\DIFaddend }, omogoča pa še zastareli izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SNAPSHOT}\DIFdelend \DIFaddbegin \DIFadd{SNAP\-SHOT}\DIFaddend }. Ostali standardni izolacijski nivoji niso podprti.
 
 \subsubsection{Tabelarični izrazi}
 CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funkcij. Od \texttt{JOIN} operacij omogoča \texttt{INNER}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{FULL}, \texttt{CROSS}, vendar pa te operacije še niso optimizirane, da bi dosegli optimalno delovanje je potrebno \texttt{JOIN} operacije pravilno omejiti.
@@ -594,9 +665,13 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
 
 Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja PostgreSQL žični protokol, kar omogoča dobro kompatibilnost z obstoječimi PostgreSQL komponentami.
 
-Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \cite{CRDB-meta-drivers-orms}.
+Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{CRDB-meta-drivers-orms}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend .
 
-Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno aplikacijo \texttt{cockroach sql}. Od grafičnih orodij nudijo beta podporo za pgweb, dbglass, Postico, PSequel, TablePlus in Valentina studio \cite{CRDB-meta-vizualizers}. Orodje pgweb ima trenutno najbolj zdravo in aktivno skupnost, je odprtokodno in podpira vse glavne operacijske sisteme (Windows, OSX in Linux). Aplikacijo dostopamo preko spletnega brskalnika in podpira funkcionalnosti kot so:
+Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno aplikacijo \texttt{cockroach sql}. Od grafičnih orodij nudijo beta podporo za pgweb, dbglass, Postico, PSequel, TablePlus in Valentina studio \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{CRDB-meta-vizualizers}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Orodje pgweb ima trenutno najbolj zdravo in aktivno skupnost, je odprtokodno in podpira vse glavne operacijske sisteme (Windows, OSX in Linux). Aplikacijo dostopamo preko spletnega brskalnika in podpira funkcionalnosti kot so:
 
 \begin{itemize}
     \item pregled podatkovne baze in sheme
@@ -605,9 +680,33 @@ Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno apl
     \item izvoz podatkov v formatu CSV, JSON in XML
 \end{itemize}
 
-Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozitorija \texttt{cockroachdb/cockraoch} \cite{cockroachdb/cockroach}. Projekt ima zdravo skupnost, kateremu trenutno sledi približno 14 tisoč navdušencev. Poleg GitHub repozitorija, kjer se odvija ves razvoj, vodenje nalog in pomoč, CockroachLabs vodi še spletno stran \cite{CRDB-home} (dokumentacija, form, blog, mediji), Gitter kanal \cite{CRDB-gitter} in Docker repozitorij \cite{CRDB-docker}.
+\DIFdelbegin %DIFDELCMD < \iffalse
+%DIFDELCMD < %%%
+\DIFdel{Drivers }%DIFDELCMD < & %%%
+\DIFdel{ORMs:
+https://github. com/cockroachdb/cockroach/issues/25468
+}\DIFdelend \DIFaddbegin \DIFadd{Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozitorija }\texttt{\DIFadd{cockroachdb/cockraoch}} \DIFadd{\mbox{%DIFAUXCMD
+\cite{cockroachdb/cockroach}}\hspace{0pt}%DIFAUXCMD
+. Projekt ima zdravo skupnost, kateremu trenutno sledi približno 14 tisoč navdušencev. Poleg GitHub repozitorija, kjer se odvija ves razvoj, vodenje nalog in pomoč, CockroachLabs vodi še spletno stran \mbox{%DIFAUXCMD
+\cite{CRDB-home} }\hspace{0pt}%DIFAUXCMD
+(dokumentacija, form, blog, mediji), Gitter kanal \mbox{%DIFAUXCMD
+\cite{CRDB-gitter} }\hspace{0pt}%DIFAUXCMD
+in Docker repozitorij \mbox{%DIFAUXCMD
+\cite{CRDB-docker}}\hspace{0pt}%DIFAUXCMD
+.
+}\DIFaddend 
 
-\chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
+\DIFdelbegin \DIFdel{DB Visualizers:
+https://github.com/cockroachdb/cockroach/issues/25467
+}%DIFDELCMD < \fi
+%DIFDELCMD < 
+
+%DIFDELCMD < \hl{TODO:} %%%
+\DIFdel{skupnost, sam sem uporabil pgweb in gorm
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
 
 Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres (z razširitvijo Citus). 
 
@@ -619,7 +718,7 @@ V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel prime
 \newpage
 
 \section{Hipoteze}
-Pred začetkom izvajanja primerjalne analize sem postavill naslednje hipoteze:
+Pred začetkom izvajanja primerjalne analize sem \DIFdelbegin \DIFdel{postavil }\DIFdelend \DIFaddbegin \DIFadd{postavill }\DIFaddend naslednje hipoteze:
 \begin{enumerate}
     \item CockroachDB bo na enem vozlišču nekoliko počasnejši od Postgres podatkovne baze.
     \iffalse
