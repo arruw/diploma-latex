@@ -321,17 +321,17 @@ Lastnosti NewSQL podatkovnih baz so:
     \item Podpirajo ACID transakcijske lastnosti.
     \item Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
     \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
-    \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat boj zmogljive \cite{Kumar2018Jun}.
+    \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
 \section{Kategorizacija}
 Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz. \cite{NewSQLNewWayToHandleBigData} NewSQL podatkovne baze se v grobem delijo na štiri kategorije \cite{Mikuletic2015Feb}:
 
 \begin{enumerate}
-    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katera so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
+    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
     \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. \cite{Pavlo2016Sep}
     \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Primer takega transparentnega vmesnika je MariaDB MaxScale. \cite{Pavlo2016Sep}
-    \item \textbf{Novi shranjevalni motorji in razširitve:}\\V to kategorijo spadajo novi shranjevalni motorji in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za PostgreSQL podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na neke vire \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz. 
+    \item \textbf{Novi shranjevalni motorji in razširitve:}\\V to kategorijo spadajo novi shranjevalni motorji in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za Postgres podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na neke vire \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz. 
 \end{enumerate}
 
 \section{Nadzor sočasnosti}
@@ -361,15 +361,14 @@ Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne b
     \item Asinhrono potrjevanje ne čaka potrditve transakcije. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
 \end{itemize}
 
-Ker imajo IMDB podatkovne baze zelo majhne stroške operacij, lahko bolje izkoristijo procesorsko moč in se uporabijo za poslovno analitiko na živih podatkih ter hkrati omogočajo zelo visoko pisalno prepustnost. Te procese označimo kot hibridno transakcijsko analitične procese oziroma HTAP (angl. hybrid transaction/analytical processing) \cite{NewSqlInMemoryAnalytics}.
-
+Ker so bralne in pisalne operacije pri IMDB podatkovnih bazah, v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami, relativno veliko hitrejše, lahko te bolje izkoristijo procesorsko moč. Posledično se lahko uporabijo za poslovno analitiko na živih podatkih ter hkrati omogočajo zelo visoko pisalno prepustnost. Te procese označimo kot hibridno transakcijsko analitične procese oziroma HTAP (angl. hybrid transaction/analytical processing) \cite{NewSqlInMemoryAnalytics}.
 
 
 \section{Drobljenje}
 Drobljenje (angl. sharding) je pristop s katerim večina NewSQL podatkovnih baz dosega horizontalno skalabilnost \cite{Pavlo2016Sep}. Drobljenje je vrsta horizontalnega particioniranja (angl. horizontal partitioning) podatkov, pri katerem se vsaka particija hrani na ločenem strežniku (logičnem ali fizičnem) \cite{WikiSharding}. Podatki so razdeljeni horizontalno (po vrsticah) na več delov glede na vrednosti v izbranih stolpcev v tabeli, te stolpce imenujemo delitveni atributi (angl. partitioning attributes). Najbolj poznana sta dva tipa delitve:
 
 \begin{enumerate}
-    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane ne prekrivajoče intervale se zapisi delijo na particij. Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
+    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane ne prekrivajoče intervale se zapisi delijo na particije. Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
     \item \textbf{Razpršena delitev:}\\Ta delitev za delovanje uporablja razpršitveno funkcijo (angl. hash function), katera podatke deli enakomerno preko vseh particij.
 \end{enumerate}
 
@@ -380,15 +379,16 @@ potrebujejo zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
 
 \section{Replikacija}
 
-Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira neko vrsto replikacije \cite{Pavlo2016Sep} . V osnovi obstaja dva pristopa repliciranja:
+Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira nek pristop replikacije \cite{Pavlo2016Sep}. V osnovi popznamo dva pristopa repliciranja:
 \begin{enumerate}
-    \item \textbf{Aktivna replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) oziroma več-gospodarska (angl. multi-master) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
-    \item \textbf{Pasivna replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) oziroma gos\-po\-dar-su\-ženj (angl. master-slave) replikacija \cite{HighAvailabilityDatabase}. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočasnosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep}.
+    \item \textbf{Sinhrona replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) replikacija. Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
+
+    \item \textbf{Asinhrona replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) replikacija. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočas\-nosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep, harding2017evaluation}.
 \end{enumerate}
 
-\hl{TODO:}Sinhrona in asinhrona replikacija
+V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se smatra, da je replikaija uspešna \cite{NewSqlInMemoryAnalytics}. Pri distribuiranih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik.
 
-V visoko konsistentnih podatkovnih bazah morajo biti transakcije potrjene na vseh replikah, šele takrat se smatra, da je transakcija potrjena \cite{NewSqlInMemoryAnalytics}.
+Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) omrežji.
 
 \section{Obnova}
 Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake, je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
@@ -410,10 +410,9 @@ Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Pod
 
 \section{Arhitektura}
 
-CockroachDB je odprto kodna, avtomatizirana, distribuirana, skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku.
+CockroachDB je odprto kodna, avtomatizirana, distribuirana, skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku. 
 
-CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumevanja večslojne arhitekture bom najprej predstavil najbolj pogoste termine in koncepte uporabljene v podatkovni baze CockroachDB. Kasneje pa bom predstavil samo arhitekturo po posameznih plasteh.
-
+CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumevanja večslojne arhitekture bom najprej predstavil najbolj pogoste termine in koncepte uporabljene v podatkovni baze CockroachDB. Kasneje bom povzel samo arhitekturo in delovanje podatkovne, kar je bolj podrobno opisa v uradni dokumentaciji \cite{CRDB-home} in prvotnih zasnutikh delovanja CockroachDB podatkovne baze \cite{CRDB-design}.
 
 \subsubsection{Terminologija in koncepti}
 
@@ -563,7 +562,7 @@ CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranje
 
 Poizvedovanje sheme je na voljo na standardni način, preko virtualne sheme \texttt{informationq\_schema}.
 
-Prožilci še niso podprti in tudi ne planirani za naslednje verzije.
+Prožilci še niso podprti in tudi ne načrtovani za naslednje verzije.
 
 \subsubsection{Transakcije}
 CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{SE\-RI\-AL\-IZ\-ABLE}, omogoča pa še zastareli izolacijski nivo \texttt{SNAP\-SHOT}. Ostali standardni izolacijski nivoji niso podprti.
@@ -574,7 +573,7 @@ CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funk
 \subsubsection{Operatorji, skalarni izrazi, logični izrazi in funkcije}
 CockroachDB implementira večji del standardnih operatorjev, skalarnih izrazov, logičnih izrazov ter funkcij. Slabo podporo zagotavlja konsturktu \texttt{EXISTS} in skalarnim pod-poizvedbam. Podpira poizvedovanje po tipu JSON, omogoča iskanje z POSIX regularnimi izrazi ter implementira okenske funkcije (funkcije katere se izvedejo nad podmnožico, tipično ob uporabi \texttt{GROUP BY}).
 
-Uporabniške funkcije niso podprte in tudi ne planirane za naslednje verzije. Shranjene procedure so planirane za eno od naslednjih verzij.
+Uporabniške funkcije niso podprte in tudi ne načrtovane za naslednje verzije. Shranjene procedure so načrtovane za eno od naslednjih verzij.
 
 \subsection{Poslovna licenca}
 
@@ -608,11 +607,27 @@ Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozito
 
 \chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
 
-Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres (z razširitvijo Citus). 
+Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres z nameščeno razširitvijo Citus (v nadeljevanju samo Citus). 
 
-Za primerjavo z Postgres sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov, saj je CockroachDB v nekaterih vidikih zelo podoben Postgres podatkovni bazi.
+Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko PostgreSQL žičnega protokola. 
 
-Za orodje YCSB sem se odločil, ker podpira vmesnik JDBC katerega podpirata tudi obe bazi. Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}.
+Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tudi obe podatkovni bazi poleg tega pa je enostaven za uporabo. Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
+
+\begin{itemize}
+    \item \textbf{TPC:}\\ TPC (angl. transaction processing performance council) \cite{TPC-home} je ne profitna organizacija, katera nudi preverljive podatke TPC zmogljivostnih analiz podatkovnih baz. TPC definira več različnih standardnih testov, kateri simulirajo različne realne obremenitve. Te testi so točno opisani in strogo omejeni. Najbolj pozan tip testa za transakcijske obremenitve je TPC-C, za analitične pa TPC-H.
+
+    To so standardizirani testi in bi bili najbolj primerni, vendar pa so zelo kompleksni. Uradnih TPC testov za podatkovno bazo CockraochDB še ne obstaja.
+    \item \textbf{pgbench:}\\ Je enostavno orodje namenjeno Postgres podatkovni bazi. Simulira ne standardno TPC-C obremenitev.
+    
+    Orodje pgbench v času izvajanja testov še ni bilo kompatibilno z podatkovno bazo CockroachDB.
+    \item \textbf{cockroachdb/loadgen:}\\ Je orodje namenjeno CockroachDB podatkovni bazi. Orodje vsebuje nabor testov kot so TPC-C, TPC-H in YCSB. Te orodja interno uporabljajo za zmogljivostno primerjavo med verzijami CockroachDB podatkovne baze. Kasneje je bil objavljena tudi objava na njihovem blogu, kjer so primerjali rezultate TPC-C obremenitve med podatkovnima bazama CockroachDB in Amazon Aurora.
+
+    Orodje je enostavno, vendar ne omogoča zmogljivostne analize Postgres podatkovne baze.
+    \item \textbf{Apache JMeter:}\\ Je orodje primarno namenjeno izvajanju obremenitvenih testov. Tega orodje omogoča izvajanje obremenitvenih testov preko JDBC vmesnika.
+    
+    Orodje je zelo konfigurabilno vendar pa ne omogoča v naprej definiranih obremenitvenih testov in je težko za uporabo.
+    \item \textbf{YCSB:}\\ YCSB (angl. Yahoo! Cloud Serving Benchmark) je orodje namenjeno za primerjavo zmogljivostnih metrik med raznimi podatkovnimi bazami.
+\end{itemize}
 
 V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel primerjalno analizo. Opisal bom arhitekturo, pripravo posameznih konfiguracij, pripravo podatkov in samo testiranje. Na koncu bom predstavil rezultate zmogljivostne analize ter ugotovitve.
 \newpage
@@ -636,7 +651,7 @@ Vozlišča so med seboj povezana preko gigabitnega Ethernet omrežja v Docker Sw
 \begin{center}
 \begin{tabular}{ |l|l|l|l|l| } 
 \hline
- & procesor & pomnilnik & trdi disk \\
+ & \textbf{PROCESOR} & \textbf{POMNILNIK} & \textbf{TRDI DISK} \\
 \hline
 n0 & Intel Core2 Quad CPU Q9400 & 4GB & SAMSUNG HD753LJ \\
 n1 & Intel Core i5 CPU 650 & 4GB & WDC WD10EARS-22Y5B1 \\ 
@@ -653,12 +668,10 @@ n3 & Intel Core i5-2400 & 4GB & Hitachi HDS721050CLA662 \\
 Vozlišče n0 je v vlogi odjemalca. Na njem teče program, ki zažene podatkovno bazo, obnovi podatke, izvaja teste in beleži rezultate. Podroben opis delovanja odjemalca se nahaja v poglavju \ref{YCSB_benchmarking_steps}.
 
 \subsection{Strežnik}
-V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali Postgres z razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču n2.
+V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali Postgres z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču n2.
 
 \section{YCSB}
 \label{YCSB_about}
-\hl{TODO} katere so še ostale metode kater sem pregledal (pgBench, TPC-C, CRDB tpcc, JMeter,...)
-
 YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprto kodna rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter Postgres podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
 
 \section{Postopek testiranja}
@@ -679,9 +692,9 @@ Program za avtomatizacijo predpostavlja, da imajo vsa vozlišča na točno dolo�
 
 V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako konfiguracijo (eno vozlišče in tri vozlišča) pripravil podatke. Vse konfiguracijske datoteke, ki so uporabljene v spodnjih primerih so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb} \cite{matjazmav/diploma-ycsb}.
 
-\subsubsection{Postgres z razširitvijo Citus}
+\subsubsection{Citus}
 \begin{enumerate}
-    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) sem pognal Postgres bazo na vozlišču \texttt{n2}.
+    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) sem pognal Citus podatkovno bazo na vozlišču \texttt{n2}.
     \item Na primarnem vozlišču \texttt{n2} sem ročno kreiral shemo katero potrebuje YCSB za svoje delovanje.
     \begin{listing}[H]
     \begin{minted}{vim}
@@ -710,7 +723,7 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
     \label{code-ycsb-load-postgres}
     \end{listing}
     \item Varno sem ustavil bazo ter naredil varnostno kopijo podatkov na disku.
-    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n3.yml}) pognal Postgres bazo na treh vozliščih.
+    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n3.yml}) pognal Citus podatkovno bazo na treh vozliščih.
     \item Na vozliščih \texttt{n1} in \texttt{n3} sem kreiral shemo definirano v točki 2.
     \item Nato sem na primarnem vozlišču \texttt{n2} povezal obe sekunarni vozlišči \texttt{n1} ter \texttt{n3} in kreiral distribuirano tabelo. Podatki v tabeli \texttt{usertable} so se enakomerno porazdelili med vsa tri vozlišča.
     \begin{listing}[H]
@@ -816,7 +829,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 \end{figure}
 
 \section{Ugotovitve}
-Zmogljivostna analiza je pokazala, da se Postgres z Citus razširitvijo v večini primerov odziva bolje kot CockroachDB.
+Zmogljivostna analiza je pokazala, da se Citus pri večini obremenitev, katere sem testiral, odziva bolje kot CockroachDB.
 
 Izjema je bila latenca pri obremenitev tipa A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
 
@@ -870,7 +883,6 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 \label{img_ycsb_results_scaling_throughptu_prediction}
 \end{figure}
 
-\section{Pregled primerjalnih analiz drugih avtorjev}
 
 
 \chapter{Sklepne ugotovitve}
