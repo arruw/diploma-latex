@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-7694.tex   Mon Aug  6 15:55:37 2018
-%DIF ADD main.tex               Mon Aug  6 15:54:51 2018
+%DIF DEL main-oldtmp-39009.tex   Thu Aug  9 07:42:19 2018
+%DIF ADD main.tex                Thu Aug  9 07:41:08 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -370,8 +370,15 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture. \DIFaddbegin \DIFadd{Motivacija...
-}\DIFaddend 
+\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba }\DIFdelend \DIFaddbegin \hl{TODO:}
+\begin{itemize}
+    \item \DIFadd{Premik v oblak
+    }\item \DIFadd{Večja izkoriščenost računalniških resursev
+    }\item \DIFadd{Globalna replikacija in visoka dostopnost
+    }\item \DIFadd{Potreba }\DIFaddend po spremembi arhitekture
+\DIFdelbegin \DIFdel{.
+}\DIFdelend \DIFaddbegin \end{itemize}
+\DIFaddend 
 
 
 \chapter{NewSQL}
@@ -542,7 +549,7 @@ Podatkovna baza CockroachDB je sestavljena \DIFdelbegin \DIFdel{z }\DIFdelend \D
 
 \subsection{SQL plast}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko PostgreSQL žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
+SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
@@ -644,7 +651,7 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 \end{figure}
 
 \subsection{SQL}
-CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše \DIFdelbegin \DIFdel{razširitve}\DIFdelend \DIFaddbegin \DIFadd{raz\-ši\-rit\-ve}\DIFaddend , razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
+CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše \DIFdelbegin \DIFdel{razširitve}\DIFdelend \DIFaddbegin \DIFadd{raz\-ši\-rit\-ve}\DIFaddend , razširitve specifične za \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
 CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{\DIFdelbegin \DIFdel{DECIMAL}\DIFdelend \DIFaddbegin \DIFadd{DE\-CI\-MAL}\DIFaddend }, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
@@ -685,7 +692,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
 
 \subsection{Podprta orodja, gonilniki in ORMji in skupnost}
 
-Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja PostgreSQL žični protokol, kar omogoča dobro kompatibilnost z obstoječimi PostgreSQL komponentami.
+Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žični protokol, kar omogoča dobro kompatibilnost z obstoječimi \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend komponentami.
 
 Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{CRDB-meta-drivers-orms}}\hspace{0pt}%DIFAUXCMD
@@ -732,7 +739,7 @@ https://github.com/cockroachdb/cockroach/issues/25467
 
 Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres \DIFdelbegin \DIFdel{(z }\DIFdelend \DIFaddbegin \DIFadd{z nameščeno }\DIFaddend razširitvijo Citus \DIFaddbegin \DIFadd{(v nadeljevanju samo Citus}\DIFaddend ). 
 
-Za primerjavo z \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus }\DIFaddend sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov\DIFdelbegin \DIFdel{, saj je CockroachDB v nekaterih vidikih zelo podoben Postgres podatkovni bazi }\DIFdelend \DIFaddbegin \DIFadd{. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko PostgreSQL žičnega protokola}\DIFaddend . 
+Za primerjavo z \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus }\DIFaddend sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov\DIFdelbegin \DIFdel{, saj je CockroachDB v nekaterih vidikih zelo podoben Postgres podatkovni bazi }\DIFdelend \DIFaddbegin \DIFadd{. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola}\DIFaddend . 
 
 Za orodje YCSB sem se odločil, \DIFdelbegin \DIFdel{ker }\DIFdelend \DIFaddbegin \DIFadd{saj }\DIFaddend podpira vmesnik JDBC\DIFaddbegin \DIFadd{, }\DIFaddend katerega podpirata tudi obe \DIFdelbegin \DIFdel{bazi}\DIFdelend \DIFaddbegin \DIFadd{podatkovni bazi poleg tega pa je enostaven za uporabo}\DIFaddend . Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. \DIFaddbegin \DIFadd{Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
 }\DIFaddend 
@@ -1017,18 +1024,33 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 \caption{Optimistična ocena rasti povprečne prepustnosti.}
 \label{img_ycsb_results_scaling_throughptu_prediction}
 \end{figure}
-\DIFdelbegin %DIFDELCMD < 
 
-%DIFDELCMD < %%%
-\section{\DIFdel{Pregled primerjalnih analiz drugih avtorjev}}
+
+\DIFdelbegin \section{\DIFdel{Pregled primerjalnih analiz drugih avtorjev}}
 %DIFAUXCMD
 \addtocounter{section}{-1}%DIFAUXCMD
-\DIFdelend 
+%DIFDELCMD < 
 
+%DIFDELCMD < %%%
+\DIFdelend \chapter{Sklepne ugotovitve}
+\DIFaddbegin 
 
+\DIFadd{V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Nato sem opisal arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB. Podatkovno bazo CockroachDB sem kasneje praktično testiral. Izvedel sem primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in Postgres (z nameščeno razširitvijo Citus). Veliko časa sem vložil v postavitev testnega okolja, pazil sem, da sem odpravil čim več spremenljivk, ki bi lahko uplivale ne testne scenarije. Testno okolje je bilo sestavljeno z štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server in Docker. Testno okolje sem v začetku nadziral preko Telegraf agenta, InfulxDB podatkovne baze za sehranjevanje časovnih podatkov in Grafane za vizualizacijo podatkov. Kljub trudu, ki je bil vložen v postavitev testnega okolja, bi le tega lahko še izboljšal. Za boljšo primerljivost med različnimi konfiguracijami (eno ali tri vozlišča), bi morala imeti vsa vozlišča enako strojno opremo. Izvedbo testiranja sem avtomatiziral, z orodjem YCSB sem izvajal različne zmogljivostne teste, razultate pa sem shranjeval v csv datoteko in jih kasneje obdelal z programom Microsoft Excel.
+}
 
-\chapter{Sklepne ugotovitve}
+\DIFadd{Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov slabša od Postgres podatkovne baze. V porvprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres. Kljub slabšim rezultatov zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zele različni podatkovni bazi. Podatkovna baza Postgres je bistveno starejša in zato bolj stabilna in optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze pa moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, oslate lastnosti specifične za vsako podatkovno bazo, ...
+}
 
+\DIFadd{\ }\\
+\hl{TODO:}
+\begin{itemize}
+    \item \DIFadd{Ostale evaluacije (zmogljivostne in jepsen)
+    }\item \DIFadd{Kje se CockroachDB že uporablja
+    }\item \DIFadd{Konkurenčne baze? TiDB, Spanner, ...
+    }\item \DIFadd{Kdaj bi bila ta baza primerna?
+    }\item \DIFadd{Kaj bi bilo smiselno še raziskati?
+}\end{itemize}
+\DIFaddend 
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!

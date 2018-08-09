@@ -304,7 +304,13 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture. Motivacija...
+\hl{TODO:}
+\begin{itemize}
+    \item Premik v oblak
+    \item Večja izkoriščenost računalniških resursev
+    \item Globalna replikacija in visoka dostopnost
+    \item Potreba po spremembi arhitekture
+\end{itemize}
 
 
 \chapter{NewSQL}
@@ -450,7 +456,7 @@ Podatkovna baza CockroachDB je sestavljena iz petih plasti. Plasti med seboj del
 
 \subsection{SQL plast}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko PostgreSQL žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
+SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko Postgres žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
@@ -552,7 +558,7 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 \end{figure}
 
 \subsection{SQL}
-CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše raz\-ši\-rit\-ve, razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
+CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše raz\-ši\-rit\-ve, razširitve specifične za Postgres ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
 CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{DE\-CI\-MAL}, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
@@ -590,7 +596,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
 
 \subsection{Podprta orodja, gonilniki in ORMji in skupnost}
 
-Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja PostgreSQL žični protokol, kar omogoča dobro kompatibilnost z obstoječimi PostgreSQL komponentami.
+Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja Postgres žični protokol, kar omogoča dobro kompatibilnost z obstoječimi Postgres komponentami.
 
 Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \cite{CRDB-meta-drivers-orms}.
 
@@ -609,7 +615,7 @@ Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozito
 
 Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres z nameščeno razširitvijo Citus (v nadeljevanju samo Citus). 
 
-Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko PostgreSQL žičnega protokola. 
+Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola. 
 
 Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tudi obe podatkovni bazi poleg tega pa je enostaven za uporabo. Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
 
@@ -884,9 +890,21 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 \end{figure}
 
 
-
 \chapter{Sklepne ugotovitve}
 
+V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Nato sem opisal arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB. Podatkovno bazo CockroachDB sem kasneje praktično testiral. Izvedel sem primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in Postgres (z nameščeno razširitvijo Citus). Veliko časa sem vložil v postavitev testnega okolja, pazil sem, da sem odpravil čim več spremenljivk, ki bi lahko uplivale ne testne scenarije. Testno okolje je bilo sestavljeno z štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server in Docker. Testno okolje sem v začetku nadziral preko Telegraf agenta, InfulxDB podatkovne baze za sehranjevanje časovnih podatkov in Grafane za vizualizacijo podatkov. Kljub trudu, ki je bil vložen v postavitev testnega okolja, bi le tega lahko še izboljšal. Za boljšo primerljivost med različnimi konfiguracijami (eno ali tri vozlišča), bi morala imeti vsa vozlišča enako strojno opremo. Izvedbo testiranja sem avtomatiziral, z orodjem YCSB sem izvajal različne zmogljivostne teste, razultate pa sem shranjeval v csv datoteko in jih kasneje obdelal z programom Microsoft Excel.
+
+Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov slabša od Postgres podatkovne baze. V porvprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres. Kljub slabšim rezultatov zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zele različni podatkovni bazi. Podatkovna baza Postgres je bistveno starejša in zato bolj stabilna in optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze pa moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, oslate lastnosti specifične za vsako podatkovno bazo, ...
+
+\ \\
+\hl{TODO:}
+\begin{itemize}
+    \item Ostale evaluacije (zmogljivostne in jepsen)
+    \item Kje se CockroachDB že uporablja
+    \item Konkurenčne baze? TiDB, Spanner, ...
+    \item Kdaj bi bila ta baza primerna?
+    \item Kaj bi bilo smiselno še raziskati?
+\end{itemize}
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!
