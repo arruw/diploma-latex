@@ -896,7 +896,7 @@ V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizm
 
 Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov slabša od Postgres podatkovne baze. V porvprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres. Kljub slabšim rezultatov zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zele različni podatkovni bazi. Podatkovna baza Postgres je bistveno starejša in zato bolj stabilna in optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze pa moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, oslate lastnosti specifične za vsako podatkovno bazo, ...
 
-Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz (YCSB, TPC-C, lastnosti), do testov konsistence in obnašanja sistema med napakami (Jepsen).
+Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz \cite{kaur2017performance, Benchmarking-GCS-CRDB-NuoDB, CRDB-tpcc-vs-aurora}, do Jepsen testov konsistence in obnašanja sistema med napakami \cite{CRDB-jepsen, CRDB-jepsen-diy}.
 
 Kljub temu, da je CockroachDB relativno nova podatkovna baza jo nekatera podjetja že uporabljajo. CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prisplevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
 
@@ -905,11 +905,24 @@ Kljub temu, da je CockroachDB relativno nova podatkovna baza jo nekatera podjetj
     \item \textbf{Kindred} se ukvarja z igralništvom, z letom 2014 pa so začeli s prehodom na globalni trg. Imajo kompleksen ekosistem več kot 200 mikrostoritev, ta arhitektura omogoča elastičnost poleg tega pa mora biti skoraj v celoti avtonomna.
     \item \textbf{Tierion} ponuja "Blockchain proof engine" rešitev. Ovrednotili so več opcij na koncu pa so se odločili za CockroachDB.
     \item \textbf{Heroic} Labs je hitro rastoč startup, ukvarja se z skalabilnimi zalednimi sistemi v igralniški industriji.
-    \item Gorgias ponuja platformo za pomoč uporabnikom.
+    \item \textbf{Gorgias} ponuja platformo za pomoč uporabnikom.
 \end{itemize}
 
+\iffalse
+Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
+\fi
 
+\iffalse
+https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
+\fi
 
+Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenoc in dostopnost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \cite{CRDB-sql-features} in morebitne ostale lastnosti \cite{CRDB-limitations}. Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo nizko latenco in aplikacije katere so analitično usmerjene (OLAP).
+
+V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprto kodno podatkovno bazo TiDB \cite{PingCAP-home}. TiDB je trenutno še zelo mlad produkt, z vezijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 z aprila 2018. TiDB prav tako idejno temeli na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
+
+Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Distribuirane podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TCP-C in TCP-H. V tej diplomski nalogi sem se tem obremenitvam izognil, saj orodje \cite{cockroachdb/loadgen} še ni bilo podprto za primerjavo s podatkovno bazo Postgres.
+
+\iffalse
 \ \\
 \hl{TODO:}
 \begin{itemize}
@@ -917,7 +930,7 @@ Kljub temu, da je CockroachDB relativno nova podatkovna baza jo nekatera podjetj
     \item Kdaj bi bila ta baza primerna?
     \item Kaj bi bilo smiselno še raziskati?
 \end{itemize}
-
+\fi
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!
 \ \\
