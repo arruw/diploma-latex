@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-9785.tex   Sun Aug 12 10:02:28 2018
-%DIF ADD main.tex               Sun Aug 12 10:00:51 2018
+%DIF DEL main-oldtmp-36854.tex   Sun Aug 12 17:22:09 2018
+%DIF ADD main.tex                Sun Aug 12 17:21:54 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -23,6 +23,9 @@
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
+%DIF 23a23
+\usepackage{longtable}  % dodal jaz %DIF > 
+%DIF -------
 \usepackage{minted}      % dodal jaz
 \usemintedstyle{bw}    % dodal jaz
 
@@ -307,14 +310,68 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 \chapter*{Seznam uporabljenih kratic}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
 
-\noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
-  {\bf kratica} & {\bf angleško}                        & {\bf slovensko} \\ \hline
-  {\bf SQL}     & structured query language             & strukturiran poizvedovalni jezik \\
-  {\bf NoSQL}     & not structured query language             & ne strukturiran poizvedovalni jezik \\
-  {\bf YCSB}    & Yahoo! Cloud Serving Benchmark        & Yahoo! Cloud Serving Benchmark \\
-  {\bf JDBC}    & Java Database Connectivity            & javanski vmesnik za povezavo s podatkovnimi bazami \\
-  {\bf KV}    & key-value            & ključ-vrednost \\
-\end{tabular}
+\noindent\DIFdelbegin %DIFDELCMD < \begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+%DIFDELCMD <   %%%
+\DIFdelend \DIFaddbegin \begin{longtable}{p{0.15\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+    \DIFaddend {\bf kratica} & {\bf angleško}
+        & {\bf slovensko}
+        \\ \hline
+    {\bf \DIFdelbegin \DIFdel{SQL}\DIFdelend \DIFaddbegin \DIFadd{ACID}\DIFaddend }  & \DIFaddbegin \DIFadd{atomicity, consistency, isolation, durability
+        }& \DIFadd{atomarnost, konsistentnost, izolacija, trajnost
+        }\\
+    {\bf \DIFadd{ANSI}}  & \DIFadd{American National Standards Institute
+        }& \DIFadd{ameriški državni inštitut za standarde
+        }\\
+    {\bf \DIFadd{CAP}}   & \DIFadd{consistency, availability, partition telerance
+        }& \DIFadd{konsistentnost, razpoložljivost, particijska toleranca 
+        }\\
+    {\bf \DIFadd{CSV}}   & \DIFadd{comma-seperated value
+        }& \DIFadd{standardni format podatkov ločen z vejico
+        }\\
+    {\bf \DIFadd{HTAP}}  & \DIFadd{hybrid transaction/analytical processing
+        }& \DIFadd{hibridno transakcijsko in analitično obdelovanje
+        }\\
+    {\bf \DIFadd{IMDB}}  & \DIFadd{in-memory database
+        }& \DIFadd{podatkovna baza, ki shranjuje podatke v glavni pomnilnik
+        }\\
+    {\bf \DIFadd{JDBC}}  & \DIFadd{Java Database Connectivity
+        }& \DIFadd{javanski vmesnik za povezavanje s podatkovnimi bazami
+        }\\
+    {\bf \DIFadd{JSON}}  & \DIFadd{Javascript object notation
+        }&  \DIFadd{standardna format za prenos podatkov v speltu}\\
+    {\bf \DIFadd{KV}}    & \DIFadd{key-value
+        }& \DIFadd{ključ-vrednost }\\
+    {\bf \DIFadd{NewSQL}}& \DIFadd{new }\DIFaddend structured query language
+        & \DIFaddbegin \DIFadd{nov }\DIFaddend strukturiran poizvedovalni jezik
+        \\
+    {\bf NoSQL} & not structured query language
+        & ne strukturiran poizvedovalni jezik
+        \\
+    {\bf \DIFdelbegin \DIFdel{YCSB}\DIFdelend \DIFaddbegin \DIFadd{OLAP}\DIFaddend }  & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark        }\DIFdelend \DIFaddbegin \DIFadd{online analytical processing
+        }\DIFaddend & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark }\DIFdelend \DIFaddbegin \DIFadd{sprotno analitično obdelovanje
+        }\DIFaddend \\
+    {\bf \DIFdelbegin \DIFdel{JDBC}\DIFdelend \DIFaddbegin \DIFadd{OLTP}\DIFaddend }  & \DIFdelbegin \DIFdel{Java Database Connectivity            }\DIFdelend \DIFaddbegin \DIFadd{online transaction processing
+        }\DIFaddend & \DIFdelbegin \DIFdel{javanski vmesnik za povezavo }\DIFdelend \DIFaddbegin \DIFadd{sprotno obdelovanje transakcij
+        }\\
+    {\bf \DIFadd{ORM}}   & \DIFadd{object-relational mapper
+        }& \DIFadd{programski vmesnik za pretvorbo ralacijskih podatkov v objekte in obratno
+        }\\
+    {\bf \DIFadd{SQL}}   & \DIFadd{structured query language    
+        }& \DIFadd{strukturiran povpraševalni jezik za delo }\DIFaddend s podatkovnimi bazami
+        \\
+    {\bf \DIFdelbegin \DIFdel{KV}\DIFdelend \DIFaddbegin \DIFadd{TPC}\DIFaddend }   & \DIFdelbegin \DIFdel{key-value            }\DIFdelend \DIFaddbegin \DIFadd{transaction processing performance council
+        }\DIFaddend &  \DIFdelbegin \DIFdel{ključ-vrednost }\DIFdelend \DIFaddbegin \DIFadd{organizacija, ki se ukvarja z primerjalno analizo podatkovnih baz v industriji
+        }\DIFaddend \\
+    \DIFdelbegin %DIFDELCMD < \end{tabular}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin {\bf \DIFadd{XML}}   & \DIFadd{extensible markup language
+        }& \DIFadd{format za izmenjavo strukturiranih podatkov v spletu
+        }\\
+    {\bf \DIFadd{YCSB}}  & \DIFadd{Yahoo! Cloud Serving Benchmarking
+        }& \DIFadd{orodje za izvedbo primerjalne zmogljivostne analize
+        }\\
+\end{longtable}
+\DIFaddend 
 
 
 % prazna stran
@@ -370,7 +427,22 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba }\DIFdelend \DIFaddbegin \hl{TODO:}
+\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba }\DIFdelend \DIFaddbegin 
+
+\DIFadd{Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bom predstavil razlog za nastanek NewSQL podatkovnih baz, opisal njihove lastnosti, razdelitev in najpogosteje uporabljene mehanizme ter pristope.
+}
+
+\DIFadd{V drugem poglavju bom opisal podatkovno bazo CockroachDB. Opisal bom njeno zgodovino in idejno osnovo. Poglobil se bom v arhitekturo podatkovne baze CockroachDB in predstavil nekaj ključinh mehanizmov kateri omogočajo standardni ANSI SQL vmesnik, ACID transakcije, konsistenco, replikacijo, visoko dostopnost in enostavnost z upravljanjem. Kasneje bom predstavil še ostale lastnosti kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
+}
+
+\DIFadd{V tretjem poglavju bom opisal celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in Citus. Opisal bom hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, pripravo podatkov, izvedbo analize. Na koncu bom predstavil rezultate in komentiral hipoteze.
+}
+
+\DIFadd{Na koncu sledijo sklepne ugotovitve, kjer bom povzel diplomsko delo. Naštel bom nakej produktov kjer je ta baza že v uporabi. Za zaključek bom še predlagal nekaj odprtih vprašanj in idej za nadalnje raziskovanje.
+}
+
+\DIFadd{\ }\\
+\hl{TODO:}
 \begin{itemize}
     \item \DIFadd{Premik v oblak
     }\item \DIFadd{Večja izkoriščenost računalniških resursev
@@ -389,7 +461,8 @@ NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnost
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
-Lastnosti NewSQL podatkovnih baz so:
+\DIFaddbegin \DIFadd{\ }\\
+\DIFaddend Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
     \item Uporabljajo standardni SQL kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
@@ -559,7 +632,7 @@ Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktičn
 \begin{center}
 \begin{tabular}{ |l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{VREDNOST} \\
+\textbf{\DIFdelbeginFL \DIFdelFL{KLJUČ}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{ključ}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{VREDNOST}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost}\DIFaddendFL } \\
 \hline
 /system/databases/mydb/id & 51 \\
 /system/tables/customer/id & 42 \\ 
@@ -589,7 +662,7 @@ Podatkovna baza CockroachDB je konsistentna\DIFaddbegin \DIFadd{, }\DIFaddend to
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{ČAS} & \textbf{VREDNOST} \\
+\textbf{\DIFdelbeginFL \DIFdelFL{KLJUČ}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{ključ}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{ČAS}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{čas}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{VREDNOST}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost}\DIFaddendFL } \\
 \hline
 A$<$\DIFdelbeginFL \DIFdelFL{namen}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{intent}\DIFaddendFL $>$ & 500 & \DIFdelbeginFL \DIFdelFL{"nepotrjena vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{nepotrjena vrednost }\DIFaddendFL \\
 A & 400 & \DIFdelbeginFL \DIFdelFL{"trenutna vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{trenutna vrednost }\DIFaddendFL \\ 
@@ -690,7 +763,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
     }\item \DIFaddend distribuirano kreiranje in obnova varnostnih kopij.
 \end{itemize}
 
-\subsection{Podprta orodja, gonilniki in ORMji in skupnost}
+\subsection{Podprta orodja, gonilniki in \DIFdelbegin \DIFdel{ORMji }\DIFdelend \DIFaddbegin \DIFadd{ORM-ji }\DIFaddend in skupnost}
 
 Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žični protokol, kar omogoča dobro kompatibilnost z obstoječimi \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend komponentami.
 
@@ -737,7 +810,7 @@ https://github.com/cockroachdb/cockroach/issues/25467
 %DIFDELCMD < %%%
 \DIFdelend \chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
 
-Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres \DIFdelbegin \DIFdel{(z }\DIFdelend \DIFaddbegin \DIFadd{z nameščeno }\DIFaddend razširitvijo Citus \DIFaddbegin \DIFadd{(v nadeljevanju samo Citus}\DIFaddend ). 
+Primerjalna analiza zmogljivosti (angl. \DIFdelbegin \DIFdel{"performance benchmarking"}\DIFdelend \DIFaddbegin \DIFadd{performance benchmarking}\DIFaddend ) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres \DIFdelbegin \DIFdel{(z }\DIFdelend \DIFaddbegin \DIFadd{z nameščeno }\DIFaddend razširitvijo Citus \DIFaddbegin \DIFadd{(v nadeljevanju samo Citus}\DIFaddend ). 
 
 Za primerjavo z \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus }\DIFaddend sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov\DIFdelbegin \DIFdel{, saj je CockroachDB v nekaterih vidikih zelo podoben Postgres podatkovni bazi }\DIFdelend \DIFaddbegin \DIFadd{. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola}\DIFaddend . 
 
@@ -767,7 +840,9 @@ je ne profitna organizacija, katera nudi preverljive podatke TPC zmogljivostnih 
 }\end{itemize}
 
 \DIFaddend V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel primerjalno analizo. Opisal bom arhitekturo, pripravo posameznih konfiguracij, pripravo podatkov in samo testiranje. Na koncu bom predstavil rezultate zmogljivostne analize ter ugotovitve.
-\newpage
+\DIFdelbegin %DIFDELCMD < \newpage
+%DIFDELCMD < %%%
+\DIFdelend 
 
 \section{Hipoteze}
 Pred začetkom izvajanja primerjalne analize sem \DIFdelbegin \DIFdel{postavil }\DIFdelend \DIFaddbegin \DIFadd{postavill }\DIFaddend naslednje hipoteze:
@@ -788,7 +863,7 @@ Vozlišča so med seboj povezana preko gigabitnega Ethernet omrežja v Docker Sw
 \begin{center}
 \begin{tabular}{ |l|l|l|l|l| } 
 \hline
- & \DIFdelbeginFL \DIFdelFL{procesor }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{PROCESOR}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{pomnilnik }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{POMNILNIK}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{trdi disk }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{TRDI DISK}} \DIFaddendFL \\
+ & \DIFdelbeginFL \DIFdelFL{procesor }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{procesor}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{pomnilnik }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{pomnilnik}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{trdi disk }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{trdi disk}} \DIFaddendFL \\
 \hline
 n0 & Intel Core2 Quad CPU Q9400 & 4GB & SAMSUNG HD753LJ \\
 n1 & Intel Core i5 CPU 650 & 4GB & WDC WD10EARS-22Y5B1 \\ 
@@ -1059,13 +1134,10 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
     }\item \textbf{\DIFadd{Gorgias}} \DIFadd{ponuja platformo za pomoč uporabnikom.
 }\end{itemize}
 
-\iffalse
-\DIFadd{Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
-}\fi
 
-\iffalse
-\DIFadd{https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
-}\fi
+%DIF > Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
+
+%DIF > https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
 
 \DIFadd{Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenoc in dostopnost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \mbox{%DIFAUXCMD
 \cite{CRDB-sql-features} }\hspace{0pt}%DIFAUXCMD

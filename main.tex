@@ -20,6 +20,7 @@
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
+\usepackage{longtable}  % dodal jaz
 \usepackage{minted}      % dodal jaz
 \usemintedstyle{bw}    % dodal jaz
 
@@ -241,14 +242,63 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 \chapter*{Seznam uporabljenih kratic}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
 
-\noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
-  {\bf kratica} & {\bf angleško}                        & {\bf slovensko} \\ \hline
-  {\bf SQL}     & structured query language             & strukturiran poizvedovalni jezik \\
-  {\bf NoSQL}     & not structured query language             & ne strukturiran poizvedovalni jezik \\
-  {\bf YCSB}    & Yahoo! Cloud Serving Benchmark        & Yahoo! Cloud Serving Benchmark \\
-  {\bf JDBC}    & Java Database Connectivity            & javanski vmesnik za povezavo s podatkovnimi bazami \\
-  {\bf KV}    & key-value            & ključ-vrednost \\
-\end{tabular}
+\noindent\begin{longtable}{p{0.15\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+    {\bf kratica} & {\bf angleško}
+        & {\bf slovensko}
+        \\ \hline
+    {\bf ACID}  & atomicity, consistency, isolation, durability
+        & atomarnost, konsistentnost, izolacija, trajnost
+        \\
+    {\bf ANSI}  & American National Standards Institute
+        & ameriški državni inštitut za standarde
+        \\
+    {\bf CAP}   & consistency, availability, partition telerance
+        & konsistentnost, razpoložljivost, particijska toleranca 
+        \\
+    {\bf CSV}   & comma-seperated value
+        & standardni format podatkov ločen z vejico
+        \\
+    {\bf HTAP}  & hybrid transaction/analytical processing
+        & hibridno transakcijsko in analitično obdelovanje
+        \\
+    {\bf IMDB}  & in-memory database
+        & podatkovna baza, ki shranjuje podatke v glavni pomnilnik
+        \\
+    {\bf JDBC}  & Java Database Connectivity
+        & javanski vmesnik za povezavanje s podatkovnimi bazami
+        \\
+    {\bf JSON}  & Javascript object notation
+        &  standardna format za prenos podatkov v speltu\\
+    {\bf KV}    & key-value
+        & ključ-vrednost \\
+    {\bf NewSQL}& new structured query language
+        & nov strukturiran poizvedovalni jezik
+        \\
+    {\bf NoSQL} & not structured query language
+        & ne strukturiran poizvedovalni jezik
+        \\
+    {\bf OLAP}  & online analytical processing
+        & sprotno analitično obdelovanje
+        \\
+    {\bf OLTP}  & online transaction processing
+        & sprotno obdelovanje transakcij
+        \\
+    {\bf ORM}   & object-relational mapper
+        & programski vmesnik za pretvorbo ralacijskih podatkov v objekte in obratno
+        \\
+    {\bf SQL}   & structured query language    
+        & strukturiran povpraševalni jezik za delo s podatkovnimi bazami
+        \\
+    {\bf TPC}   & transaction processing performance council
+        &  organizacija, ki se ukvarja z primerjalno analizo podatkovnih baz v industriji
+        \\
+    {\bf XML}   & extensible markup language
+        & format za izmenjavo strukturiranih podatkov v spletu
+        \\
+    {\bf YCSB}  & Yahoo! Cloud Serving Benchmarking
+        & orodje za izvedbo primerjalne zmogljivostne analize
+        \\
+\end{longtable}
 
 
 % prazna stran
@@ -304,6 +354,16 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
+
+Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bom predstavil razlog za nastanek NewSQL podatkovnih baz, opisal njihove lastnosti, razdelitev in najpogosteje uporabljene mehanizme ter pristope.
+
+V drugem poglavju bom opisal podatkovno bazo CockroachDB. Opisal bom njeno zgodovino in idejno osnovo. Poglobil se bom v arhitekturo podatkovne baze CockroachDB in predstavil nekaj ključinh mehanizmov kateri omogočajo standardni ANSI SQL vmesnik, ACID transakcije, konsistenco, replikacijo, visoko dostopnost in enostavnost z upravljanjem. Kasneje bom predstavil še ostale lastnosti kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
+
+V tretjem poglavju bom opisal celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in Citus. Opisal bom hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, pripravo podatkov, izvedbo analize. Na koncu bom predstavil rezultate in komentiral hipoteze.
+
+Na koncu sledijo sklepne ugotovitve, kjer bom povzel diplomsko delo. Naštel bom nakej produktov kjer je ta baza že v uporabi. Za zaključek bom še predlagal nekaj odprtih vprašanj in idej za nadalnje raziskovanje.
+
+\ \\
 \hl{TODO:}
 \begin{itemize}
     \item Premik v oblak
@@ -321,6 +381,7 @@ NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnost
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
+\ \\
 Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
     \item Uporabljajo standardni SQL kot primarni aplikacijski vmesnik za interakcijo.
@@ -466,7 +527,7 @@ Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktičn
 \begin{center}
 \begin{tabular}{ |l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{VREDNOST} \\
+\textbf{ključ} & \textbf{vrednost} \\
 \hline
 /system/databases/mydb/id & 51 \\
 /system/tables/customer/id & 42 \\ 
@@ -496,7 +557,7 @@ Podatkovna baza CockroachDB je konsistentna, to dosega tako da, transakcijska pl
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{ČAS} & \textbf{VREDNOST} \\
+\textbf{ključ} & \textbf{čas} & \textbf{vrednost} \\
 \hline
 A$<$intent$>$ & 500 & nepotrjena vrednost \\
 A & 400 & trenutna vrednost \\ 
@@ -594,7 +655,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
     \item distribuirano kreiranje in obnova varnostnih kopij.
 \end{itemize}
 
-\subsection{Podprta orodja, gonilniki in ORMji in skupnost}
+\subsection{Podprta orodja, gonilniki in ORM-ji in skupnost}
 
 Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja Postgres žični protokol, kar omogoča dobro kompatibilnost z obstoječimi Postgres komponentami.
 
@@ -613,7 +674,7 @@ Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozito
 
 \chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
 
-Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres z nameščeno razširitvijo Citus (v nadeljevanju samo Citus). 
+Primerjalna analiza zmogljivosti (angl. performance benchmarking) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres z nameščeno razširitvijo Citus (v nadeljevanju samo Citus). 
 
 Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola. 
 
@@ -636,7 +697,6 @@ Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tud
 \end{itemize}
 
 V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel primerjalno analizo. Opisal bom arhitekturo, pripravo posameznih konfiguracij, pripravo podatkov in samo testiranje. Na koncu bom predstavil rezultate zmogljivostne analize ter ugotovitve.
-\newpage
 
 \section{Hipoteze}
 Pred začetkom izvajanja primerjalne analize sem postavill naslednje hipoteze:
@@ -657,7 +717,7 @@ Vozlišča so med seboj povezana preko gigabitnega Ethernet omrežja v Docker Sw
 \begin{center}
 \begin{tabular}{ |l|l|l|l|l| } 
 \hline
- & \textbf{PROCESOR} & \textbf{POMNILNIK} & \textbf{TRDI DISK} \\
+ & \textbf{procesor} & \textbf{pomnilnik} & \textbf{trdi disk} \\
 \hline
 n0 & Intel Core2 Quad CPU Q9400 & 4GB & SAMSUNG HD753LJ \\
 n1 & Intel Core i5 CPU 650 & 4GB & WDC WD10EARS-22Y5B1 \\ 
@@ -908,13 +968,10 @@ Kljub temu, da je CockroachDB relativno nova podatkovna baza jo nekatera podjetj
     \item \textbf{Gorgias} ponuja platformo za pomoč uporabnikom.
 \end{itemize}
 
-\iffalse
-Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
-\fi
 
-\iffalse
-https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
-\fi
+%Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
+
+%https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
 
 Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenoc in dostopnost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \cite{CRDB-sql-features} in morebitne ostale lastnosti \cite{CRDB-limitations}. Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo nizko latenco in aplikacije katere so analitično usmerjene (OLAP).
 
