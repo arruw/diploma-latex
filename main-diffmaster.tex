@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-36854.tex   Sun Aug 12 17:22:09 2018
-%DIF ADD main.tex                Sun Aug 12 17:21:54 2018
+%DIF DEL main-oldtmp-49145.tex   Tue Aug 14 07:39:57 2018
+%DIF ADD main.tex                Tue Aug 14 07:39:21 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -427,12 +427,15 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba }\DIFdelend \DIFaddbegin 
-
-\DIFadd{Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bom predstavil razlog za nastanek NewSQL podatkovnih baz, opisal njihove lastnosti, razdelitev in najpogosteje uporabljene mehanizme ter pristope.
+\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba po spremembi arhitekture}\DIFdelend \DIFaddbegin \DIFadd{Trandi kažejo, da se vse več računalniške infrastrukture premika v oblak, s tem pa se prilagajajo in razvijajo tudi nove tehnologije, ki so temu bolj primerne. To se odraža tudi pri podatkovnih bazah. Iz starih monolitičnih relacijskih podatkovnih baz, katere je še zlasti težko vzdrževati v porazdeljenih okoljih, so se razvile ne relacijske podatkovne baze in kasneje nove relacijske oziroma NewSQL podatkovne baze. NewSQL relacijske podatkovne baze so tako prilagojene za oblak, zagotavljajo visoko konsistenco in razpoložljivost, poleg tega pa nudijo tudi boljši izkoristek računalniških virov.
 }
 
-\DIFadd{V drugem poglavju bom opisal podatkovno bazo CockroachDB. Opisal bom njeno zgodovino in idejno osnovo. Poglobil se bom v arhitekturo podatkovne baze CockroachDB in predstavil nekaj ključinh mehanizmov kateri omogočajo standardni ANSI SQL vmesnik, ACID transakcije, konsistenco, replikacijo, visoko dostopnost in enostavnost z upravljanjem. Kasneje bom predstavil še ostale lastnosti kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
+\DIFadd{Podatkovna baza CockroachDB je ena izmed NewSQL podatkovnih baz. Z raziskovalnega področja je zanimiva ker je v celoti odprtokodna, idejno pa izhaja z Googlove podatkovne baze Spanner, je zelo enostavna za uporabo in je skoraj v celoti avtomatizirana. Na prvi pogled vsebuje vse, kar bi pričakovali od transakcijsko usmerjene (OLTP) podatkovne baze}\DIFaddend . 
+
+\DIFaddbegin \DIFadd{Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bom predstavil razlog za nastanek NewSQL podatkovnih baz, opisal njihove lastnosti, razdelitev in najpogosteje uporabljene mehanizme ter pristope.
+}
+
+\DIFadd{V drugem poglavju bom opisal podatkovno bazo CockroachDB. Opisal bom njeno zgodovino in idejno osnovo. Poglobil se bom v arhitekturo podatkovne baze CockroachDB in predstavil nekaj ključinh mehanizmov kateri omogočajo standardni SQL vmesnik, transakcije, konsistenco, replikacijo, visoko razpoložljivost in enostavnost z upravljanjem. Kasneje bom predstavil še ostale lastnosti kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
 }
 
 \DIFadd{V tretjem poglavju bom opisal celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in Citus. Opisal bom hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, pripravo podatkov, izvedbo analize. Na koncu bom predstavil rezultate in komentiral hipoteze.
@@ -441,19 +444,8 @@ A proper abstract should contain around 100 words which makes this one way too s
 \DIFadd{Na koncu sledijo sklepne ugotovitve, kjer bom povzel diplomsko delo. Naštel bom nakej produktov kjer je ta baza že v uporabi. Za zaključek bom še predlagal nekaj odprtih vprašanj in idej za nadalnje raziskovanje.
 }
 
-\DIFadd{\ }\\
-\hl{TODO:}
-\begin{itemize}
-    \item \DIFadd{Premik v oblak
-    }\item \DIFadd{Večja izkoriščenost računalniških resursev
-    }\item \DIFadd{Globalna replikacija in visoka dostopnost
-    }\item \DIFadd{Potreba }\DIFaddend po spremembi arhitekture
-\DIFdelbegin \DIFdel{.
-}\DIFdelend \DIFaddbegin \end{itemize}
-\DIFaddend 
 
-
-\chapter{NewSQL}
+\DIFaddend \chapter{NewSQL}
 NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnosti tako relacijskih SQL kakor tudi ne-relacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett \DIFdelbegin \DIFdel{Aprila }\DIFdelend \DIFaddbegin \DIFadd{aprila }\DIFaddend 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz \cite{oliveira2017newsql}. Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
     \item Izvajajo veliko število kratkotrajnih bralno-pisalne transakcij.
@@ -574,7 +566,7 @@ CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in vi
 
 Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs\DIFdelbegin \DIFdel{njihov glavni produkt pa }\DIFdelend \DIFaddbegin \DIFadd{. Njihov glavni produkt }\DIFaddend je v celoti odprto kodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili \DIFdelbegin \DIFdel{prej }\DIFdelend \DIFaddbegin \DIFadd{predhodno }\DIFaddend inženirji \DIFdelbegin \DIFdel{zaposleni v Googlu}\DIFdelend \DIFaddbegin \DIFadd{v podjetju Google}\DIFaddend . Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
 
-Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
+Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je odprto kodna in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
 
 \section{Arhitektura}
 
@@ -598,7 +590,7 @@ in prvotnih zasnutikh delovanja CockroachDB podatkovne baze \mbox{%DIFAUXCMD
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega distribuirani sistemi pridejo do soglasja o vrednosti enega podatka. CockroachDB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in distribuiranja podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. CockroachDB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kovruma, preden se sprememba smatra za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica operacij izvršenih na podatkovni bazi, katere ohranjajo ACID lastnosti.
-    \item \textbf{Visoka dostopnost (angl. high availability):} CockroachDB zagotavlja visoko dostopnost, ki ji pravimo pet devetk (angl. five nines), kar pomeni da je sistem dosegljiv vsaj 99,999\% časa. CockroachDB ne zagotavlja dostopnosti preko CAP teorema \cite{CRDB-FAQ}.
+    \item \textbf{Visoka \DIFdelbegin \DIFdel{dostopnost }\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost }\DIFaddend (angl. high availability):} CockroachDB zagotavlja visoko \DIFdelbegin \DIFdel{dostopnost}\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost}\DIFaddend , ki ji pravimo pet devetk (angl. five nines), kar pomeni da je sistem dosegljiv vsaj 99,999\% časa. CockroachDB ne zagotavlja \DIFdelbegin \DIFdel{dostopnosti }\DIFdelend \DIFaddbegin \DIFadd{razpoložljivosti }\DIFaddend preko CAP teorema \cite{CRDB-FAQ}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -622,7 +614,7 @@ Podatkovna baza CockroachDB je sestavljena \DIFdelbegin \DIFdel{z }\DIFdelend \D
 
 \subsection{SQL plast}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
+SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter \DIFdelbegin \DIFdel{ORMji}\DIFdelend \DIFaddbegin \DIFadd{ORM-ji}\DIFaddend .
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
@@ -691,7 +683,7 @@ Privzeto je velikost podatkovnega obsega omejena na 64MiB. To omogoča lažji pr
 
 \subsection{Replikacijska plast}
 
-Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v konsistentnem stanju. To doseže preko soglasnega algoritma (angl. consensus algorithm) Raft. Ta algoritem zagotovi, da se večina vozlišč v gruči strinja z vsako spremembo v podatkovni bazi. S tem, kljub odpovedi posameznega vozlišča, ohrani podatke v konsistentnem stanju poleg tega pa zagotovi nemoteno delovanje podatkovne baze (visoko dostopnost).
+Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v konsistentnem stanju. To doseže preko soglasnega algoritma (angl. consensus algorithm) Raft. Ta algoritem zagotovi, da se večina vozlišč v gruči strinja z vsako spremembo v podatkovni bazi. S tem, kljub odpovedi posameznega vozlišča, ohrani podatke v konsistentnem stanju poleg tega pa zagotovi nemoteno delovanje podatkovne baze (visoko \DIFdelbegin \DIFdel{dostopnost}\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost}\DIFaddend ).
 
 Število vozlišč, ki lahko odpove brez, da bi s tem vplivalo na delovanje podatkovne baze je enako:
 \[(r - 1)/2 = f \text{, če}\ r = 3, 5, 7, ...\ \text{in}\ r <= N\]
@@ -767,7 +759,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
 
 Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žični protokol, kar omogoča dobro kompatibilnost z obstoječimi \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend komponentami.
 
-Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in \DIFdelbegin \DIFdel{ORMjev}\DIFdelend \DIFaddbegin \DIFadd{ORM-jev}\DIFaddend . Za te CockroachLabs v času pisanja zagotavlja le beta podporo \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{CRDB-meta-drivers-orms}}\hspace{0pt}%DIFAUXCMD
 }\DIFaddend .
 
@@ -889,7 +881,7 @@ V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
-\DIFdelend YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprto kodna rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter Postgres podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
+\DIFdelend YCSB \cite{brianfrankcooper/YCSB} je razširljiva in \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter Postgres podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
 
 \section{Postopek testiranja}
 \label{YCSB_benchmarking_steps}
@@ -1117,7 +1109,7 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 }
 
 \DIFadd{Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz \mbox{%DIFAUXCMD
-\cite{kaur2017performance, Benchmarking-GCS-CRDB-NuoDB, CRDB-tpcc-vs-aurora}}\hspace{0pt}%DIFAUXCMD
+\cite{kaur2017performance, Benchmarking-GCS-CRDB-NuoDB, CRDB-tpcc-vs-aurora, CRDB-2017}}\hspace{0pt}%DIFAUXCMD
 , do Jepsen testov konsistence in obnašanja sistema med napakami \mbox{%DIFAUXCMD
 \cite{CRDB-jepsen, CRDB-jepsen-diy}}\hspace{0pt}%DIFAUXCMD
 .
@@ -1139,14 +1131,14 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 
 %DIF > https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
 
-\DIFadd{Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenoc in dostopnost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \mbox{%DIFAUXCMD
+\DIFadd{Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenoc in razpoložljivost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \mbox{%DIFAUXCMD
 \cite{CRDB-sql-features} }\hspace{0pt}%DIFAUXCMD
 in morebitne ostale lastnosti \mbox{%DIFAUXCMD
 \cite{CRDB-limitations}}\hspace{0pt}%DIFAUXCMD
 . Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo nizko latenco in aplikacije katere so analitično usmerjene (OLAP).
 }
 
-\DIFadd{V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprto kodno podatkovno bazo TiDB \mbox{%DIFAUXCMD
+\DIFadd{V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprtokodno podatkovno bazo TiDB \mbox{%DIFAUXCMD
 \cite{PingCAP-home}}\hspace{0pt}%DIFAUXCMD
 . TiDB je trenutno še zelo mlad produkt, z vezijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 z aprila 2018. TiDB prav tako idejno temeli na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
 }
