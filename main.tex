@@ -27,13 +27,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\ttitle}{Visoko skalabilna "new SQL" relacijska podatkovna baza CockroachDB}
-\newcommand{\ttitleEn}{Higly scalable "new SQL" relational database CockroachDB}
+\newcommand{\ttitle}{Visoko skalabilna NewSQL relacijska podatkovna baza CockroachDB}
+\newcommand{\ttitleEn}{Higly scalable NewSQL relational database CockroachDB}
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Matjaž Mav}
-\newcommand{\tkeywords}{podatkovne baze, skaliranje, new SQL, CockroachDB, Postgres}
-\newcommand{\tkeywordsEn}{databases, scalability, new SQL, Postgres}
+\newcommand{\tkeywords}{podatkovne baze, skaliranje, NewSQL, CockroachDB, PostgreSQL}
+\newcommand{\tkeywordsEn}{databases, scalability, NewSQL, PostgreSQL}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -249,9 +249,6 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
     {\bf ACID}  & atomicity, consistency, isolation, durability
         & atomarnost, konsistentnost, izolacija, trajnost
         \\
-    {\bf ANSI}  & American National Standards Institute
-        & ameriški državni inštitut za standarde
-        \\
     {\bf CAP}   & consistency, availability, partition telerance
         & konsistentnost, razpoložljivost, particijska toleranca 
         \\
@@ -274,8 +271,8 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
     {\bf NewSQL}& new structured query language
         & nov strukturiran poizvedovalni jezik
         \\
-    {\bf NoSQL} & not structured query language
-        & ne strukturiran poizvedovalni jezik
+    {\bf NoSQL} & not only structured query language
+        & ne samo strukturiran poizvedovalni jezik
         \\
     {\bf OLAP}  & online analytical processing
         & sprotno analitično obdelovanje
@@ -354,7 +351,7 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-Trendi kažejo, da se vse več računalniške infrastrukture premika v oblak, s tem pa se prilagajajo in razvijajo tudi nove tehnologije, ki so temu bolj primerne. To se odraža tudi pri podatkovnih bazah. Iz starih monolitnih relacijskih podatkovnih baz, katere je še zlasti težko vzdrževati v porazdeljenih okoljih, so se razvile ne relacijske podatkovne baze in kasneje nove relacijske oziroma NewSQL podatkovne baze. NewSQL relacijske podatkovne baze so tako prilagojene za oblak. Zagotavljajo visoko konsistenco in razpoložljivost, poleg tega pa nudijo tudi boljši izkoristek računalniških virov.
+Trendi kažejo, da se vse več računalniške infrastrukture premika v oblak, s tem pa se prilagajajo in razvijajo tudi nove tehnologije, ki so temu bolj primerne. To se odraža tudi pri podatkovnih bazah. Iz starih monolitnih relacijskih podatkovnih baz, katere je še zlasti težko vzdrževati v porazdeljenih okoljih, so se razvile nerelacijske podatkovne baze in kasneje nove relacijske oziroma NewSQL podatkovne baze. NewSQL relacijske podatkovne baze so tako prilagojene za oblak. Zagotavljajo visoko konsistenco in razpoložljivost, poleg tega pa nudijo tudi boljši izkoristek računalniških virov.
 
 Podatkovna baza CockroachDB je ena izmed NewSQL podatkovnih baz. Z raziskovalnega področja je zanimiva, ker je v celoti odprtokodna, idejno pa izhaja iz Googlove podatkovne baze Spanner, je zelo enostavna za uporabo in je skoraj v celoti avtomatizirana. Na prvi pogled vsebuje vse, kar bi pričakovali od transakcijsko usmerjene (OLTP) podatkovne baze. 
 
@@ -368,38 +365,38 @@ Sledijo sklepne ugotovitve, kjer bom povzel diplomsko delo in izpostavil zanimiv
 
 
 \chapter{NewSQL}
-NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnosti tako relacijskih SQL kakor tudi ne-relacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz \cite{oliveira2017newsql}. Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
+NewSQL je oznaka za sodobne relacijske podatkovne baze, ki združujejo lastnosti tako relacijskih SQL, kakor tudi nerelacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID transakcijske lastnosti \cite{oliveira2017newsql}. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \cite{oliveira2017newsql}. Uporabljajo neblokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
-    \item Izvajajo veliko število kratkotrajnih bralno-pisalne transakcij.
-    \item Vsaka transakcija se dotika majhnega dela podatkov z uporabo indeksnih poizvedb.
+    \item Izvajajo veliko število kratkotrajnih bralno-pisalnih transakcij.
+    \item Večina transakcij preko indeksnih poizvedb uporabi le majhen del podatkov.
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
 \ \\
 Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
-    \item Uporabljajo standardni SQL kot primarni aplikacijski vmesnik za interakcijo.
+    \item Uporabljajo standardni SQL vmenik kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
-    \item Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
+    \item Uporabljajo neblokajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
     \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
     \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
-\section{Kategorizacija}
-Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz. \cite{NewSQLNewWayToHandleBigData} NewSQL podatkovne baze se v grobem delijo na štiri kategorije \cite{Mikuletic2015Feb}:
+\section{Kategorizacija NewSQL arhitektur}
+Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze se v grobem delijo na štiri kategorije \cite{Mikuletic2015Feb, Pavlo2016Sep}:
 
 \begin{enumerate}
-    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
-    \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. \cite{Pavlo2016Sep}
-    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Primer takega transparentnega vmesnika je MariaDB MaxScale. \cite{Pavlo2016Sep}
-    \item \textbf{Novi shranjevalni motorji in razširitve:}\\V to kategorijo spadajo novi shranjevalni motorji in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za Postgres podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na neke vire \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz. 
+    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB.
+    \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. Slabost te arhitekture je, da nas tipično veže na enega od ponudnikov oblačnih storitev, poleg tega pa nimamo popolenga nadzora nad delovanjem podatkovne baze.
+    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Slabost teh arhitektur pa se odraža predvsem v neenakomerno porazdeljenih podatkih. Primer takega transparentnega vmesnika je MariaDB MaxScale.
+    \item \textbf{Novi shranjevalni pogoni in razširitve:}\\V to kategorijo spadajo novi shranjevalni pogoni in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za PostgreSQL podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz, ampak le med reširitve repacijskih SQL podatkovnih baz.
 \end{enumerate}
 
 \section{Nadzor sočasnosti}
 Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati, med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
 
 Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor so\-čas\-no\-sti (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
-Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni iz pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo atomičnih ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
+Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni iz pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo atomskih ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
 
 Poleg MVCC mehanizma nekatere implementacije podatkovnih baz uporabljajo kombinacijo MVCC ter dvo-fazno zaklepanje (angl. two-phase locking) oziroma 2PL. V nekaterih primerih pa uporabljajo mehanizem razbitega sekvenčnega izvajanja (angl. partitioned serial
 execution). \cite{Pavlo2016Sep, MainMemoryDatabaseSystems}.
@@ -408,16 +405,16 @@ execution). \cite{Pavlo2016Sep, MainMemoryDatabaseSystems}.
 
 Večina tradicionalnih relacijskih podatkovnih baz uporablja diskovno usmerjeno arhitekturo za shranjevanje podatkov. V teh sistemih je primarna lokacija za shranjevanje največkrat kar blokovno naslovljiv disk kot na primer HDD oziroma SSD. Ker so bralne in pisalne operacije v te pomnilne enote relativno počasne, se v ta namen uporablja glavni pomnilnik kot predpomnilnik \cite{Pavlo2016Sep}.
 
-Historično je bil pomnilnik predrag, sedaj pa so cene pomnilnikov nižje tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. S tem pa so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse podatke hranimo v pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za varnost kopiranje glavnega pomnilnika. Ta ideja izvira že z leta 1980.
-NewSQL podatkovne baze pa dodajo mehanizem, da lahko v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se po\-iz\-ved\-be velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
+Zgodovinsko je bil glavni pomnilnik predrag, danes pa so cene pomnilnikov nižje, tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. Poslednično so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse podatke hranimo v glavnem pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za varnostno kopiranje glavnega pomnilnika. Ta ideja izvira že iz leta 1980.
+NewSQL podatkovne baze pa dodajo mehanizem, da lahko, v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se po\-iz\-ved\-be velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
 
-Tukaj se pojavi vprašanje kateri pristop je boljše izbrati, glavni pomnilnik ali blokovno naslovljivi disk z velikim predpomnilnikom. Res je, da bo podatkovna baza katera nosi vse podatke v predpomnilniku delovala bistveno hitreje, kljub temu pa tak sistem ni optimiziran za tak scenarij \cite{garcia1992main}.
+Tukaj se pojavi vprašanje kateri pristop je boljše izbrati, (1) primarno shranjevanje v glavni pomnilnik ali (2) priamrno shranjevanje v blokovno naslovljivi disk z velikim glavnim pomnilnikom, kjer podatkovna baza lahko predpomni vse, oziroma skoraj vse podatke. Res je, da bo podatkovna baza pri obeh pristopih delovala bistveno hitreje. Vendar pa bo drugi pristop počasnejši od prvega, saj podatkovna baza še vedno predvideva, da se podatki nahajajo na blokovno naslovljivem disku in so nekatere operacije ne optimizirane za tako delovanje \cite{garcia1992main}.
 
-Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato te sistemi poizkušajo minimizirati število \cite{MainMemoryDatabaseSystems} teh operacij. Obstaja nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
+Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato tei sistemi poizkušajo minimizirati število teh operacij \cite{MainMemoryDatabaseSystems}. Obstaja nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
 
 \begin{itemize}
-    \item Ključavnica nad dnevnikom se odkleni čim prej. S tem se zmanjša čas blokiranja ter omogoči, da se ostale sočasne transakcije hitreje zapišejo v dnevnik. \cite{NewSqlInMemoryAnalytics}
-    \item Beleženje samo dogodkov, kateri spreminjajo stanje podatkov, saj so samo te dogodki potrebni za obnovo podatkov. \cite{MainMemoryDatabaseSystems}
+    \item Ključavnica nad dnevnikom se odklene čim prej. S tem se zmanjša čas blokiranja ter omogoči, da se ostale sočasne transakcije hitreje zapišejo v dnevnik. \cite{NewSqlInMemoryAnalytics}
+    \item Beleženje samo dogodkov, kateri spreminjajo stanje podatkov, saj so samo ti dogodki potrebni za obnovo podatkov. \cite{MainMemoryDatabaseSystems}
     \item Grupiranje dogodkov ter periodično beleženje v dnevnik. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
     \item Asinhrono potrjevanje ne čaka potrditve transakcije. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
 \end{itemize}
@@ -447,31 +444,31 @@ Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. 
     \item \textbf{Asinhrona replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) replikacija. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočas\-nosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep, harding2017evaluation}.
 \end{enumerate}
 
-V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se smatra, da je replikaija uspešna \cite{NewSqlInMemoryAnalytics}. Pri distribuiranih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik.
+V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se smatra, da je replikacija uspešna \cite{NewSqlInMemoryAnalytics}. Pri distribuiranih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik.
 
 Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) omrežji.
 
 \section{Obnova}
 Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake, je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
 
-Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in naj\-več\-krat uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve, ponovi vse spremembe zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
+Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in naj\-več\-krat uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve ponovi vse spremembe, zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
 
-Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove, si ostala vozlišča avtomatsko razdelijo obremenitev, sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in iz ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
+Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove, si ostala vozlišča avtomatsko razdelijo obremenitev, sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in iz ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove pomnilniško usmerjene arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
 
 
 
 
 \chapter{CockroachDB}
 
-CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in visoko konsistenti ključ-vrednost shranjevalnem mehanizmu. Zagotavlja ACID transakcijske lastnosti, kot primarni vmesnik za interakcijo pa uporablja standardni ANSI SQL. Je horizontalno skalabilna in je odporna na napake strežnika ali pa celotnega podatkovnega centra. Prilagojena je za izvajanje v oblak in namenjena globalnim oblačnim storitvam. Je transakcijska podatkovna baza in ni primerna za večje analitične obremenitve. Je zelo enostavna za upravljanje ter uporabo. \cite{CRDB-FAQ}
+CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in visoko konsistenti ključ-vrednost shranjevalnem mehanizmu. Zagotavlja ACID transakcijske lastnosti, kot primarni vmesnik za interakcijo pa uporablja standardni SQL. Je horizontalno skalabilna in je odporna na napake strežnika ali pa celotnega podatkovnega centra. Prilagojena je za izvajanje v oblak in namenjena globalnim oblačnim storitvam. Je transakcijska podatkovna baza in ni primerna za večje analitične obremenitve. Je zelo enostavna za upravljanje ter uporabo. \cite{CRDB-FAQ}
 
-Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs. Njihov glavni produkt je v celoti odprto kodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili predhodno inženirji v podjetju Google. Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
+Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs. Njihov glavni produkt je v celoti odprtokodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili predhodno inženirji v podjetju Google. Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
 
-Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je odprto kodna in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
+Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomskih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, v splošnem je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je odprto kodna in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
 
 \section{Arhitektura}
 
-CockroachDB je odprto kodna, avtomatizirana, distribuirana, skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku. 
+CockroachDB je odprtokodna, avtomatizirana, porazdeljena, skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku. 
 
 CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumevanja večslojne arhitekture bom najprej predstavil najbolj pogoste termine in koncepte uporabljene v podatkovni baze CockroachDB. Kasneje bom povzel samo arhitekturo in delovanje podatkovne, kar je bolj podrobno opisa v uradni dokumentaciji \cite{CRDB-home} in prvotnih zasnutkih delovanja CockroachDB podatkovne baze \cite{CRDB-design}.
 
@@ -511,7 +508,7 @@ Podatkovna baza CockroachDB je sestavljena iz petih plasti. Plasti med seboj del
 
 \subsection{SQL plast}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko Postgres žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORM-ji.
+SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del SQL standarda \cite{CRDB-sql-standard}. Zunanje aplikacije komunicirajo preko PostgreSQL žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORM-ji.
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
@@ -602,7 +599,7 @@ Razvoj podatkovne baze CockroachDB je bil usmerjen prvotno v funkcionalnosti in 
 Podatkovna baza CockroachDB strmi k enostavnosti upravljanja in vzdr\-že\-van\-ja. Večina kompleksnosti je skrite končnemu uporabniku. Izogiba se zunanjim odvisnostim in je na voljo kot ena sama binarna datoteka. Minimalno za zagon gruče je potrebno na vsakem vozlišču zagotoviti sinhronizacije ure, priporočena je uporaba zunanje Google NTP storitve ter namestiti CockroachDB binarno datoteko na vsako vozlišče in jo zagnati.
 
 \subsection{Uporabniški vmesnik in nadzorovanje}
-Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik, ki je prikazan na sliki \ref{img_crdb_admin_ui}. Administratorski vmesniki nudi vizualizacije raznih časovnih metrik o delovanju posameznih vozlišč, kakor tudi celotne gruče. Omogoča pregled dnevnikov in pripomore k lažjemu odkrivanju težav v gruči. CockroachDB omogoča tudi izvoz metrik v odprto kodno rešitev Prometheus, katera nam omogoča shrambo, obdelavo, vizualizacije in obveščanje nad časovnimi vrstami.
+Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik, ki je prikazan na sliki \ref{img_crdb_admin_ui}. Administratorski vmesniki nudi vizualizacije raznih časovnih metrik o delovanju posameznih vozlišč, kakor tudi celotne gruče. Omogoča pregled dnevnikov in pripomore k lažjemu odkrivanju težav v gruči. CockroachDB omogoča tudi izvoz metrik v odprtokodno rešitev Prometheus, katera nam omogoča shrambo, obdelavo, vizualizacije in obveščanje nad časovnimi vrstami.
 
 \begin{figure}[H]
 \begin{center}
@@ -613,7 +610,7 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 \end{figure}
 
 \subsection{SQL}
-CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše raz\-ši\-rit\-ve, razširitve specifične za Postgres ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
+CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico SQL standarda \cite{CRDB-sql-standard}. Poleg tega implementira nekatere najpogostejše raz\-ši\-rit\-ve, razširitve specifične za PostgreSQL ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
 CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{DE\-CI\-MAL}, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
@@ -638,7 +635,7 @@ Uporabniške funkcije niso podprte in tudi ne načrtovane za naslednje verzije. 
 
 \subsection{Poslovna licenca}
 
-CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih funkcionalnosti omogoča zastonjska različica, poleg tega pa ponuja tudi poslovno licenco. Poslovna licenca omogoča strankam:
+CockroachDB je odprtokodna in zastonjska podatkovna baza. Večina potrebnih funkcionalnosti omogoča zastonjska različica, poleg tega pa ponuja tudi poslovno licenco. Poslovna licenca omogoča strankam:
 
 \begin{itemize}
     \item svetovanje,
@@ -651,7 +648,7 @@ CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih fun
 
 \subsection{Podprta orodja, gonilniki in ORM-ji in skupnost}
 
-Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja Postgres žični protokol, kar omogoča dobro kompatibilnost z obstoječimi Postgres komponentami.
+Podatkovna baza CockroachDB implementira standardni SQL \cite{CRDB-sql-standard}, za komunikacijo med odjemalcem in strežnikom pa uporablja PostgreSQL žični protokol, kar omogoča dobro kompatibilnost z obstoječimi PostgreSQL komponentami.
 
 Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORM-jev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \cite{CRDB-meta-drivers-orms}.
 
@@ -666,11 +663,11 @@ Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno apl
 
 Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozitorija \texttt{cockroachdb/cockraoch} \cite{cockroachdb/cockroach}. Projekt ima zdravo skupnost, kateremu trenutno sledi približno 14 tisoč navdušencev. Poleg GitHub repozitorija, kjer se odvija ves razvoj, vodenje nalog in pomoč, CockroachLabs vodi še spletno stran \cite{CRDB-home} (dokumentacija, form, blog, mediji), Gitter kanal \cite{CRDB-gitter} in Docker repozitorij \cite{CRDB-docker}.
 
-\chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
+\chapter{Primerjalna analiza zmogljivosti CockroachDB}
 
-Primerjalna analiza zmogljivosti (angl. performance benchmarking) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres z nameščeno razširitvijo Citus (v nadaljevanju samo Citus). 
+Primerjalna analiza zmogljivosti (angl. performance benchmarking) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter PostgreSQL z nameščeno razširitvijo Citus (v nadaljevanju samo Citus). 
 
-Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola. 
+Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobni. Obe podatkovni bazi implementirat standardni SQL ter komunicirata preko PostgreSQL žičnega protokola. 
 
 Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tudi obe podatkovni bazi poleg tega pa je enostaven za uporabo. Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
 
@@ -678,12 +675,12 @@ Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tud
     \item \textbf{TPC:}\\ TPC (angl. transaction processing performance council) \cite{TPC-home} je ne profitna organizacija, katera nudi preverljive podatke TPC zmogljivostnih analiz podatkovnih baz. TPC definira več različnih standardnih testov, kateri simulirajo različne realne obremenitve. Te testi so točno opisani in strogo omejeni. Najbolj poznan tip testa za transakcijske obremenitve je TPC-C, za analitične pa TPC-H.
 
     To so standardizirani testi in bi bili najbolj primerni, vendar pa so zelo kompleksni. Uradnih TPC testov za podatkovno bazo CockroachDB še ne obstaja.
-    \item \textbf{pgbench:}\\ Je enostavno orodje namenjeno Postgres podatkovni bazi. Simulira ne standardno TPC-C obremenitev.
+    \item \textbf{pgbench:}\\ Je enostavno orodje namenjeno PostgreSQL podatkovni bazi. Simulira ne standardno TPC-C obremenitev.
     
     Orodje pgbench v času izvajanja testov še ni bilo kompatibilno z podatkovno bazo CockroachDB.
     \item \textbf{cockroachdb/loadgen:}\\ Je orodje namenjeno CockroachDB podatkovni bazi. Orodje vsebuje nabor testov kot so TPC-C, TPC-H in YCSB. Te orodja interno uporabljajo za zmogljivostno primerjavo med verzijami CockroachDB podatkovne baze. Kasneje je bil objavljena tudi objava na njihovem blogu, kjer so primerjali rezultate TPC-C obremenitve med podatkovnima bazama CockroachDB in Amazon Aurora.
 
-    Orodje je enostavno, vendar ne omogoča zmogljivostne analize Postgres podatkovne baze.
+    Orodje je enostavno, vendar ne omogoča zmogljivostne analize PostgreSQL podatkovne baze.
     \item \textbf{Apache JMeter:}\\ Je orodje primarno namenjeno izvajanju obremenitvenih testov. Tega orodje omogoča izvajanje obremenitvenih testov preko JDBC vmesnika.
     
     Orodje je zelo konfigurabilno vendar pa ne omogoča v naprej definiranih obremenitvenih testov in je težko za uporabo.
@@ -695,9 +692,9 @@ V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel prime
 \section{Hipoteze}
 Pred začetkom izvajanja primerjalne analize sem postavil naslednje hipoteze:
 \begin{enumerate}
-    \item CockroachDB bo na enem vozlišču nekoliko počasnejši od Postgres podatkovne baze.
+    \item CockroachDB bo na enem vozlišču nekoliko počasnejši od PostgreSQL podatkovne baze.
     \iffalse
-    Razlog za to hipotezo je, da je CockroachDB na trgu dobro leto in še ni dokončno optimizirana. Medtem, ko je Postgres na trgu dobrih 20 let.
+    Razlog za to hipotezo je, da je CockroachDB na trgu dobro leto in še ni dokončno optimizirana. Medtem, ko je PostgreSQL na trgu dobrih 20 let.
     \fi
     \item CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj tri krat bolj zmogljiv.
 \end{enumerate}
@@ -728,11 +725,11 @@ n3 & Intel Core i5-2400 & 4GB & Hitachi HDS721050CLA662 \\
 Vozlišče n0 je v vlogi odjemalca. Na njem teče program, ki zažene podatkovno bazo, obnovi podatke, izvaja teste in beleži rezultate. Podroben opis delovanja odjemalca se nahaja v poglavju \ref{YCSB_benchmarking_steps}.
 
 \subsection{Strežnik}
-V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali Postgres z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču n2.
+V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali PostgreSQL z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču n2.
 
 \section{YCSB}
 \label{YCSB_about}
-YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprtokodna rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter Postgres podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
+YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprtokodna rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter PostgreSQL podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
 
 \section{Postopek testiranja}
 \label{YCSB_benchmarking_steps}
@@ -893,10 +890,10 @@ Zmogljivostna analiza je pokazala, da se Citus pri večini obremenitev, katere s
 
 Izjema je bila latenca pri obremenitev tipa A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
 
-Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot Postgres.
+Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot PostgreSQL.
 
 \subsection{Hipoteza 1}
-\textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od Postgres podatkovne baze.}\\\\Razlog za to hipotezo je, da je podatkovna baza Postgres že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
+\textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od PostgreSQL podatkovne baze.}\\\\Razlog za to hipotezo je, da je podatkovna baza PostgreSQL že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
 
 \begin{figure}[H]
 \begin{center}
@@ -906,9 +903,9 @@ Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je C
 \label{img_ycsb_results_throughptu_comparison_n1}
 \end{figure}
 
-Hipotezo sem potrdil, kar kaže tudi zgornja slika \ref{img_ycsb_results_throughptu_comparison_n1}. CockroachDB v primerjavi z Postgres dosega približno 2,7 krat nižjo prepustnost.
+Hipotezo sem potrdil, kar kaže tudi zgornja slika \ref{img_ycsb_results_throughptu_comparison_n1}. CockroachDB v primerjavi z PostgreSQL dosega približno 2,7 krat nižjo prepustnost.
 
-Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB so primerjali obremenitve tipa A, B in C. Ugotovili so, da se CockroachDB odziva približno 10 krat slabše kakor Postgres.
+Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB so primerjali obremenitve tipa A, B in C. Ugotovili so, da se CockroachDB odziva približno 10 krat slabše kakor PostgreSQL.
 
 \subsection{Hipoteza 2}
 \textit{CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj tri krat bolj zmogljiv.}\\\\Vsa vozlišča povezana v CockroachDB gručo so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč ter, da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna. \cite{CRDB-design}.
@@ -933,7 +930,7 @@ Prišel sem do ugotovitve, da je CockroachDB linearno skalabilna podatkovna baza
     \item Faktor replikacije mora ostati konstanten.
 \end{enumerate}
 
-Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri Postgres konfiguraciji vsi odjemalci direktno povezujejo na eno vozlišče (koordinatorja), to vozlišče je ozko grlo, saj bo ob večanjem v neki točki prišlo do zasičenosti resursov \cite{Citus-add-coordinator}.
+Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri PostgreSQL konfiguraciji vsi odjemalci direktno povezujejo na eno vozlišče (koordinatorja), to vozlišče je ozko grlo, saj bo ob večanjem v neki točki prišlo do zasičenosti resursov \cite{Citus-add-coordinator}.
 
 \begin{figure}[H]
 \begin{center}
@@ -946,32 +943,19 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 
 \chapter{Sklepne ugotovitve}
 
-V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Opisal sem arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB. Podatkovno bazo CockroachDB sem kasneje praktično testiral. Izvedel sem primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in Postgres (z nameščeno razširitvijo Citus). Veliko časa sem vložil v postavitev testnega okolja, pozoren sem bil, da sem odpravil čim več spremenljivk, ki bi lahko vplivale na testne scenarije. Testno okolje je bilo sestavljeno s štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server in Docker. Testno okolje sem v začetku nadziral preko Telegraf agenta, InfulxDB podatkovne baze za shranjevanje časovnih podatkov in Grafane za vizualizacijo podatkov. Kljub trudu, ki je bil vložen v postavitev testnega okolja, bi le tega lahko še izboljšal. Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja sem avtomatiziral. Z orodjem YCSB sem izvajal različne zmogljivostne teste, rezultate pa sem shranjeval v csv datoteko in jih kasneje obdelal s programom Microsoft Excel.
+V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Opisal sem arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB \cite{CRDB-home}. Podatkovno bazo CockroachDB sem kasneje praktično testiral. Izvedel sem primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in PostgreSQL \cite{postgres} (z nameščeno razširitvijo Citus \cite{citus}). Veliko časa sem vložil v postavitev testnega okolja, pozoren sem bil, da sem odpravil čim več spremenljivk, ki bi lahko vplivale na testne scenarije. Testno okolje je bilo sestavljeno s štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \cite{ubuntu-server} in Docker \cite{docker}. Testno okolje sem v začetku nadziral preko Telegraf agenta \cite{telegraf}, InfluxDB podatkovne baze za shranjevanje časovnih podatkov \cite{influxdb} in Grafane za vizualizacijo podatkov \cite{grafana}. Kljub trudu, ki je bil vložen v postavitev testnega okolja, bi le tega lahko še izboljšal. Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja sem avtomatiziral. Z orodjem YCSB \cite{brianfrankcooper/YCSB} sem izvajal različne zmogljivostne teste, rezultate pa sem shranjeval v CSV datoteko in jih kasneje analiziral.
 
-Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov slabša od Postgres podatkovne baze. V povprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres. Kljub slabšim rezultatom zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zelo različni podatkovni bazi. Podatkovna baza Postgres je bistveno starejša in zato bolj stabilna ter optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, ostale lastnosti specifične za vsako podatkovno bazo, ...
+Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov bistveno slabša od PostgreSQL podatkovne baze. V povprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi PostgreSQL. Kljub slabšim rezultatom zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zelo različni podatkovni bazi. Podatkovna baza PostgreSQL je bistveno starejša in zato bolj stabilna ter optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, ostale lastnosti specifične za vsako podatkovno bazo, ...
 
 Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz \cite{kaur2017performance, Benchmarking-GCS-CRDB-NuoDB, CRDB-tpcc-vs-aurora, CRDB-2017}, do Jepsen testov konsistence in obnašanja sistema med napakami \cite{CRDB-jepsen, CRDB-jepsen-diy}.
 
-Kljub temu, da je CockroachDB relativno nova podatkovna baza, jo nekatera podjetja že uporabljajo. CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prispevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
+Kljub temu, da je CockroachDB relativno nova podatkovna baza, jo podjeta že uporabljajo. Na primer podjetje Baidu \cite{crdb-baidu},uporablja CockroachDB pri dveh novih aplikacijah, ki sta predhodno uporabljale MySQL podatkovno bazo. Ti dve aplikaciji obsegata približno 2TB podatkov in ustvarita približno 50M zapisov na dan. Podjetje Kindred \cite{crdb-kindred}, ki se ukvarja z spletnim igralništvom. Z letom 2014 pa so začeli s prehodom na globalni trg. Imajo kompleksen ekosistem z več kot 200 mikrostoritev. Ta arhitektura omogoča elastičnost vendar pa mora biti skoraj v celoti avtonomna. CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prispevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
 
-\begin{itemize}
-    \item \textbf{Baidu} uporablja CockroachDB pri dveh novih aplikacijah, ki sta predhodno uporabljale MySQL podatkovno bazo. Ti dve aplikaciji obsegata približno 2TB podatkov in ustvarita približno 50M zapisov na dan.
-    \item \textbf{Kindred} se ukvarja z igralništvom, z letom 2014 pa so začeli s prehodom na globalni trg. Imajo kompleksen ekosistem z več kot 200 mikrostoritev. Ta arhitektura omogoča elastičnost poleg tega pa mora biti skoraj v celoti avtonomna.
-    \item \textbf{Tierion} ponuja "Blockchain proof engine" rešitev. Ovrednotili so več opcij, na koncu pa so se odločili za CockroachDB.
-    \item \textbf{Heroic} Labs je hitro rastoč startup, ukvarja se s skalabilnimi zalednimi sistemi v igralniški industriji.
-    \item \textbf{Gorgias} ponuja platformo za pomoč uporabnikom.
-\end{itemize}
-
-
-%Podatkovna baza CockroachBD idejno izhaja iz Googlove podatkovne baze Spanner. Podobno je s podatkovno bazo TiDB, katera je v nekaterih pogledih zelo podobna podatkovni bazi CockroachBD. TiDB je prav tako sestavljena z več plasti. Za razliko s CockroachDB, namestitev obsega tri ločene komponente TiDB (vmesnik med SQL in KV operacijami), TiKV (shramba podatkov) in PD (meta podatki in generiranje časovnih oznak).
-
-%https://groups.google.com/forum/#!topic/tidb-user/k_nMQWPmK-Q
-
-Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenco in razpoložljivost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \cite{CRDB-sql-features} in morebitne ostale lastnosti \cite{CRDB-limitations}. Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo nizko latenco in aplikacije katere so analitično usmerjene (OLAP).
+Glede na znanje katerega sem pridobil skozi diplomsko delo, menim, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo visoko konsistenco in razpoložljivost. Aplikacije katere ciljajo globalni trg, kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti še podprto sintakso SQL jezika \cite{CRDB-sql-features} in morebitne ostale lastnosti \cite{CRDB-limitations}. Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo nizko latenco in aplikacije katere so analitično usmerjene (OLAP) \cite{CRDB-FAQ}.
 
 V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprtokodno podatkovno bazo TiDB \cite{PingCAP-home}. TiDB je trenutno še zelo mlad produkt, z verzijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 iz aprila 2018. TiDB prav tako idejno temelji na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
 
-Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Distribuirane podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TCP-C in TCP-H. V tej diplomski nalogi sem se tem obremenitvam izognil, saj orodje \cite{cockroachdb/loadgen} še ni bilo podprto za primerjavo s podatkovno bazo Postgres.
+Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Distribuirane podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TCP-C in TCP-H. V tej diplomski nalogi sem se tem obremenitvam izognil, saj orodje \cite{cockroachdb/loadgen} še ni bilo podprto za primerjavo s podatkovno bazo PostgreSQL.
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!
