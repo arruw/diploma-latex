@@ -242,21 +242,21 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 \chapter*{Seznam uporabljenih kratic}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
 
-\noindent\begin{longtable}{p{0.15\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+\noindent\begin{longtable}{p{0.15\textwidth}|p{.3\textwidth}|p{.5\textwidth}}
     {\bf kratica} & {\bf angleško}
         & {\bf slovensko}
         \\ \hline
     {\bf ACID}  & atomicity, consistency, isolation, durability
-        & atomarnost, konsistentnost, izolacija, trajnost
-        \\
-    {\bf CAP}   & consistency, availability, partition telerance
-        & konsistentnost, razpoložljivost, particijska toleranca 
+        & atomarnost, konsistentnost, izolacija, trajnost so transakcijske lastnosti katere zagotavljajo relacijske podatkovne baze
         \\
     {\bf CSV}   & comma-seperated value
         & standardni format podatkov ločen z vejico
         \\
+    {\bf DBaaS}   & database as a service
+        & podatkovna baza, ki je na voljo v oblaku in s katero v večini upravlja ponudnik oblačne storitve 
+        \\
     {\bf HTAP}  & hybrid transaction/analytical processing
-        & hibridno transakcijsko in analitično obdelovanje
+        & oznaka sistema, ki omogoča tako transakcijsko kakor tudi analitično obdelovanje
         \\
     {\bf IMDB}  & in-memory database
         & podatkovna baza, ki shranjuje podatke v glavni pomnilnik
@@ -265,35 +265,46 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
         & javanski vmesnik za povezavanje s podatkovnimi bazami
         \\
     {\bf JSON}  & Javascript object notation
-        &  standardna format za prenos podatkov v speltu\\
+        &  standardna format za prenos podatkov v spletu\\
     {\bf KV}    & key-value
         & ključ-vrednost \\
+    {\bf MVCC}    & multiversion concurrency control
+        & mehanizem za nadzor sočasnosti, kateri hrani več verzij podatkov, omogoča izolacijo in konsistenco podatkov med transakcijami \\
     {\bf NewSQL}& new structured query language
         & nov strukturiran poizvedovalni jezik
         \\
     {\bf NoSQL} & not only structured query language
-        & ne samo strukturiran poizvedovalni jezik
+        & poizvedovalni jezik za delo z nerelacijskimi podatki v nekaterih primerih tudi relacijskimi
+        \\
+    {\bf NTP} & network time protocol
+        & meržni protokol za sinhronizacijo ure med računalniškimi sistemi
         \\
     {\bf OLAP}  & online analytical processing
-        & sprotno analitično obdelovanje
+        & oznaka sistema, ki omogoča analitično obdelovanje podatkov
         \\
     {\bf OLTP}  & online transaction processing
-        & sprotno obdelovanje transakcij
+        & oznaka sistema, ki omogoča obdelavo transakcij
         \\
     {\bf ORM}   & object-relational mapper
         & programski vmesnik za pretvorbo ralacijskih podatkov v objekte in obratno
         \\
     {\bf SQL}   & structured query language    
-        & strukturiran povpraševalni jezik za delo s podatkovnimi bazami
+        & strukturiran povpraševalni jezik za delo s relacijskimi podatkovnimi bazami
         \\
     {\bf TPC}   & transaction processing performance council
         &  organizacija, ki se ukvarja z primerjalno analizo podatkovnih baz v industriji
+        \\
+    {\bf WAL}   & write-ahead logging
+        & mehanizem zabeleži najprej vse spremembe v dnevnik šele na to pa jih izvede, mehanizem zagotavlja atomarnost in trajnost podatkov 
         \\
     {\bf XML}   & extensible markup language
         & format za izmenjavo strukturiranih podatkov v spletu
         \\
     {\bf YCSB}  & Yahoo! Cloud Serving Benchmarking
-        & orodje za izvedbo primerjalne zmogljivostne analize
+        & enostavno orodje za izvedbo primerjalne zmogljivostne analize med različnimi podatkovnimi bazami
+        \\
+    {\bf 2PL} & two-phase locking
+        & mehanizem za nadzor sočasnosti, kateri preko zaklepanja zagotavlja serializabilnost transakcij
         \\
 \end{longtable}
 
@@ -333,7 +344,7 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent The thesis deals with NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance between the new database CockroachDB and well-established PostgreSQL database. NewSQL databases are build for distributed environments and join properties from both SQL and NoSQL databases. NewSQL databases use standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication high availability and automatic failover. The results of simple queries showed that CockroachDB in average achieves 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
+\noindent The thesis deals with NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance between the new database CockroachDB and well-established PostgreSQL database. NewSQL databases are build for distributed environments and join properties from both SQL and NoSQL databases. NewSQL databases use standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB in average achieves 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -362,21 +373,20 @@ Sledijo sklepne ugotovitve, kjer bomo povzel diplomsko delo in izpostavil nekate
 
 
 \chapter{NewSQL}
-NewSQL je oznaka za sodobne relacijske podatkovne baze, ki združujejo lastnosti tako relacijskih SQL, kakor tudi nerelacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID transakcijske lastnosti \cite{oliveira2017newsql}. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \cite{oliveira2017newsql}. Uporabljajo neblokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
+NewSQL je oznaka za sodobne relacijske podatkovne baze, ki združujejo lastnosti tako relacijskih SQL, kakor tudi nerelacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID (angl. atomicity, consistency, isolation and durability) transakcijske lastnosti \cite{oliveira2017newsql}. Kratica ACID stoji za (A)atomarnost - transakcija se izvede v celoti ali pa se ne izvede, (C) konsistenco - transakcija z enega konsistentnega stanja preide v drugo konsistentno stanje, (I) izolacijo - sočasne transakcije so med seboj izolirane, spremembe nepotrjenih transakcij niso vidne navzven in (D) trajnost - potrjene transakcije ostanejo potrjene tudi v primeru sistemskih napak. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \cite{oliveira2017newsql}. Uporabljajo neblokirajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP (angl. online transaction processing) z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
     \item Izvajajo veliko število kratkotrajnih bralno-pisalnih transakcij.
     \item Večina transakcij preko indeksnih poizvedb uporabi le majhen del podatkov.
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
-\ \\
-Lastnosti NewSQL podatkovnih baz so:
+\noindent Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
     \item Uporabljajo standardni SQL vmenik kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
-    \item Uporabljajo neblokajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
+    \item Uporabljajo neblokirajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki \cite{NewSQLNewWayToHandleBigData}. To smo podrobneje opisali v poglavju \ref{newsql/concurrencycontroll}.
     \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
-    \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
+    \item Omogočajo dosti boljšo zmogljivost v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
 \section{Kategorizacija NewSQL arhitektur}
@@ -385,11 +395,12 @@ Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na
 \begin{enumerate}
     \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB.
     \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. Slabost te arhitekture je, da nas tipično veže na enega od ponudnikov oblačnih storitev, poleg tega pa nimamo popolenga nadzora nad delovanjem podatkovne baze.
-    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Slabost teh arhitektur pa se odraža predvsem v neenakomerno porazdeljenih podatkih. Primer takega transparentnega vmesnika je MariaDB MaxScale.
-    \item \textbf{Novi shranjevalni pogoni in razširitve:}\\V to kategorijo spadajo novi shranjevalni pogoni in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za PostgreSQL podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz, ampak le med reširitve repacijskih SQL podatkovnih baz.
+    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Slabost teh arhitektur pa se odraža predvsem pri neenakomerno porazdeljenih podatkih. Primer takega transparentnega vmesnika je MariaDB MaxScale.
+    \item \textbf{Novi shranjevalni pogoni in razširitve:}\\V to kategorijo spadajo novi shranjevalni pogoni in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za PostgreSQL podatkovno bazo ter Hekaton OLTP motor za SQL Server. Podatkovno bazo Citus smo bolj podrobno opisali v poglavju \ref{benchmarking/citus}. Glede na \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz, ampak le med razširitve repacijskih SQL podatkovnih baz. Slabost teh v primerjavi z novimi arhitekturami je predvsem slabša izraba računalniških resursov. Poleg tega pa so arhitekture veliko manjn elastične in bollj funkionalno omejene.
 \end{enumerate}
 
 \section{Nadzor sočasnosti}
+\label{newsql/concurrencycontroll}
 Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati, med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
 
 Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor so\-čas\-no\-sti (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
@@ -725,6 +736,7 @@ Vozlišče n0 je v vlogi odjemalca. Na njem teče program, ki zažene podatkovno
 V vlogi strežnika so vozlišča \texttt{n1}, \texttt{n2} in \texttt{n3}. Na njih teče ali CockroachDB ali PostgreSQL z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču \texttt{n2}.
 
 \section{Citus}
+\label{benchmarking/citus}
 \hl{TODO}
 
 \section{YCSB}
@@ -858,7 +870,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
     \begin{center}
     \includegraphics[width=1\textwidth]{resources/top-level-comparison.png}
     \end{center}
-    \caption{Grobo primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih.}
+    \caption{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih.}
     \label{img_ycsb_results_top_level_comparison}
     \end{figure}
 
@@ -972,7 +984,7 @@ Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne pre
 
 \chapter{Sklepne ugotovitve}
 
-V diplomskem delu smo pregledali lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Opisali smo arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB \cite{CRDB-home}. Podatkovno bazo CockroachDB smo kasneje praktično testirali. Izvedeli smo primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in PostgreSQL \cite{postgres} (z nameščeno razširitvijo Citus \cite{citus}). Veliko časa semo vložil v postavitev testnega okolja in bili pozorni, da smo odpravil čim več spremenljivk, ki bi lahko vplivale na testne scenarije. Testno okolje je bilo sestavljeno s štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \cite{ubuntu-server} in Docker \cite{docker}. Testno okolje smo v začetku nadziral preko Telegraf agenta \cite{telegraf}, InfluxDB podatkovne baze za shranjevanje časovnih podatkov \cite{influxdb} in Grafane za vizualizacijo podatkov \cite{grafana}. Kljub trudu, ki smo ga vložili v postavitev testnega okolja, bi le tega lahko še izboljšali. Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja smo avtomatizirali. Z orodjem YCSB \cite{brianfrankcooper/YCSB} smo izvajali različne zmogljivostne teste, rezultate pa shranjevali v CSV datoteko in jih kasneje analizirali.
+V diplomskem delu smo pregledali lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Opisali smo arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB \cite{CRDB-home}. Podatkovno bazo CockroachDB smo kasneje praktično testirali. Izvedeli smo primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in PostgreSQL \cite{postgres} (z nameščeno razširitvijo Citus \cite{citus}). Veliko časa smo vložili v postavitev testnega okolja in bili pozorni, da smo odpravili čim več spremenljivk, ki bi lahko vplivale na testne scenarije. Testno okolje je bilo sestavljeno s štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \cite{ubuntu-server} in Docker \cite{docker}. Testno okolje smo v začetku nadzirali preko Telegraf agenta \cite{telegraf}, InfluxDB podatkovne baze za shranjevanje časovnih podatkov \cite{influxdb} in Grafane za vizualizacijo podatkov \cite{grafana}. Kljub trudu, ki smo ga vložili v postavitev testnega okolja, bi le tega lahko še izboljšali. Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja smo avtomatizirali. Z orodjem YCSB \cite{brianfrankcooper/YCSB} smo izvajali različne zmogljivostne teste, rezultate pa shranjevali v CSV datoteko in jih kasneje analizirali.
 
 Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov bistveno slabša od PostgreSQL podatkovne baze. V povprečju je imela podatkovna baza Cock\-roachDB 3 krat večjo latenco in 5 krat manjšo prepustnost kakor podatkovna baza PostgreSQL na treh vozljiščih.
 % Poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi PostgreSQL.

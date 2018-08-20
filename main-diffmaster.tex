@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-12744.tex   Sun Aug 19 18:39:28 2018
-%DIF ADD main.tex                Sun Aug 19 18:28:43 2018
+%DIF DEL main-oldtmp-8108.tex   Mon Aug 20 08:15:42 2018
+%DIF ADD main.tex               Mon Aug 20 08:14:23 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -326,21 +326,21 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 \noindent\DIFdelbegin %DIFDELCMD < \begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
 %DIFDELCMD <   %%%
-\DIFdelend \DIFaddbegin \begin{longtable}{p{0.15\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+\DIFdelend \DIFaddbegin \begin{longtable}{p{0.15\textwidth}|p{.3\textwidth}|p{.5\textwidth}}
     \DIFaddend {\bf kratica} & {\bf angleško}
         & {\bf slovensko}
         \\ \hline
     {\bf \DIFdelbegin \DIFdel{SQL}\DIFdelend \DIFaddbegin \DIFadd{ACID}\DIFaddend }  & \DIFaddbegin \DIFadd{atomicity, consistency, isolation, durability
-        }& \DIFadd{atomarnost, konsistentnost, izolacija, trajnost
-        }\\
-    {\bf \DIFadd{CAP}}   & \DIFadd{consistency, availability, partition telerance
-        }& \DIFadd{konsistentnost, razpoložljivost, particijska toleranca 
+        }& \DIFadd{atomarnost, konsistentnost, izolacija, trajnost so transakcijske lastnosti katere zagotavljajo relacijske podatkovne baze
         }\\
     {\bf \DIFadd{CSV}}   & \DIFadd{comma-seperated value
         }& \DIFadd{standardni format podatkov ločen z vejico
         }\\
+    {\bf \DIFadd{DBaaS}}   & \DIFadd{database as a service
+        }& \DIFadd{podatkovna baza, ki je na voljo v oblaku in s katero v večini upravlja ponudnik oblačne storitve 
+        }\\
     {\bf \DIFadd{HTAP}}  & \DIFadd{hybrid transaction/analytical processing
-        }& \DIFadd{hibridno transakcijsko in analitično obdelovanje
+        }& \DIFadd{oznaka sistema, ki omogoča tako transakcijsko kakor tudi analitično obdelovanje
         }\\
     {\bf \DIFadd{IMDB}}  & \DIFadd{in-memory database
         }& \DIFadd{podatkovna baza, ki shranjuje podatke v glavni pomnilnik
@@ -349,37 +349,48 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
         }& \DIFadd{javanski vmesnik za povezavanje s podatkovnimi bazami
         }\\
     {\bf \DIFadd{JSON}}  & \DIFadd{Javascript object notation
-        }&  \DIFadd{standardna format za prenos podatkov v speltu}\\
+        }&  \DIFadd{standardna format za prenos podatkov v spletu}\\
     {\bf \DIFadd{KV}}    & \DIFadd{key-value
         }& \DIFadd{ključ-vrednost }\\
+    {\bf \DIFadd{MVCC}}    & \DIFadd{multiversion concurrency control
+        }& \DIFadd{mehanizem za nadzor sočasnosti, kateri hrani več verzij podatkov, omogoča izolacijo in konsistenco podatkov med transakcijami }\\
     {\bf \DIFadd{NewSQL}}& \DIFadd{new }\DIFaddend structured query language
         & \DIFaddbegin \DIFadd{nov }\DIFaddend strukturiran poizvedovalni jezik
         \\
     {\bf NoSQL} & not \DIFaddbegin \DIFadd{only }\DIFaddend structured query language
-        & ne \DIFaddbegin \DIFadd{samo }\DIFaddend strukturiran poizvedovalni jezik
-        \\
-    {\bf \DIFdelbegin \DIFdel{YCSB}\DIFdelend \DIFaddbegin \DIFadd{OLAP}\DIFaddend }  & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark        }\DIFdelend \DIFaddbegin \DIFadd{online analytical processing
-        }\DIFaddend & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark }\DIFdelend \DIFaddbegin \DIFadd{sprotno analitično obdelovanje
+        & \DIFdelbegin \DIFdel{ne strukturiran poizvedovalni jezik }\DIFdelend \DIFaddbegin \DIFadd{poizvedovalni jezik za delo z nerelacijskimi podatki v nekaterih primerih tudi relacijskimi
         }\DIFaddend \\
-    {\bf \DIFdelbegin \DIFdel{JDBC}\DIFdelend \DIFaddbegin \DIFadd{OLTP}\DIFaddend }  & \DIFdelbegin \DIFdel{Java Database Connectivity            }\DIFdelend \DIFaddbegin \DIFadd{online transaction processing
-        }\DIFaddend & \DIFdelbegin \DIFdel{javanski vmesnik za povezavo }\DIFdelend \DIFaddbegin \DIFadd{sprotno obdelovanje transakcij
+    {\bf \DIFdelbegin \DIFdel{YCSB}\DIFdelend \DIFaddbegin \DIFadd{NTP}\DIFaddend } & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark        }\DIFdelend \DIFaddbegin \DIFadd{network time protocol
+        }\DIFaddend & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark }\DIFdelend \DIFaddbegin \DIFadd{meržni protokol za sinhronizacijo ure med računalniškimi sistemi
+        }\DIFaddend \\
+    {\bf \DIFdelbegin \DIFdel{JDBC}\DIFdelend \DIFaddbegin \DIFadd{OLAP}\DIFaddend }  & \DIFdelbegin \DIFdel{Java Database Connectivity            }\DIFdelend \DIFaddbegin \DIFadd{online analytical processing
+        }\DIFaddend & \DIFdelbegin \DIFdel{javanski vmesnik za povezavo s }\DIFdelend \DIFaddbegin \DIFadd{oznaka sistema, ki omogoča analitično obdelovanje podatkov
+        }\\
+    {\bf \DIFadd{OLTP}}  & \DIFadd{online transaction processing
+        }& \DIFadd{oznaka sistema, ki omogoča obdelavo transakcij
         }\\
     {\bf \DIFadd{ORM}}   & \DIFadd{object-relational mapper
         }& \DIFadd{programski vmesnik za pretvorbo ralacijskih podatkov v objekte in obratno
         }\\
     {\bf \DIFadd{SQL}}   & \DIFadd{structured query language    
-        }& \DIFadd{strukturiran povpraševalni jezik za delo }\DIFaddend s podatkovnimi bazami
+        }& \DIFadd{strukturiran povpraševalni jezik za delo s relacijskimi }\DIFaddend podatkovnimi bazami
         \\
     {\bf \DIFdelbegin \DIFdel{KV}\DIFdelend \DIFaddbegin \DIFadd{TPC}\DIFaddend }   & \DIFdelbegin \DIFdel{key-value            }\DIFdelend \DIFaddbegin \DIFadd{transaction processing performance council
         }\DIFaddend &  \DIFdelbegin \DIFdel{ključ-vrednost }\DIFdelend \DIFaddbegin \DIFadd{organizacija, ki se ukvarja z primerjalno analizo podatkovnih baz v industriji
         }\DIFaddend \\
     \DIFdelbegin %DIFDELCMD < \end{tabular}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin {\bf \DIFadd{XML}}   & \DIFadd{extensible markup language
+\DIFdelend \DIFaddbegin {\bf \DIFadd{WAL}}   & \DIFadd{write-ahead logging
+        }& \DIFadd{mehanizem zabeleži najprej vse spremembe v dnevnik šele na to pa jih izvede, mehanizem zagotavlja atomarnost in trajnost podatkov 
+        }\\
+    {\bf \DIFadd{XML}}   & \DIFadd{extensible markup language
         }& \DIFadd{format za izmenjavo strukturiranih podatkov v spletu
         }\\
     {\bf \DIFadd{YCSB}}  & \DIFadd{Yahoo! Cloud Serving Benchmarking
-        }& \DIFadd{orodje za izvedbo primerjalne zmogljivostne analize
+        }& \DIFadd{enostavno orodje za izvedbo primerjalne zmogljivostne analize med različnimi podatkovnimi bazami
+        }\\
+    {\bf \DIFadd{2PL}} & \DIFadd{two-phase locking
+        }& \DIFadd{mehanizem za nadzor sočasnosti, kateri preko zaklepanja zagotavlja serializabilnost transakcij
         }\\
 \end{longtable}
 \DIFaddend 
@@ -425,7 +436,7 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 %\noindent\textbf{Abstract:} 
 \noindent \DIFdelbegin \DIFdel{This sample document presents an approach to typesetting your BSc thesis using }%DIFDELCMD < \LaTeX%%%
-\DIFdel{. A proper abstract should contain around 100 words which makes this one way too short. }\DIFdelend \DIFaddbegin \DIFadd{The thesis deals with NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance between new database CockroachDB and well-established PostgreSQL database. NewSQL databases are build for distributed environments and join properties from both SQL and NoSQL databases. NewSQL databases use standard SQL query language for interaction with database. They use ACID transactions that guarantees high data consistency. They enables easier horizontal scaling, replication high availability and autamatic failover. The results of simple queries showed that CockroachDB in average achives 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore CockroachDB provide only basic support for join operations.
+\DIFdel{. A proper abstract should contain around 100 words which makes this one way too short. }\DIFdelend \DIFaddbegin \DIFadd{The thesis deals with NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance between the new database CockroachDB and well-established PostgreSQL database. NewSQL databases are build for distributed environments and join properties from both SQL and NoSQL databases. NewSQL databases use standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB in average achieves 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
 }\DIFaddend \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -471,23 +482,25 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 
 \DIFaddend \chapter{NewSQL}
-NewSQL je oznaka za \DIFdelbegin \DIFdel{nove }\DIFdelend \DIFaddbegin \DIFadd{sodobne }\DIFaddend relacijske podatkovne baze, \DIFdelbegin \DIFdel{katere }\DIFdelend \DIFaddbegin \DIFadd{ki }\DIFaddend združujejo lastnosti tako relacijskih SQL\DIFdelbegin \DIFdel{kakor tudi ne-relacijskih }\DIFdelend \DIFaddbegin \DIFadd{, kakor tudi nerelacijskih }\DIFaddend NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze \DIFdelbegin \DIFdel{omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter }\DIFdelend \DIFaddbegin \DIFadd{z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID transakcijske lastnosti \mbox{%DIFAUXCMD
+NewSQL je oznaka za \DIFdelbegin \DIFdel{nove }\DIFdelend \DIFaddbegin \DIFadd{sodobne }\DIFaddend relacijske podatkovne baze, \DIFdelbegin \DIFdel{katere }\DIFdelend \DIFaddbegin \DIFadd{ki }\DIFaddend združujejo lastnosti tako relacijskih SQL\DIFdelbegin \DIFdel{kakor tudi ne-relacijskih }\DIFdelend \DIFaddbegin \DIFadd{, kakor tudi nerelacijskih }\DIFaddend NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze \DIFdelbegin \DIFdel{omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter }\DIFdelend \DIFaddbegin \DIFadd{z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID (angl. atomicity, consistency, isolation and durability) transakcijske lastnosti \mbox{%DIFAUXCMD
 \cite{oliveira2017newsql}}\hspace{0pt}%DIFAUXCMD
-. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze }\DIFaddend nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \DIFdelbegin \DIFdel{. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz }\DIFdelend \cite{oliveira2017newsql}. Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokajoče }\DIFaddend mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
+. Kratica ACID stoji za (A)atomarnost - transakcija se izvede v celoti ali pa se ne izvede, (C) konsistenco - transakcija z enega konsistentnega stanja preide v drugo konsistentno stanje, (I) izolacijo - sočasne transakcije so med seboj izolirane, spremembe nepotrjenih transakcij niso vidne navzven in (D) trajnost - potrjene transakcije ostanejo potrjene tudi v primeru sistemskih napak. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze }\DIFaddend nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \DIFdelbegin \DIFdel{. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz }\DIFdelend \cite{oliveira2017newsql}. Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokirajoče }\DIFaddend mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP \DIFaddbegin \DIFadd{(angl. online transaction processing) }\DIFaddend z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
     \item Izvajajo veliko število kratkotrajnih \DIFdelbegin \DIFdel{bralno-pisalne }\DIFdelend \DIFaddbegin \DIFadd{bralno-pisalnih }\DIFaddend transakcij.
     \item \DIFdelbegin \DIFdel{Vsaka transakcija se dotika majhnega dela podatkov z uporabo indeksnih poizvedb }\DIFdelend \DIFaddbegin \DIFadd{Večina transakcij preko indeksnih poizvedb uporabi le majhen del podatkov}\DIFaddend .
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
-\DIFaddbegin \DIFadd{\ }\\
-\DIFaddend Lastnosti NewSQL podatkovnih baz so:
+\DIFaddbegin \noindent \DIFaddend Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
     \item Uporabljajo standardni SQL \DIFaddbegin \DIFadd{vmenik }\DIFaddend kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
-    \item Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokajoče }\DIFaddend mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
-    \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
-    \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
+    \item Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokirajoče }\DIFaddend mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki \DIFdelbegin \DIFdel{.
+    }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{NewSQLNewWayToHandleBigData}}\hspace{0pt}%DIFAUXCMD
+. To smo podrobneje opisali v poglavju \ref{newsql/concurrencycontroll}.
+    }\DIFaddend \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
+    \item Omogočajo dosti boljšo zmogljivost \DIFdelbegin \DIFdel{na enem vozlišču }\DIFdelend v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
 \section{Kategorizacija \DIFaddbegin \DIFadd{NewSQL arhitektur}\DIFaddend }
@@ -510,15 +523,17 @@ Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na
 \cite{Pavlo2016Sep}
     }\hspace{0pt}%DIFAUXCMD
 }\DIFdelend \DIFaddbegin \DIFadd{Slabost te arhitekture je, da nas tipično veže na enega od ponudnikov oblačnih storitev, poleg tega pa nimamo popolenga nadzora nad delovanjem podatkovne baze.
-    }\DIFaddend \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. \DIFaddbegin \DIFadd{Slabost teh arhitektur pa se odraža predvsem v neenakomerno porazdeljenih podatkih. }\DIFaddend Primer takega transparentnega vmesnika je MariaDB MaxScale.
+    }\DIFaddend \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. \DIFaddbegin \DIFadd{Slabost teh arhitektur pa se odraža predvsem pri neenakomerno porazdeljenih podatkih. }\DIFaddend Primer takega transparentnega vmesnika je MariaDB MaxScale.
     \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
 \cite{Pavlo2016Sep}
     }\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \item \textbf{Novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve:}\\V to kategorijo spadajo novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na \DIFdelbegin \DIFdel{neke vire }\DIFdelend \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz\DIFaddbegin \DIFadd{, ampak le med reširitve repacijskih SQL podatkovnih baz}\DIFaddend .
-\end{enumerate}
+}\DIFdelend \item \textbf{Novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve:}\\V to kategorijo spadajo novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovno bazo ter Hekaton OLTP motor za SQL Server. \DIFdelbegin \DIFdel{Glede na neke vire }\DIFdelend \DIFaddbegin \DIFadd{Podatkovno bazo Citus smo bolj podrobno opisali v poglavju \ref{benchmarking/citus}. Glede na }\DIFaddend \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz\DIFdelbegin \DIFdel{. 
+}\DIFdelend \DIFaddbegin \DIFadd{, ampak le med razširitve repacijskih SQL podatkovnih baz. Slabost teh v primerjavi z novimi arhitekturami je predvsem slabša izraba računalniških resursov. Poleg tega pa so arhitekture veliko manjn elastične in bollj funkionalno omejene.
+}\DIFaddend \end{enumerate}
 
 \section{Nadzor sočasnosti}
-Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati, med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
+\DIFaddbegin \label{newsql/concurrencycontroll}
+\DIFaddend Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati, med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
 
 Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor so\-čas\-no\-sti (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
 Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni iz pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo \DIFdelbegin \DIFdel{atomičnih }\DIFdelend \DIFaddbegin \DIFadd{atomskih }\DIFaddend ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
@@ -866,6 +881,7 @@ Vozlišče n0 je v vlogi odjemalca. Na njem teče program, ki zažene podatkovno
 V vlogi strežnika so vozlišča \DIFdelbegin \DIFdel{n1, n2 in n3}\DIFdelend \DIFaddbegin \texttt{\DIFadd{n1}}\DIFadd{, }\texttt{\DIFadd{n2}} \DIFadd{in }\texttt{\DIFadd{n3}}\DIFaddend . Na njih teče ali CockroachDB ali \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču \DIFdelbegin \DIFdel{n2}\DIFdelend \DIFaddbegin \texttt{\DIFadd{n2}}\DIFaddend .
 
 \DIFaddbegin \section{\DIFadd{Citus}}
+\label{benchmarking/citus}
 \hl{TODO}
 
 \DIFaddend \section{YCSB}
@@ -999,7 +1015,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
     \begin{center}
     \DIFaddbeginFL \includegraphics[width=1\textwidth]{resources/top-level-comparison.png}
     \end{center}
-    \caption{\DIFaddFL{Grobo primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih.}}
+    \caption{\DIFaddFL{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih.}}
     \label{img_ycsb_results_top_level_comparison}
     \end{figure}
 
@@ -1164,11 +1180,11 @@ V diplomskem delu \DIFdelbegin \DIFdel{sem pregledal }\DIFdelend \DIFaddbegin \D
 \cite{postgres} }\hspace{0pt}%DIFAUXCMD
 }\DIFaddend (z nameščeno razširitvijo Citus \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{citus}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend ). Veliko časa \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{semo }\DIFaddend vložil v postavitev testnega okolja \DIFdelbegin \DIFdel{, pazil sem, da sem }\DIFdelend \DIFaddbegin \DIFadd{in bili pozorni, da smo }\DIFaddend odpravil čim več spremenljivk, ki bi lahko \DIFdelbegin \DIFdel{uplivale ne }\DIFdelend \DIFaddbegin \DIFadd{vplivale na }\DIFaddend testne scenarije. Testno okolje je bilo sestavljeno \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \DIFdelbegin \DIFdel{in Docker}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+}\DIFaddend ). Veliko časa \DIFdelbegin \DIFdel{sem vložil }\DIFdelend \DIFaddbegin \DIFadd{smo vložili }\DIFaddend v postavitev testnega okolja \DIFdelbegin \DIFdel{, pazil sem, da sem odpravil }\DIFdelend \DIFaddbegin \DIFadd{in bili pozorni, da smo odpravili }\DIFaddend čim več spremenljivk, ki bi lahko \DIFdelbegin \DIFdel{uplivale ne }\DIFdelend \DIFaddbegin \DIFadd{vplivale na }\DIFaddend testne scenarije. Testno okolje je bilo sestavljeno \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \DIFdelbegin \DIFdel{in Docker}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{ubuntu-server} }\hspace{0pt}%DIFAUXCMD
 in Docker \mbox{%DIFAUXCMD
 \cite{docker}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend . Testno okolje \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{smo }\DIFaddend v začetku nadziral preko Telegraf agenta \DIFdelbegin \DIFdel{, InfulxDB }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+}\DIFaddend . Testno okolje \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{smo }\DIFaddend v začetku \DIFdelbegin \DIFdel{nadziral }\DIFdelend \DIFaddbegin \DIFadd{nadzirali }\DIFaddend preko Telegraf agenta \DIFdelbegin \DIFdel{, InfulxDB }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{telegraf}}\hspace{0pt}%DIFAUXCMD
 , InfluxDB }\DIFaddend podatkovne baze za \DIFdelbegin \DIFdel{sehranjevanje }\DIFdelend \DIFaddbegin \DIFadd{shranjevanje }\DIFaddend časovnih podatkov \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \cite{influxdb} }\hspace{0pt}%DIFAUXCMD
