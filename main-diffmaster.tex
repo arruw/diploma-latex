@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-6196.tex   Fri Aug 10 08:14:12 2018
-%DIF ADD main.tex               Fri Aug 10 08:13:38 2018
+%DIF DEL main-oldtmp-8108.tex   Mon Aug 20 08:15:42 2018
+%DIF ADD main.tex               Mon Aug 20 08:14:23 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -23,19 +23,32 @@
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
+%DIF 23a23
+\usepackage{longtable}  % dodal jaz %DIF > 
+%DIF -------
 \usepackage{minted}      % dodal jaz
 \usemintedstyle{bw}    % dodal jaz
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\ttitle}{Visoko skalabilna "new SQL" relacijska podatkovna baza CockroachDB}
-\newcommand{\ttitleEn}{Higly scalable "new SQL" relational database CockroachDB}
+%DIF 29-30c30-31
+%DIF < \newcommand{\ttitle}{Visoko skalabilna "new SQL" relacijska podatkovna baza CockroachDB}
+%DIF < \newcommand{\ttitleEn}{Higly scalable "new SQL" relational database CockroachDB}
+%DIF -------
+\newcommand{\ttitle}{Visoko skalabilna NewSQL relacijska podatkovna baza CockroachDB} %DIF > 
+\newcommand{\ttitleEn}{Higly scalable NewSQL relational database CockroachDB} %DIF > 
+%DIF -------
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Matjaž Mav}
-\newcommand{\tkeywords}{podatkovne baze, skaliranje, new SQL, CockroachDB, Postgres}
-\newcommand{\tkeywordsEn}{databases, scalability, new SQL, Postgres}
+%DIF 34-35c35-36
+%DIF < \newcommand{\tkeywords}{podatkovne baze, skaliranje, new SQL, CockroachDB, Postgres}
+%DIF < \newcommand{\tkeywordsEn}{databases, scalability, new SQL, Postgres}
+%DIF -------
+\newcommand{\tkeywords}{podatkovne baze, skaliranje, SQL, NewSQL, CockroachDB, PostgreSQL, Citus, YCSB} %DIF > 
+\newcommand{\tkeywordsEn}{databases, scalability, SQL, NewSQL, PostgreSQL, Citus, YCSB} %DIF > 
+%DIF -------
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,7 +158,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \pdfinfo{%
     /Title    (\ttitle)
-    /Author   (\tauthor, damjan@cvetan.si)
+%DIF 145c146
+%DIF <     /Author   (\tauthor, damjan@cvetan.si)
+%DIF -------
+    /Author   (\tauthor) %DIF > 
+%DIF -------
     /Subject  (\ttitleEn)
     /Keywords (\tkeywordsEn)
     /ModDate  (\pdfcreationdate)
@@ -307,14 +324,76 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 
 \chapter*{Seznam uporabljenih kratic}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
 
-\noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
-  {\bf kratica} & {\bf angleško}                        & {\bf slovensko} \\ \hline
-  {\bf SQL}     & structured query language             & strukturiran poizvedovalni jezik \\
-  {\bf NoSQL}     & not structured query language             & ne strukturiran poizvedovalni jezik \\
-  {\bf YCSB}    & Yahoo! Cloud Serving Benchmark        & Yahoo! Cloud Serving Benchmark \\
-  {\bf JDBC}    & Java Database Connectivity            & javanski vmesnik za povezavo s podatkovnimi bazami \\
-  {\bf KV}    & key-value            & ključ-vrednost \\
-\end{tabular}
+\noindent\DIFdelbegin %DIFDELCMD < \begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}
+%DIFDELCMD <   %%%
+\DIFdelend \DIFaddbegin \begin{longtable}{p{0.15\textwidth}|p{.3\textwidth}|p{.5\textwidth}}
+    \DIFaddend {\bf kratica} & {\bf angleško}
+        & {\bf slovensko}
+        \\ \hline
+    {\bf \DIFdelbegin \DIFdel{SQL}\DIFdelend \DIFaddbegin \DIFadd{ACID}\DIFaddend }  & \DIFaddbegin \DIFadd{atomicity, consistency, isolation, durability
+        }& \DIFadd{atomarnost, konsistentnost, izolacija, trajnost so transakcijske lastnosti katere zagotavljajo relacijske podatkovne baze
+        }\\
+    {\bf \DIFadd{CSV}}   & \DIFadd{comma-seperated value
+        }& \DIFadd{standardni format podatkov ločen z vejico
+        }\\
+    {\bf \DIFadd{DBaaS}}   & \DIFadd{database as a service
+        }& \DIFadd{podatkovna baza, ki je na voljo v oblaku in s katero v večini upravlja ponudnik oblačne storitve 
+        }\\
+    {\bf \DIFadd{HTAP}}  & \DIFadd{hybrid transaction/analytical processing
+        }& \DIFadd{oznaka sistema, ki omogoča tako transakcijsko kakor tudi analitično obdelovanje
+        }\\
+    {\bf \DIFadd{IMDB}}  & \DIFadd{in-memory database
+        }& \DIFadd{podatkovna baza, ki shranjuje podatke v glavni pomnilnik
+        }\\
+    {\bf \DIFadd{JDBC}}  & \DIFadd{Java Database Connectivity
+        }& \DIFadd{javanski vmesnik za povezavanje s podatkovnimi bazami
+        }\\
+    {\bf \DIFadd{JSON}}  & \DIFadd{Javascript object notation
+        }&  \DIFadd{standardna format za prenos podatkov v spletu}\\
+    {\bf \DIFadd{KV}}    & \DIFadd{key-value
+        }& \DIFadd{ključ-vrednost }\\
+    {\bf \DIFadd{MVCC}}    & \DIFadd{multiversion concurrency control
+        }& \DIFadd{mehanizem za nadzor sočasnosti, kateri hrani več verzij podatkov, omogoča izolacijo in konsistenco podatkov med transakcijami }\\
+    {\bf \DIFadd{NewSQL}}& \DIFadd{new }\DIFaddend structured query language
+        & \DIFaddbegin \DIFadd{nov }\DIFaddend strukturiran poizvedovalni jezik
+        \\
+    {\bf NoSQL} & not \DIFaddbegin \DIFadd{only }\DIFaddend structured query language
+        & \DIFdelbegin \DIFdel{ne strukturiran poizvedovalni jezik }\DIFdelend \DIFaddbegin \DIFadd{poizvedovalni jezik za delo z nerelacijskimi podatki v nekaterih primerih tudi relacijskimi
+        }\DIFaddend \\
+    {\bf \DIFdelbegin \DIFdel{YCSB}\DIFdelend \DIFaddbegin \DIFadd{NTP}\DIFaddend } & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark        }\DIFdelend \DIFaddbegin \DIFadd{network time protocol
+        }\DIFaddend & \DIFdelbegin \DIFdel{Yahoo! Cloud Serving Benchmark }\DIFdelend \DIFaddbegin \DIFadd{meržni protokol za sinhronizacijo ure med računalniškimi sistemi
+        }\DIFaddend \\
+    {\bf \DIFdelbegin \DIFdel{JDBC}\DIFdelend \DIFaddbegin \DIFadd{OLAP}\DIFaddend }  & \DIFdelbegin \DIFdel{Java Database Connectivity            }\DIFdelend \DIFaddbegin \DIFadd{online analytical processing
+        }\DIFaddend & \DIFdelbegin \DIFdel{javanski vmesnik za povezavo s }\DIFdelend \DIFaddbegin \DIFadd{oznaka sistema, ki omogoča analitično obdelovanje podatkov
+        }\\
+    {\bf \DIFadd{OLTP}}  & \DIFadd{online transaction processing
+        }& \DIFadd{oznaka sistema, ki omogoča obdelavo transakcij
+        }\\
+    {\bf \DIFadd{ORM}}   & \DIFadd{object-relational mapper
+        }& \DIFadd{programski vmesnik za pretvorbo ralacijskih podatkov v objekte in obratno
+        }\\
+    {\bf \DIFadd{SQL}}   & \DIFadd{structured query language    
+        }& \DIFadd{strukturiran povpraševalni jezik za delo s relacijskimi }\DIFaddend podatkovnimi bazami
+        \\
+    {\bf \DIFdelbegin \DIFdel{KV}\DIFdelend \DIFaddbegin \DIFadd{TPC}\DIFaddend }   & \DIFdelbegin \DIFdel{key-value            }\DIFdelend \DIFaddbegin \DIFadd{transaction processing performance council
+        }\DIFaddend &  \DIFdelbegin \DIFdel{ključ-vrednost }\DIFdelend \DIFaddbegin \DIFadd{organizacija, ki se ukvarja z primerjalno analizo podatkovnih baz v industriji
+        }\DIFaddend \\
+    \DIFdelbegin %DIFDELCMD < \end{tabular}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin {\bf \DIFadd{WAL}}   & \DIFadd{write-ahead logging
+        }& \DIFadd{mehanizem zabeleži najprej vse spremembe v dnevnik šele na to pa jih izvede, mehanizem zagotavlja atomarnost in trajnost podatkov 
+        }\\
+    {\bf \DIFadd{XML}}   & \DIFadd{extensible markup language
+        }& \DIFadd{format za izmenjavo strukturiranih podatkov v spletu
+        }\\
+    {\bf \DIFadd{YCSB}}  & \DIFadd{Yahoo! Cloud Serving Benchmarking
+        }& \DIFadd{enostavno orodje za izvedbo primerjalne zmogljivostne analize med različnimi podatkovnimi bazami
+        }\\
+    {\bf \DIFadd{2PL}} & \DIFadd{two-phase locking
+        }& \DIFadd{mehanizem za nadzor sočasnosti, kateri preko zaklepanja zagotavlja serializabilnost transakcij
+        }\\
+\end{longtable}
+\DIFaddend 
 
 
 % prazna stran
@@ -332,10 +411,12 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 \bigskip
 
 %\noindent\textbf{Povzetek:} 
-\noindent V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
-Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek magistrske naloge.
+\noindent \DIFdelbegin \DIFdel{V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja }%DIFDELCMD < \LaTeX%%%
+\DIFdel{. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek. Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (}\DIFdelend \DIFaddbegin \DIFadd{Diplomsko delo obravnava NewSQL podatkovno bazo CockroachDB. Cilj diplomskega dela je opisati osnovne koncepte uporabljene v NewSQL podatkovnih bazah in izvesti primerjalno analizo zmogljivosti med novo podatkovno bazo CockraochDB ter že dobro uveljavljeno podatkovno bazo PostgreSQL. NewSQL podatkovne baze so prilagojene za porazdeljena okolja in združujejo lastnosti SQL in NoSQL podatkovnih baz. Uporabljajo standardni SQL poizvedovalni jezik za interakcijo s podatkovno bazo. Preko ACID transakcij zagotavljajo visoko konsistenco podatkov. Omogočajo enostavno horizontalno skaliranje, replikacijo, visoko razpoložljivost in avtomatsko obnovo ob izpadu. Rezultati enostavnih poizvedb so pokazali, da podatkovna baza CockroachDB v primerjavi z podatkovno bazo PostgreSQL na treh vozliščih dosega 5 krat manjšo prepustnos in }\DIFaddend 3 \DIFdelbegin \DIFdel{) (najbolj uspešen) rezultat ali prispevek magistrske naloge. }%DIFDELCMD < 
 
-\bigskip
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{krat večjo latenco. Poleg tega pa ima trenutno podatkovna baza CockroachDB zelo slabo podporo za stične operacije.
+}\DIFaddend \bigskip
 
 \noindent\textbf{Ključne besede:} \tkeywords.
 % prazna stran
@@ -354,9 +435,9 @@ Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek op
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
-A proper abstract should contain around 100 words which makes this one way too short.
-\bigskip
+\noindent \DIFdelbegin \DIFdel{This sample document presents an approach to typesetting your BSc thesis using }%DIFDELCMD < \LaTeX%%%
+\DIFdel{. A proper abstract should contain around 100 words which makes this one way too short. }\DIFdelend \DIFaddbegin \DIFadd{The thesis deals with NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance between the new database CockroachDB and well-established PostgreSQL database. NewSQL databases are build for distributed environments and join properties from both SQL and NoSQL databases. NewSQL databases use standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB in average achieves 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
+}\DIFaddend \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
 \selectlanguage{slovene}
@@ -370,148 +451,170 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 
 \chapter{Uvod}
-\DIFdelbegin \DIFdel{večanje rač resoursev (cpu, mem) potreba }\DIFdelend \DIFaddbegin \hl{TODO:}
-\begin{itemize}
-    \item \DIFadd{Premik v oblak
-    }\item \DIFadd{Večja izkoriščenost računalniških resursev
-    }\item \DIFadd{Globalna replikacija in visoka dostopnost
-    }\item \DIFadd{Potreba }\DIFaddend po spremembi arhitekture
-\DIFdelbegin \DIFdel{.
-}\DIFdelend \DIFaddbegin \end{itemize}
-\DIFaddend 
+\DIFdelbegin %DIFDELCMD < \hl{TODO:}
+%DIFDELCMD < \begin{itemize}
+%DIFDELCMD <     \item %%%
+\DIFdel{Premik v oblak}%DIFDELCMD < \item %%%
+\DIFdel{Večja izkoriščenost }\DIFdelend \DIFaddbegin \DIFadd{Trendi kažejo, da se vse več računalniške infrastrukture premika v oblak, s tem pa se prilagajajo in razvijajo tudi nove tehnologije, ki so temu bolj primerne. To se odraža tudi pri podatkovnih bazah. Iz starih monolitnih relacijskih podatkovnih baz, katere je še zlasti težko vzdrževati v porazdeljenih okoljih, so se razvile nerelacijske podatkovne baze in kasneje nove relacijske oziroma NewSQL podatkovne baze. NewSQL relacijske podatkovne baze so tako prilagojene za oblak. Zagotavljajo visoko konsistenco in razpoložljivost, poleg tega pa nudijo tudi boljši izkoristek }\DIFaddend računalniških \DIFdelbegin \DIFdel{resursev
+    }%DIFDELCMD < \item %%%
+\DIFdel{Globalna replikacija in visoka dostopnost
+    }%DIFDELCMD < \item %%%
+\DIFdel{Potreba po spremembi arhitekture
+}%DIFDELCMD < \end{itemize}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{virov.
+}\DIFaddend 
+
+\DIFaddbegin \DIFadd{Podatkovna baza CockroachDB je ena izmed NewSQL podatkovnih baz. Z raziskovalnega področja je zanimiva, ker je v celoti odprtokodna, idejno pa izhaja iz Googlove podatkovne baze Spanner, je zelo enostavna za uporabo in je skoraj v celoti avtomatizirana. Na prvi pogled vsebuje vse, kar bi pričakovali od transakcijsko usmerjene (OLTP) podatkovne baze. 
+}
+
+\DIFadd{Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bomo predstavil razlog za nastanek NewSQL podatkovnih baz, opisali njihove lastnosti, razdelitev in najpogosteje uporabljene mehanizme ter pristope.
+}
+
+\DIFadd{V drugem poglavju bomo opisal podatkovno bazo CockroachDB. Opisal bomo njeno zgodovino in idejno osnovo. Poglobil se bomo v arhitekturo podatkovne baze CockroachDB in predstavil nekaj ključnih mehanizmov kateri omogočajo standardni SQL vmesnik, transakcije, konsistenco, replikacijo, visoko razpoložljivost in enostavnost z upravljanjem. Kasneje bomo predstavili še ostale lastnosti kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
+}
+
+\DIFadd{V tretjem poglavju bomo opisali celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in Citus. Opisal bomo hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, pripravo podatkov, izvedbo analize. Na koncu bomo predstavili rezultate jih komentirali.
+}
+
+\DIFadd{Sledijo sklepne ugotovitve, kjer bomo povzel diplomsko delo in izpostavil nekatere zanimive ugotovitve. Našteli bomo nekaj produktov kjer je ta baza že v uporabi. Za zaključek bomo predlagali še nekaj odprtih vprašanj in ideje za nadaljnje raziskovanje.
+}
 
 
-\chapter{NewSQL}
-NewSQL je oznaka za nove relacijske podatkovne baze, katere združujejo lastnosti tako relacijskih SQL kakor tudi ne-relacijskih NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett \DIFdelbegin \DIFdel{Aprila }\DIFdelend \DIFaddbegin \DIFadd{aprila }\DIFaddend 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz \cite{oliveira2017newsql}. Uporabljajo ne blokajoče mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
+\DIFaddend \chapter{NewSQL}
+NewSQL je oznaka za \DIFdelbegin \DIFdel{nove }\DIFdelend \DIFaddbegin \DIFadd{sodobne }\DIFaddend relacijske podatkovne baze, \DIFdelbegin \DIFdel{katere }\DIFdelend \DIFaddbegin \DIFadd{ki }\DIFaddend združujejo lastnosti tako relacijskih SQL\DIFdelbegin \DIFdel{kakor tudi ne-relacijskih }\DIFdelend \DIFaddbegin \DIFadd{, kakor tudi nerelacijskih }\DIFaddend NoSQL podatkovnih baze. Pojem NewSQL prvič omeni in definira Matthew Aslett aprila 2011 \cite{Pavlo2016Sep}. NewSQL podatkovne baze \DIFdelbegin \DIFdel{omogočajo poizvedovanje preko standardnega SQL vmesnika. So horizontalno skalabilne ter }\DIFdelend \DIFaddbegin \DIFadd{z relacijskih SQL podatkovnih baz prevzamejo standardni SQL vmesniki in ACID (angl. atomicity, consistency, isolation and durability) transakcijske lastnosti \mbox{%DIFAUXCMD
+\cite{oliveira2017newsql}}\hspace{0pt}%DIFAUXCMD
+. Kratica ACID stoji za (A)atomarnost - transakcija se izvede v celoti ali pa se ne izvede, (C) konsistenco - transakcija z enega konsistentnega stanja preide v drugo konsistentno stanje, (I) izolacijo - sočasne transakcije so med seboj izolirane, spremembe nepotrjenih transakcij niso vidne navzven in (D) trajnost - potrjene transakcije ostanejo potrjene tudi v primeru sistemskih napak. Z nerelacijskih NoSQL podatkovnih baz pa prilagojenost na porazdeljena okolja, enostavnost horizontalnega skaliranja in replikacije. NewSQL podatkovne baze }\DIFaddend nudijo primerljivo zmogljivost z NoSQL podatkovnimi bazami \DIFdelbegin \DIFdel{. Poleg tega zagotavljajo ACID lastnosti tradicionalnih relacijskih podatkovnih baz }\DIFdelend \cite{oliveira2017newsql}. Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokirajoče }\DIFaddend mehanizme za nadzor sočasnosti \cite{NewSQLNewWayToHandleBigData}. NewSQL podatkovne baze so predvsem primerne za aplikacije tipa OLTP \DIFaddbegin \DIFadd{(angl. online transaction processing) }\DIFaddend z naslednjimi lastnostmi \cite{Pavlo2016Sep}:
 \begin{itemize}
-    \item Izvajajo veliko število kratkotrajnih bralno-pisalne transakcij.
-    \item Vsaka transakcija se dotika majhnega dela podatkov z uporabo indeksnih poizvedb.
+    \item Izvajajo veliko število kratkotrajnih \DIFdelbegin \DIFdel{bralno-pisalne }\DIFdelend \DIFaddbegin \DIFadd{bralno-pisalnih }\DIFaddend transakcij.
+    \item \DIFdelbegin \DIFdel{Vsaka transakcija se dotika majhnega dela podatkov z uporabo indeksnih poizvedb }\DIFdelend \DIFaddbegin \DIFadd{Večina transakcij preko indeksnih poizvedb uporabi le majhen del podatkov}\DIFaddend .
     \item Poizvedbe se ponavljajo, spreminjajo pa se samo vhodni parametri.
 \end{itemize}
 
-Lastnosti NewSQL podatkovnih baz so:
+\DIFaddbegin \noindent \DIFaddend Lastnosti NewSQL podatkovnih baz so:
 \begin{itemize}
-    \item Uporabljajo standardni SQL kot primarni aplikacijski vmesnik za interakcijo.
+    \item Uporabljajo standardni SQL \DIFaddbegin \DIFadd{vmenik }\DIFaddend kot primarni aplikacijski vmesnik za interakcijo.
     \item Podpirajo ACID transakcijske lastnosti.
-    \item Uporabljajo \DIFdelbegin \DIFdel{ne-blokajoče }\DIFdelend \DIFaddbegin \DIFadd{ne blokajoče }\DIFaddend mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki.
-    \item Implementirajo distribuirano \DIFdelbegin \DIFdel{ne-deljeno }\DIFdelend \DIFaddbegin \DIFadd{ne deljeno }\DIFaddend (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja \DIFdelbegin \DIFdel{zagotavlja }\DIFdelend horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
-    \item Omogočajo dosti boljšo zmogljivost na enem vozlišču v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat \DIFdelbegin \DIFdel{boj }\DIFdelend \DIFaddbegin \DIFadd{bolj }\DIFaddend zmogljive \cite{Kumar2018Jun}.
+    \item Uporabljajo \DIFdelbegin \DIFdel{ne blokajoče }\DIFdelend \DIFaddbegin \DIFadd{neblokirajoče }\DIFaddend mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki \DIFdelbegin \DIFdel{.
+    }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{NewSQLNewWayToHandleBigData}}\hspace{0pt}%DIFAUXCMD
+. To smo podrobneje opisali v poglavju \ref{newsql/concurrencycontroll}.
+    }\DIFaddend \item Implementirajo distribuirano ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData}.
+    \item Omogočajo dosti boljšo zmogljivost \DIFdelbegin \DIFdel{na enem vozlišču }\DIFdelend v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami. Nekateri pravijo, da naj bi bile NewSQL podatkovne baze celo 50 krat bolj zmogljive \cite{Kumar2018Jun}.
 \end{itemize}
 
-\section{Kategorizacija}
-Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz. \cite{NewSQLNewWayToHandleBigData} NewSQL podatkovne baze se v grobem delijo na štiri kategorije \cite{Mikuletic2015Feb}:
+\section{Kategorizacija \DIFaddbegin \DIFadd{NewSQL arhitektur}\DIFaddend }
+Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na njihove pristope kateri so uporabljeni, da sistem ohrani SQL vmesnik, zagotavlja skalabilnost ter zmogljivost tradicionalnih relacijskih podatkovnih baz \DIFdelbegin \DIFdel{. \mbox{%DIFAUXCMD
+\cite{NewSQLNewWayToHandleBigData}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{NewSQLNewWayToHandleBigData}}\hspace{0pt}%DIFAUXCMD
+. }\DIFaddend NewSQL podatkovne baze se v grobem delijo na štiri kategorije \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Mikuletic2015Feb}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{Mikuletic2015Feb, Pavlo2016Sep}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend :
 
 \begin{enumerate}
-    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, \DIFdelbegin \DIFdel{katera so optimizirane so }\DIFdelend \DIFaddbegin \DIFadd{katere so optimizirane }\DIFaddend za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB. \cite{Pavlo2016Sep}
-    \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. \cite{Pavlo2016Sep}
-    \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Primer takega transparentnega vmesnika je MariaDB MaxScale. \cite{Pavlo2016Sep}
-    \item \textbf{Novi shranjevalni motorji in razširitve:}\\V to kategorijo spadajo novi shranjevalni motorji in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend podatkovno bazo ter Hekaton OLTP motor za SQL Server. Glede na neke vire \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz. 
-\end{enumerate}
+    \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. V to kategorijo spada tudi podatkovna baza CockroachDB.
+    \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Pavlo2016Sep}
+    }\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. V to kategorijo na primer sodi Amazon Aurora. \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Pavlo2016Sep}
+    }\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{Slabost te arhitekture je, da nas tipično veže na enega od ponudnikov oblačnih storitev, poleg tega pa nimamo popolenga nadzora nad delovanjem podatkovne baze.
+    }\DIFaddend \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. \DIFaddbegin \DIFadd{Slabost teh arhitektur pa se odraža predvsem pri neenakomerno porazdeljenih podatkih. }\DIFaddend Primer takega transparentnega vmesnika je MariaDB MaxScale.
+    \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Pavlo2016Sep}
+    }\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \item \textbf{Novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve:}\\V to kategorijo spadajo novi shranjevalni \DIFdelbegin \DIFdel{motorji }\DIFdelend \DIFaddbegin \DIFadd{pogoni }\DIFaddend in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz. \cite{Kumar2018Jun} Primer rešitev, ki sodijo v to kategorijo so na primer MySQL NDB cluster, Citus razširitev za \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovno bazo ter Hekaton OLTP motor za SQL Server. \DIFdelbegin \DIFdel{Glede na neke vire }\DIFdelend \DIFaddbegin \DIFadd{Podatkovno bazo Citus smo bolj podrobno opisali v poglavju \ref{benchmarking/citus}. Glede na }\DIFaddend \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz\DIFdelbegin \DIFdel{. 
+}\DIFdelend \DIFaddbegin \DIFadd{, ampak le med razširitve repacijskih SQL podatkovnih baz. Slabost teh v primerjavi z novimi arhitekturami je predvsem slabša izraba računalniških resursov. Poleg tega pa so arhitekture veliko manjn elastične in bollj funkionalno omejene.
+}\DIFaddend \end{enumerate}
 
 \section{Nadzor sočasnosti}
-Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati\DIFaddbegin \DIFadd{, }\DIFaddend med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
+\DIFaddbegin \label{newsql/concurrencycontroll}
+\DIFaddend Nadzor sočasnosti je en izmen najpomembnejših mehanizmov v podatkovnih bazah. Omogoča, da do podatkov dostopa več niti hkrati, med tem pa ohranja atomičnost ter garantira izolacijo \cite{Pavlo2016Sep}.
 
-Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor \DIFdelbegin \DIFdel{sočasnosti }\DIFdelend \DIFaddbegin \DIFadd{so\-čas\-no\-sti }\DIFaddend (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
-Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo atomičnih ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
+Večina NewSQL podatkovnih baz implementira varianto mehanizma z urejenimi časovnimi oznakami (angl. timestamp ordering) oziroma TO. Najbolj priljubljen je decentraliziran več-verzijski mehanizme za nadzor so\-čas\-no\-sti (angl. multi-version concurrency control) v nadaljevanju kar MVCC \cite{Pavlo2016Sep}.
+Glavna prednost MVCC mehanizma je, da omogoča sočasnost, saj bralni zahtevki nikoli ne blokirajo pisalnih. Poleg prednosti ima ta mehanizem tudi nekaj slabosti, za vsako posodobitev mora shraniti novo verzijo podatka ter poskrbeti, da so zastareli podatki odstranjeni iz pomnilnika. Tako MVCC mehanizmi omogočajo večjo zmogljivost saj so bolj prilagojeni na sočasnost, kar pa omogoča večjo izkoriščenost procesorskih virov \cite{MainMemoryDatabaseSystems}. Ključna komponenta, da MVCC mehanizem deluje, je čimbolj točna sinhronizacija ure. Na primer Google Cloud Spanner uporablja posebno infrastrukturo katera zagotavlja zelo točno sinhronizacijo ure z uporabo \DIFdelbegin \DIFdel{atomičnih }\DIFdelend \DIFaddbegin \DIFadd{atomskih }\DIFaddend ur. Podatkovne baze, ki pa niso vezane na infrastrukturo, kot na primer CockroachDB, pa uporabljajo hibridne protokole za sinhronizacijo ure \cite{Pavlo2016Sep}.
 
 Poleg MVCC mehanizma nekatere implementacije podatkovnih baz uporabljajo kombinacijo MVCC ter dvo-fazno zaklepanje (angl. two-phase locking) oziroma 2PL. V nekaterih primerih pa uporabljajo mehanizem razbitega sekvenčnega izvajanja (angl. partitioned serial
 execution). \cite{Pavlo2016Sep, MainMemoryDatabaseSystems}.
 
 \section{Glavni pomnilnik}
 
-Večina tradicionalnih relacijskih podatkovnih baz uporablja diskovno usmerjeno arhitekturo za shranjevanje podatkov. V teh sistemih je primarna lokacija za shranjevanje največkrat kar blokovno naslovljiv disk kot na primer HDD oziroma SSD. Ker so bralne in pisalne operacije v te \DIFdelbegin \DIFdel{te }\DIFdelend pomnilne enote relativno počasne, se v ta namen uporablja glavni pomnilnik kot predpomnilnik \cite{Pavlo2016Sep}.
+Večina tradicionalnih relacijskih podatkovnih baz uporablja diskovno usmerjeno arhitekturo za shranjevanje podatkov. V teh sistemih je primarna lokacija za shranjevanje največkrat kar blokovno naslovljiv disk kot na primer HDD oziroma SSD. Ker so bralne in pisalne operacije v te pomnilne enote relativno počasne, se v ta namen uporablja glavni pomnilnik kot predpomnilnik \cite{Pavlo2016Sep}.
 
-Historično je bil pomnilnik predrag, sedaj pa so cene pomnilnikov nižje tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. S tem pa so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse \DIFdelbegin \DIFdel{podatkov }\DIFdelend \DIFaddbegin \DIFadd{podatke }\DIFaddend hranimo v pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za varnost kopiranje glavnega pomnilnika. Ta ideja izvira že z leta 1980.
-NewSQL podatkovne baze pa dodajo mehanizem, da lahko v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se \DIFdelbegin \DIFdel{poizvedbe }\DIFdelend \DIFaddbegin \DIFadd{po\-iz\-ved\-be }\DIFaddend velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
+\DIFdelbegin \DIFdel{Historično je bil }\DIFdelend \DIFaddbegin \DIFadd{Zgodovinsko je bil glavni }\DIFaddend pomnilnik predrag, \DIFdelbegin \DIFdel{sedaj }\DIFdelend \DIFaddbegin \DIFadd{danes }\DIFaddend pa so cene pomnilnikov nižje\DIFaddbegin \DIFadd{, }\DIFaddend tako, da v nekaterih primerih lahko celotno podatkovno bazo shranimo v glavni pomnilnik. \DIFdelbegin \DIFdel{S tem pa }\DIFdelend \DIFaddbegin \DIFadd{Poslednično }\DIFaddend so tudi nekatere nove arhitekture NewSQL podatkovnih baz posvojile glavni pomnilnik kot primarno lokacijo za shranjevanje podatkov, te podatkovne baze označimo z IMDB (angl. in-memory database) \cite{NewSqlInMemoryAnalytics}. Glavna ideja pri tem principu je, da vse podatke hranimo v \DIFaddbegin \DIFadd{glavnem }\DIFaddend pomnilniku. Poleg tega pa uporabljamo blokovno naslovljiv disk za \DIFdelbegin \DIFdel{varnost }\DIFdelend \DIFaddbegin \DIFadd{varnostno }\DIFaddend kopiranje glavnega pomnilnika. Ta ideja izvira že \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend leta 1980.
+NewSQL podatkovne baze pa dodajo mehanizem, da lahko\DIFaddbegin \DIFadd{, }\DIFaddend v primeru prevelike količine podatkov, del podatkov shranijo na sekundarni pomnilnik \cite{Pavlo2016Sep}. Tako se v glavnem pomnilniku nahajajo vroči podatki, to so podatki katerih se po\-iz\-ved\-be velikokrat dotaknejo, v sekundarnem pomnilniku pa se nahajajo mrzli podatki \cite{NewSqlInMemoryAnalytics}.
 
-Tukaj se pojavi vprašanje kateri pristop je boljše izbrati, glavni pomnilnik ali blokovno naslovljivi disk z velikim predpomnilnikom. Res je, da bo podatkovna baza katera nosi vse podatke v predpomnilniku delovala bistveno hitreje, kljub temu pa tak sistem ni optimiziran za tak scenarij \cite{garcia1992main}.
+Tukaj se pojavi vprašanje kateri pristop je boljše izbrati, \DIFaddbegin \DIFadd{(1) primarno shranjevanje v }\DIFaddend glavni pomnilnik ali \DIFaddbegin \DIFadd{(2) priamrno shranjevanje v }\DIFaddend blokovno naslovljivi disk z velikim \DIFdelbegin \DIFdel{predpomnilnikom}\DIFdelend \DIFaddbegin \DIFadd{glavnim pomnilnikom, kjer podatkovna baza lahko predpomni vse, oziroma skoraj vse podatke}\DIFaddend . Res je, da bo podatkovna baza \DIFdelbegin \DIFdel{katera nosi vse podatke v predpomnilniku }\DIFdelend \DIFaddbegin \DIFadd{pri obeh pristopih }\DIFaddend delovala bistveno hitreje\DIFdelbegin \DIFdel{, kljub temu pa tak sistem ni optimiziran za tak scenarij }\DIFdelend \DIFaddbegin \DIFadd{. Vendar pa bo drugi pristop počasnejši od prvega, saj podatkovna baza še vedno predvideva, da se podatki nahajajo na blokovno naslovljivem disku in so nekatere operacije ne optimizirane za tako delovanje }\DIFaddend \cite{garcia1992main}.
 
-Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato te sistemi poizkušajo minimizirati število \cite{MainMemoryDatabaseSystems} teh operacij. \DIFdelbegin \DIFdel{Obstajajo }\DIFdelend \DIFaddbegin \DIFadd{Obstaja }\DIFaddend nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
+Ker glavni pomnilnik ni odporen na napake ter izpade energije, IMDB podatkovne baze uporabljajo posebne postopke, da zagotovijo obstojnost podatkov ter odpornost celotnega sistema. To dosežejo z beleženjem dogodkov v dnevnik, ki se nahaja na obstojnem pomnilniku, največkrat kar SSD. Beleženje dogodkov v dnevnik največkrat povzroči ozko grlo, zato \DIFdelbegin \DIFdel{te }\DIFdelend \DIFaddbegin \DIFadd{tei }\DIFaddend sistemi poizkušajo minimizirati število \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{MainMemoryDatabaseSystems} }\hspace{0pt}%DIFAUXCMD
+teh operacij }\DIFdelend \DIFaddbegin \DIFadd{teh operacij \mbox{%DIFAUXCMD
+\cite{MainMemoryDatabaseSystems}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Obstaja nekaj pristopov kako IMDB podatkovne baze beležijo dogodke v dnevnik:
 
 \begin{itemize}
-    \item Ključavnica nad dnevnikom se odkleni čim prej. S tem se zmanjša čas blokiranja ter omogoči, da \DIFaddbegin \DIFadd{se }\DIFaddend ostale sočasne transakcije hitreje \DIFdelbegin \DIFdel{pišejo }\DIFdelend \DIFaddbegin \DIFadd{zapišejo }\DIFaddend v dnevnik. \cite{NewSqlInMemoryAnalytics}
-    \item Beleženje samo dogodkov, kateri spreminjajo stanje podatkov, saj so samo te dogodki potrebni za obnovo podatkov. \cite{MainMemoryDatabaseSystems}
+    \item Ključavnica nad dnevnikom se \DIFdelbegin \DIFdel{odkleni }\DIFdelend \DIFaddbegin \DIFadd{odklene }\DIFaddend čim prej. S tem se zmanjša čas blokiranja ter omogoči, da se ostale sočasne transakcije hitreje zapišejo v dnevnik. \cite{NewSqlInMemoryAnalytics}
+    \item Beleženje samo dogodkov, kateri spreminjajo stanje podatkov, saj so samo \DIFdelbegin \DIFdel{te }\DIFdelend \DIFaddbegin \DIFadd{ti }\DIFaddend dogodki potrebni za obnovo podatkov. \cite{MainMemoryDatabaseSystems}
     \item Grupiranje dogodkov ter periodično beleženje v dnevnik. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
     \item Asinhrono potrjevanje ne čaka potrditve transakcije. Pri tem pristopu lahko ob morebitni napaki pride do izgube transakcij. \cite{NewSqlInMemoryAnalytics}
 \end{itemize}
 
-Ker \DIFdelbegin \DIFdel{imajo IMDB podatkovne baze zelo majhne stroške operacij, lahko }\DIFdelend \DIFaddbegin \DIFadd{so bralne in pisalne operacije pri IMDB podatkovnih bazah, v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami, relativno veliko hitrejše, lahko te }\DIFaddend bolje izkoristijo procesorsko moč\DIFdelbegin \DIFdel{in se }\DIFdelend \DIFaddbegin \DIFadd{. Posledično se lahko }\DIFaddend uporabijo za poslovno analitiko na živih podatkih ter hkrati omogočajo zelo visoko pisalno prepustnost. Te procese označimo kot hibridno transakcijsko analitične procese oziroma HTAP (angl. hybrid transaction/analytical processing) \cite{NewSqlInMemoryAnalytics}.
+Ker so bralne in pisalne operacije pri IMDB podatkovnih bazah, v primerjavi z tradicionalnimi relacijskimi podatkovnimi bazami, relativno veliko hitrejše, lahko te bolje izkoristijo procesorsko moč. Posledično se lahko uporabijo za poslovno analitiko na živih podatkih ter hkrati omogočajo zelo visoko pisalno prepustnost. Te procese označimo kot hibridno transakcijsko analitične procese oziroma HTAP (angl. hybrid transaction/analytical processing) \cite{NewSqlInMemoryAnalytics}.
 
 
 \section{Drobljenje}
 Drobljenje (angl. sharding) je pristop s katerim večina NewSQL podatkovnih baz dosega horizontalno skalabilnost \cite{Pavlo2016Sep}. Drobljenje je vrsta horizontalnega particioniranja (angl. horizontal partitioning) podatkov, pri katerem se vsaka particija hrani na ločenem strežniku (logičnem ali fizičnem) \cite{WikiSharding}. Podatki so razdeljeni horizontalno (po vrsticah) na več delov glede na vrednosti v izbranih stolpcev v tabeli, te stolpce imenujemo delitveni atributi (angl. partitioning attributes). Najbolj poznana sta dva tipa delitve:
 
 \begin{enumerate}
-    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane \DIFdelbegin \DIFdel{ne-prekrivajoče }\DIFdelend \DIFaddbegin \DIFadd{ne prekrivajoče }\DIFaddend intervale se zapisi delijo na \DIFdelbegin \DIFdel{particij}\DIFdelend \DIFaddbegin \DIFadd{particije}\DIFaddend . Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
+    \item \textbf{Delitev glede na interval:}\\Glede na postavljene povezane ne prekrivajoče intervale se zapisi delijo na particije. Ta pristop je uporaben predvsem kjer so podatki logično strukturirani v intervale, na primer po letih, kvartalih, mesecih...
     \item \textbf{Razpršena delitev:}\\Ta delitev za delovanje uporablja razpršitveno funkcijo (angl. hash function), katera podatke deli enakomerno preko vseh particij.
 \end{enumerate}
 
-Idealno podatkovna baza \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend poizvedbe prepozna katerih particij se poizvedba dotika ter nato izvede poizvedbo porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
+Idealno podatkovna baza iz poizvedbe prepozna katerih particij se poizvedba dotika ter nato izvede poizvedbo porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
 
-Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere \DIFdelbegin \DIFdel{particij }\DIFdelend \DIFaddbegin \DIFadd{particije }\DIFaddend rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno\DIFaddbegin \DIFadd{, }\DIFaddend potrebujemo podatke ponovno razdeliti enakomerno. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen\DIFaddbegin \DIFadd{, }\DIFaddend saj NewSQL podatkovne baze 
+Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particije rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno, potrebujemo podatke ponovno razdeliti enakomerno. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen, saj NewSQL podatkovne baze 
 potrebujejo zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
 
 \section{Replikacija}
 
-Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira \DIFdelbegin \DIFdel{neko vrsto }\DIFdelend \DIFaddbegin \DIFadd{nek pristop }\DIFaddend replikacije \cite{Pavlo2016Sep}. V osnovi \DIFdelbegin \DIFdel{obstaja dva pristopa replikacije}\DIFdelend \DIFaddbegin \DIFadd{popznamo dva pristopa repliciranja}\DIFaddend :
+Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. Večina sodobnih podatkovnih baz podpira nek pristop replikacije \cite{Pavlo2016Sep}. V osnovi \DIFdelbegin \DIFdel{popznamo }\DIFdelend \DIFaddbegin \DIFadd{poznamo }\DIFaddend dva pristopa repliciranja:
 \begin{enumerate}
-    \item \textbf{\DIFdelbegin \DIFdel{Aktivna }\DIFdelend \DIFaddbegin \DIFadd{Sinhrona }\DIFaddend replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) \DIFdelbegin \DIFdel{oziroma več-gospodarska (angl. multi-master) replikacija\mbox{%DIFAUXCMD
-\cite{HighAvailabilityDatabase}}\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \DIFaddbegin \DIFadd{replikacija}\DIFaddend . Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
-\DIFaddbegin 
+    \item \textbf{Sinhrona replikacija}:\\Imenujemo jo tudi aktivno-aktivna (angl. active-active) replikacija. Pri tem pristopu vse replike sočasno obdelajo zahtevek \cite{Pavlo2016Sep}.
 
-    \DIFaddend \item \textbf{\DIFdelbegin \DIFdel{Pasivna }\DIFdelend \DIFaddbegin \DIFadd{Asinhrona }\DIFaddend replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) \DIFdelbegin \DIFdel{oziroma gospodar-suženj (angl. master-slave) replikacija\mbox{%DIFAUXCMD
-\cite{HighAvailabilityDatabase}}\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \DIFaddbegin \DIFadd{replikacija}\DIFaddend . Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične \DIFdelbegin \DIFdel{sočasnosti }\DIFdelend \DIFaddbegin \DIFadd{sočas\-nosti }\DIFaddend ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
-\cite{Pavlo2016Sep}}\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\cite{Pavlo2016Sep, harding2017evaluation}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend .
+    \item \textbf{Asinhrona replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) replikacija. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočas\-nosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep, harding2017evaluation}.
 \end{enumerate}
 
-\DIFdelbegin %DIFDELCMD < \hl{TODO:}
-%DIFDELCMD < %%%
-\DIFdel{Sinhrona in asinhrona replikacija
-}%DIFDELCMD < 
+V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se smatra, da je \DIFdelbegin \DIFdel{replikaija }\DIFdelend \DIFaddbegin \DIFadd{replikacija }\DIFaddend uspešna \cite{NewSqlInMemoryAnalytics}. Pri distribuiranih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik.
 
-%DIFDELCMD < %%%
-\DIFdelend V visoko konsistentnih podatkovnih bazah morajo biti \DIFdelbegin \DIFdel{transakcije }\DIFdelend \DIFaddbegin \DIFadd{replikacija }\DIFaddend potrjene na vseh replikah\DIFaddbegin \DIFadd{, }\DIFaddend šele takrat se smatra, da je \DIFdelbegin \DIFdel{transakcija potrjena \mbox{%DIFAUXCMD
-\cite{NewSqlInMemoryAnalytics}}\hspace{0pt}%DIFAUXCMD
-. }\DIFdelend \DIFaddbegin \DIFadd{replikaija uspešna \mbox{%DIFAUXCMD
-\cite{NewSqlInMemoryAnalytics}}\hspace{0pt}%DIFAUXCMD
-. Pri distribuiranih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik.
-}\DIFaddend 
+Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) omrežji.
 
-\DIFaddbegin \DIFadd{Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) omrežji.
-}
+\section{Obnova}
+Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake, je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
 
-\DIFaddend \section{Obnova}
-Pomembna lastnost podatkovne baze, ki zagotavlja toleranco na napake\DIFaddbegin \DIFadd{, }\DIFaddend je tudi obnova podatkovne baze po izpadu. Poleg same obnove sistema, kot ga poznamo pri tradicionalnih podatkovnih bazah, NewSQL podatkovne baze  poizkušajo tudi minimizirati sam čas obnove \cite{Pavlo2016Sep}. Pričakuje se, da bo podatkovna baza na voljo skoraj ves čas, saj že kratkotrajni izpadi lahko pomenijo velike finančne izgube. Tukaj ponavadi govorimo o tako imenovanih petih devetkah (angl. five nines) oziroma 99,999\% razpoložljivostjo, to označimo z pojmom visoka razpoložljivost.
+Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in naj\-več\-krat uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve \DIFdelbegin \DIFdel{, }\DIFdelend ponovi vse spremembe\DIFaddbegin \DIFadd{, }\DIFaddend zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
 
-Tradicionalne podatkovne baze ponavadi tečejo na enem vozlišču in \DIFdelbegin \DIFdel{največkrat }\DIFdelend \DIFaddbegin \DIFadd{naj\-več\-krat }\DIFaddend uporabljajo neko implementacijo algoritma ARIES (angl. Algorithms for Recovery and Isolation Exploiting Semantics) za obnovo ob izpadu. ARIES za svoje delovanje uporablja WAL (angl. Write-Ahead Log), to je dnevnik, ki je shranjen na obstojnem pomnilniku, vsaka sprememba pa se najprej zapiše v dnevnik in šele nato izvede. Algoritem ARIES je sestavljen iz treh faz, analize (angl. analysis), ponovitve (angl. redo) in razveljavitev (angl. undo). V fazi analize algoritem pripravi podatkovne strukture. V fazi ponovitve, ponovi vse spremembe zabeležene v WAL dnevniku, v tej točki je podatkovna baza točno v takem stanju kakor je bila pred izpadom. V fazi razveljavitve pa razveljavi vse nepotrjene transakcije. Po končanem postopku je podatkovna baza v konsistentnem stanju. \cite{Pavlo2016Sep}
-
-Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove\DIFaddbegin \DIFadd{, }\DIFaddend si ostala vozlišča avtomatsko razdelijo obremenitev\DIFaddbegin \DIFadd{, }\DIFaddend sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
+Pri NewSQL podatkovnih bazah, algoritem ARIES, ki ga uporabljajo tradicionalne podatkovne baze ni direktno uporabljen. NewSQL podatkovne baze so distribuirane, kar pomeni, ko eno vozlišče odpove, si ostala vozlišča avtomatsko razdelijo obremenitev, sistem kot celota pa deluje naprej. Ko pride vozlišče nazaj, mora obnoviti stanje v času izpada, poleg tega pa se mora sinhronizirati in iz ostalih vozlišč pridobiti vse spremembe, ki so se zgodile v času, ko je bilo vozlišče nedosegljivo \cite{Pavlo2016Sep}. Poleg tega je algoritem ARIES zasnovan za diskovno orientirane podatkovne baze, kar pa ni optimalno za nove \DIFaddbegin \DIFadd{pomnilniško usmerjene }\DIFaddend arhitekture NewSQL podatkovnih baz \cite{zheng2014fast}.
 
 
 
 
 \chapter{CockroachDB}
 
-CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in visoko konsistenti ključ-vrednost shranjevalnem mehanizmu. Zagotavlja ACID transakcijske lastnosti, kot primarni vmesnik za interakcijo pa uporablja standardni ANSI SQL. Je horizontalno skalabilna in je odporna na napake strežnika ali pa celotnega podatkovnega centra. Prilagojena je za izvajanje v oblak in namenjena globalnim oblačnim storitvam. Je transakcijska podatkovna baza in ni primerna za večje analitične obremenitve. Je zelo enostavna za upravljanje ter uporabo. \cite{CRDB-FAQ}
+CockroachDB je distribuirana SQL podatkovna baza, temelji na transakcijski in visoko konsistenti ključ-vrednost shranjevalnem mehanizmu. Zagotavlja ACID transakcijske lastnosti, kot primarni vmesnik za interakcijo pa uporablja standardni \DIFdelbegin \DIFdel{ANSI }\DIFdelend SQL. Je horizontalno skalabilna in je odporna na napake strežnika ali pa celotnega podatkovnega centra. Prilagojena je za izvajanje v oblak in namenjena globalnim oblačnim storitvam. Je transakcijska podatkovna baza in ni primerna za večje analitične obremenitve. Je zelo enostavna za upravljanje ter uporabo. \cite{CRDB-FAQ}
 
-Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs\DIFdelbegin \DIFdel{njihov glavni produkt pa }\DIFdelend \DIFaddbegin \DIFadd{. Njihov glavni produkt }\DIFaddend je v celoti odprto kodna podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili \DIFdelbegin \DIFdel{prej }\DIFdelend \DIFaddbegin \DIFadd{predhodno }\DIFaddend inženirji \DIFdelbegin \DIFdel{zaposleni v Googlu}\DIFdelend \DIFaddbegin \DIFadd{v podjetju Google}\DIFaddend . Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
+Leta 2015 so Spencer Kimball, Ben Darnell in Peter Mattis ustanovili podjetje CockroachLabs. Njihov glavni produkt je v celoti \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend podatkovna baza CockroachDB \cite{cockroachdb/cockroach}. Vsi trije ustanovitelji so bili predhodno inženirji v podjetju Google. Podatkovna baza Google Spanner pa je bila navdih za začetek podatkovne baze CockroachDB. \cite{CRDB-2017}
 
-Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in atomičnih ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, generalno je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
+Podatkovni bazi CockroachDB in Google Spanner sta si arhitekturno različni. Podatkovna baza Google Spanner deluje le v oblaku na Googlovi infrastrukturi, saj se za svoje delovanje zanaša na TrueTime API. TrueTime API je vmesnik, ki s pomočjo GPS in \DIFdelbegin \DIFdel{atomičnih }\DIFdelend \DIFaddbegin \DIFadd{atomskih }\DIFaddend ur, skrbi za zelo natančno sinhronizacijo ure na Googlovi infrastrukturi \cite{Corbett:2013:SGG:2518037.2491245}. CockroachDB za svoje delovanje ne potrebuje tako točne sinhronizacije ur, \DIFdelbegin \DIFdel{generalno }\DIFdelend \DIFaddbegin \DIFadd{v splošnem }\DIFaddend je priporočena uporaba Googlove zunanje NTP (angl. Network Time Protocol) storitve \cite{CRDB-ntpd-configuration}. Podatkovna baza CockroachDB je \DIFdelbegin \DIFdel{odprtokodna }\DIFdelend \DIFaddbegin \DIFadd{odprto kodna }\DIFaddend in lahko deluje v oblaku ali pa lokalno na operacijskih sistemih Linux ter OS X.
 
 \section{Arhitektura}
 
-CockroachDB je odprto kodna, avtomatizirana, distribuirana, skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku. 
+CockroachDB je \DIFdelbegin \DIFdel{odprto kodna}\DIFdelend \DIFaddbegin \DIFadd{odprtokodna}\DIFaddend , avtomatizirana, \DIFdelbegin \DIFdel{distribuirana}\DIFdelend \DIFaddbegin \DIFadd{porazdeljena}\DIFaddend , skalabilna in konsistentna SQL podatkovna baza. Večino upravljanja je avtomatiziranega, kompleksnost samega sistema pa je prikrita končnemu uporabniku. 
 
-CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumevanja večslojne arhitekture bom najprej predstavil najbolj pogoste termine in koncepte uporabljene v podatkovni baze CockroachDB. Kasneje \DIFdelbegin \DIFdel{pa bom predstavil samo arhitekturo po posameznih plasteh}\DIFdelend \DIFaddbegin \DIFadd{bom povzel samo arhitekturo in delovanje podatkovne, kar je bolj podrobno opisa v uradni dokumentaciji \mbox{%DIFAUXCMD
-\cite{CRDB-home} }\hspace{0pt}%DIFAUXCMD
-in prvotnih zasnutikh delovanja CockroachDB podatkovne baze \mbox{%DIFAUXCMD
-\cite{CRDB-design}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend .
+CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumevanja večslojne arhitekture bom najprej predstavil najbolj pogoste termine in koncepte uporabljene v podatkovni baze CockroachDB. Kasneje bom povzel samo arhitekturo in delovanje podatkovne, kar je bolj podrobno opisa v uradni dokumentaciji \cite{CRDB-home} in prvotnih \DIFdelbegin \DIFdel{zasnutikh }\DIFdelend \DIFaddbegin \DIFadd{zasnutkih }\DIFaddend delovanja CockroachDB podatkovne baze \cite{CRDB-design}.
 
 \subsubsection{Terminologija in koncepti}
 
@@ -525,7 +628,7 @@ in prvotnih zasnutikh delovanja CockroachDB podatkovne baze \mbox{%DIFAUXCMD
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega distribuirani sistemi pridejo do soglasja o vrednosti enega podatka. CockroachDB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in distribuiranja podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. CockroachDB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kovruma, preden se sprememba smatra za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica operacij izvršenih na podatkovni bazi, katere ohranjajo ACID lastnosti.
-    \item \textbf{Visoka dostopnost (angl. high availability):} CockroachDB zagotavlja visoko dostopnost, ki ji pravimo pet devetk (angl. five nines), kar pomeni da je sistem dosegljiv vsaj 99,999\% časa. CockroachDB ne zagotavlja dostopnosti preko CAP teorema \cite{CRDB-FAQ}.
+    \item \textbf{Visoka \DIFdelbegin \DIFdel{dostopnost }\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost }\DIFaddend (angl. high availability):} CockroachDB zagotavlja visoko \DIFdelbegin \DIFdel{dostopnost}\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost}\DIFaddend , ki ji pravimo pet devetk (angl. five nines), kar pomeni da je sistem dosegljiv vsaj 99,999\% časa. CockroachDB ne zagotavlja \DIFdelbegin \DIFdel{dostopnosti }\DIFdelend \DIFaddbegin \DIFadd{razpoložljivosti }\DIFaddend preko CAP teorema \cite{CRDB-FAQ}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -537,29 +640,31 @@ in prvotnih zasnutikh delovanja CockroachDB podatkovne baze \mbox{%DIFAUXCMD
 \end{figure}
 
 \subsubsection{Plasti}
-Podatkovna baza CockroachDB je sestavljena \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{iz }\DIFaddend petih plasti. Plasti med seboj delujejo kot črne škatle. Vsaka plast pa sodeluje le z plastjo direktno nad in pod seboj.
+Podatkovna baza CockroachDB je sestavljena iz petih plasti. Plasti med seboj delujejo kot črne škatle. Vsaka plast pa sodeluje le z plastjo direktno nad in pod seboj.
 
 \begin{enumerate}
     \item \textbf{SQL plast:} Prevede SQL poizvedbe v KV operacije.
-    \item \textbf{Transakcijska plast:} Omogoča atomične spremembe nad večjim \DIFdelbegin \DIFdel{številom }\DIFdelend \DIFaddbegin \DIFadd{šte\-vi\-lom }\DIFaddend KV operacij.
+    \item \textbf{Transakcijska plast:} Omogoča atomične spremembe nad večjim šte\-vi\-lom KV operacij.
     \item \textbf{Porazdelitvena plast:} Predstavi replicirana KV območja kot eno entiteto.
-    \item \textbf{Replikacijska plast:} Konsistento in sinhrono replicira KV obsege v gruči.
+    \item \textbf{Replikacijska plast:} \DIFdelbegin \DIFdel{Konsistento }\DIFdelend \DIFaddbegin \DIFadd{Konsistentno }\DIFaddend in sinhrono replicira KV obsege v gruči.
     \item \textbf{Shranjevalna plast:} Izvaja bralne in pisalne operacija na disku.
 \end{enumerate}
 
 \subsection{SQL plast}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del ANSI SQL standarda. Zunanje aplikacije komunicirajo preko \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORMji.
+SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del \DIFdelbegin \DIFdel{ANSI SQL standarda }\DIFdelend \DIFaddbegin \DIFadd{SQL standarda \mbox{%DIFAUXCMD
+\cite{CRDB-sql-standard}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Zunanje aplikacije komunicirajo preko \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend žičnega protokola. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter \DIFdelbegin \DIFdel{ORMji}\DIFdelend \DIFaddbegin \DIFadd{ORM-ji}\DIFaddend .
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek, oziroma ga preusmeri na vozlišče katero zna obdelati zahtevek. To omogoči enostavno porazdelitev bremena.
 
-Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktično drevo. Potem CockroachDB začne \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi sintaktično pravilnost poizvedb ter nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije.
+Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktično drevo. Potem CockroachDB začne s pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi sintaktično pravilnost poizvedb ter nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije.
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{ |l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{VREDNOST} \\
+\textbf{\DIFdelbeginFL \DIFdelFL{KLJUČ}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{ključ}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{VREDNOST}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost}\DIFaddendFL } \\
 \hline
 /system/databases/mydb/id & 51 \\
 /system/tables/customer/id & 42 \\ 
@@ -570,32 +675,32 @@ Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaktičn
 \hline
 \end{tabular}
 \end{center}
-\caption{Poenostavljen primer preslikave SQL v KV model \cite{CRDB-design}. V podatkovni bazi \texttt{mydb} se nahaja tabela \texttt{customer}, katera ima pog primarnega ključa še dva stolpca \texttt{address} in \texttt{url}. \DIFdelbeginFL \DIFdelFL{Zadnji zva }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Zadnja dva }\DIFaddendFL zapisa v tabeli predstavljata en vrstico v tabeli \texttt{customer} z primarnim ključem \texttt{Apple}.}
+\caption{Poenostavljen primer preslikave SQL v KV model \cite{CRDB-design}. V podatkovni bazi \texttt{mydb} se nahaja tabela \texttt{customer}, katera ima \DIFdelbeginFL \DIFdelFL{pog }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{poleg }\DIFaddendFL primarnega ključa še dva stolpca \texttt{address} in \texttt{url}. Zadnja dva zapisa v tabeli predstavljata en vrstico v tabeli \texttt{customer} z primarnim ključem \texttt{Apple}.}
 \label{tbl_crdb_sql_kv_mapping}
 \end{table}
 
 \subsection{Transakcijska plast}
-Podatkovna baza CockroachDB je konsistentna\DIFaddbegin \DIFadd{, }\DIFaddend to dosega tako da, transakcijska plast implementira celotno semantiko ACID transakcij. Vsak stavek predstavlja svojo transakcijo, transakcije pa niso omejene samo na določeno tabelo, obseg ali vozlišče in delujejo preko celotne gruče. To dosežejo z dvofaznim potrditvenim postopkom (angl. two-phase commit):
+Podatkovna baza CockroachDB je konsistentna, to dosega tako da, transakcijska plast implementira celotno semantiko ACID transakcij. Vsak stavek predstavlja svojo transakcijo, transakcije pa niso omejene samo na določeno tabelo, obseg ali vozlišče in delujejo preko celotne gruče. To dosežejo z dvofaznim potrditvenim postopkom (angl. two-phase commit):
 
 \begin{enumerate}
-    \item \textbf{Faza 1:} Vsaka transakcija najprej kreira transakcijski zapis \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend statusom v teku (angl. pending). To je podatkovna struktura katera nosi transakcijski ključ in status transakcije. Sočasno, se za pisalne operacije kreira pisalni namen (angl. write intent). Pisalni namen je v osnovi MVCC vrednost označena z zastavico \DIFdelbegin \DIFdel{"namen" }\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}} \DIFaddend in kazalcem na transakcijski zapis. Primer MVCC shrambe je prikazan v tabeli \ref{tbl_crdb_mvcc_store}.
+    \item \textbf{Faza 1:} Vsaka transakcija najprej kreira transakcijski zapis s statusom v teku (angl. pending). To je podatkovna struktura katera nosi transakcijski ključ in status transakcije. Sočasno, se za pisalne operacije kreira pisalni namen (angl. write intent). Pisalni namen je v osnovi MVCC vrednost označena z zastavico \texttt{<intent>} in kazalcem na transakcijski zapis. Primer MVCC shrambe je prikazan v tabeli \ref{tbl_crdb_mvcc_store}.
     \item \textbf{Faza 2:} V kolikor je transakcijski zapis v status prekinjeno (angl. aborted), se transakcija ponovno izvrši.
 
-    Če pa so izpolnjeni vsi pogoji\DIFaddbegin \DIFadd{, }\DIFaddend se transakcija potrdi. Status v transakcijskem zapisu se spremeni v potrjeno (angl. commited). Sočasno se vsem pisalnim namenom povezanim \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend trenutno transakcijo odstrani zastavico \DIFdelbegin \DIFdel{"namen"}\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}}\DIFaddend . 
-    \item \textbf{Faza 3 (asinhrono):} Ko se transakcija konča\DIFaddbegin \DIFadd{, }\DIFaddend se vsem potrjenim pisalnim namenom odstrani zastavico \DIFdelbegin \DIFdel{"namen" }\DIFdelend \DIFaddbegin \texttt{\DIFadd{<intent>}} \DIFaddend in kazalec na transakcijski zapis. Nepotrjeni pisalni nameni se samo izbrišejo. To se izvede asinhrono, zato vse operacije, preden kreirajo pisalni namen preverijo obstoječi pisalni namen \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend transakcijskim zapisom in ga ustrezno upoštevajo.
+    Če pa so izpolnjeni vsi pogoji, se transakcija potrdi. Status v transakcijskem zapisu se spremeni v potrjeno (angl. commited). Sočasno se vsem pisalnim namenom povezanim s trenutno transakcijo odstrani zastavico \texttt{<intent>}. 
+    \item \textbf{Faza 3 (asinhrono):} Ko se transakcija konča, se vsem potrjenim pisalnim namenom odstrani zastavico \texttt{<intent>} in kazalec na transakcijski zapis. Nepotrjeni pisalni nameni se samo izbrišejo. To se izvede asinhrono, zato vse operacije, preden kreirajo pisalni namen preverijo obstoječi pisalni namen s transakcijskim zapisom in ga ustrezno upoštevajo.
 \end{enumerate}
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
 \hline
-\textbf{KLJUČ} & \textbf{ČAS} & \textbf{VREDNOST} \\
+\textbf{\DIFdelbeginFL \DIFdelFL{KLJUČ}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{ključ}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{ČAS}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{čas}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{VREDNOST}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost}\DIFaddendFL } \\
 \hline
-A$<$\DIFdelbeginFL \DIFdelFL{namen}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{intent}\DIFaddendFL $>$ & 500 & \DIFdelbeginFL \DIFdelFL{"nepotrjena vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{nepotrjena vrednost }\DIFaddendFL \\
-A & 400 & \DIFdelbeginFL \DIFdelFL{"trenutna vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{trenutna vrednost }\DIFaddendFL \\ 
-A & 322 & \DIFdelbeginFL \DIFdelFL{"stara vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{stara vrednost }\DIFaddendFL \\ 
-A & 50 & \DIFdelbeginFL \DIFdelFL{"prvotna vrednost " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{prvotna vrednost }\DIFaddendFL \\
-B & 100 & \DIFdelbeginFL \DIFdelFL{"vrednost B " }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{vrednost B }\DIFaddendFL \\
+A$<$intent$>$ & 500 & nepotrjena vrednost \\
+A & 400 & trenutna vrednost \\ 
+A & 322 & stara vrednost \\ 
+A & 50 & prvotna vrednost \\
+B & 100 & vrednost B \\
 \hline
 \end{tabular}
 \end{center}
@@ -603,26 +708,26 @@ B & 100 & \DIFdelbeginFL \DIFdelFL{"vrednost B " }\DIFdelendFL \DIFaddbeginFL \D
 \label{tbl_crdb_mvcc_store}
 \end{table}
 
-Podatkovna baza CockroachDB privzeto podpira najvišji standardni \DIFdelbegin \DIFdel{ANSI }\DIFdelend \DIFaddbegin \DIFadd{AN\-SI }\DIFaddend SQL izolacijski nivo, to je \textit{serializable}. Ta nivo ne dopušča nikakršnih anomalij v podatkih, če obstaja možnost anomalije se transakcija ponovno izvede. Podpira pa tudi zastareli nestandardni izolacijski nivo \textit{snapshot}.
+Podatkovna baza CockroachDB privzeto podpira najvišji standardni AN\-SI SQL izolacijski nivo, to je \textit{serializable}. Ta nivo ne dopušča nikakršnih anomalij v podatkih, če obstaja možnost anomalije se transakcija ponovno izvede. Podpira pa tudi zastareli nestandardni izolacijski nivo \textit{snapshot}.
 
  
 \subsection{Porazdelitvena plast}
 
-Vsi podatki v gruči so na voljo preko \DIFdelbegin \DIFdel{katerega koli }\DIFdelend \DIFaddbegin \DIFadd{kateregakoli }\DIFaddend vozlišča. CockroachDB shranjuje podatke v urejeno vrsto tipa ključ-vrednost. Ta podatkovna \DIFdelbegin \DIFdel{struktura }\DIFdelend \DIFaddbegin \DIFadd{stru\-ktu\-ra }\DIFaddend je namenjena shranjevanju sistemskih kakor tudi uporabniških podatkov. Z nje CockroachDB razbere kje se nahaja podatek in vrednost samega podatka. Podatki so razdeljeni na koščke, katere imenujemo obsegi (angl. ranges). Obsegi so urejeni koščki podatkov preko katerih CockroachDB lahko hitro in učinkovito izvede \textit{lookup} in \textit{scan} operacije.
+Vsi podatki v gruči so na voljo preko kateregakoli vozlišča. CockroachDB shranjuje podatke v urejeno vrsto tipa ključ-vrednost. Ta podatkovna stru\-ktu\-ra je namenjena shranjevanju sistemskih kakor tudi uporabniških podatkov. Z nje CockroachDB razbere kje se nahaja podatek in vrednost samega podatka. Podatki so razdeljeni na koščke, katere imenujemo obsegi (angl. ranges). Obsegi so urejeni koščki podatkov preko katerih CockroachDB lahko hitro in učinkovito izvede \textit{lookup} in \textit{scan} operacije.
 
 Lokacija vseh obsegov je shranjena v dvo-nivojskem indeksu. Ta indeks na prvem nivoju sestavlja meta obseg (angl. meta range) imenovan \texttt{meta1}, kateri kaže na meta obseg na drugem nivoju imenovan \texttt{meta2}. Meta obseg \texttt{meta2} pa kaže na podatkovne obsege.
 
 Ko vozlišče prejme zahtevek, v meta obsegih poišče vozlišče katero hrani obseg v najemu (angl. range lease) ter preko tega vozlišča izvede zahtevek. Meta obsegi so predpomnjeni, zato se lahko zgodi, da kažejo na napačno vozlišče. V tem primeru se vrednosti meta obsegov posodobijo.
 
-Privzeto je velikost podatkovnega obsega omejena na 64MiB. To omogoča lažji prenos obsega med vozlišči\DIFaddbegin \DIFadd{, }\DIFaddend poleg tega pa je obseg dovolj velik, da lahko hrani nabor urejenih podatkov, kateri so bolj verjetno dostopani skupaj. Če obseg preseže velikost 64MiB\DIFaddbegin \DIFadd{, }\DIFaddend se razdeli v dva 32MiB podatkovna obsega. Ta dvo-nivojska indeksna struktura omogoča, da naslovimo do \(2^{(18 + 18)} = 2^{36}\) obsegov. Vsak obseg pa privzeto naslavlja \(2^{26}B = 64MiB\) pomnilniške prostora. Teoretično podatkovna baza CockroachDB \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend privzetimi nastavitvami lahko naslovi do \(2^{(36+26)}B = 4EB\) podatkov. 
+Privzeto je velikost podatkovnega obsega omejena na 64MiB. To omogoča lažji prenos obsega med vozlišči, poleg tega pa je obseg dovolj velik, da lahko hrani nabor urejenih podatkov, kateri so bolj verjetno dostopani skupaj. Če obseg preseže velikost 64MiB, se razdeli v dva 32MiB podatkovna obsega. Ta dvo-nivojska indeksna struktura omogoča, da naslovimo do \(2^{(18 + 18)} = 2^{36}\) obsegov. Vsak obseg pa privzeto naslavlja \(2^{26}B = 64MiB\) pomnilniške prostora. Teoretično podatkovna baza CockroachDB s privzetimi nastavitvami lahko naslovi do \(2^{(36+26)}B = 4EB\) podatkov. 
 
 \subsection{Replikacijska plast}
 
-Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v konsistentnem stanju. To doseže preko soglasnega algoritma (angl. consensus algorithm) Raft. Ta algoritem zagotovi, da se večina vozlišč v gruči strinja z vsako spremembo v podatkovni bazi. S tem, kljub odpovedi posameznega vozlišča, ohrani podatke v konsistentnem stanju poleg tega pa zagotovi nemoteno delovanje podatkovne baze (visoko dostopnost).
+Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v konsistentnem stanju. To doseže preko soglasnega algoritma (angl. consensus algorithm) Raft. Ta algoritem zagotovi, da se večina vozlišč v gruči strinja z vsako spremembo v podatkovni bazi. S tem, kljub odpovedi posameznega vozlišča, ohrani podatke v konsistentnem stanju poleg tega pa zagotovi nemoteno delovanje podatkovne baze (visoko \DIFdelbegin \DIFdel{dostopnost}\DIFdelend \DIFaddbegin \DIFadd{razpoložljivost}\DIFaddend ).
 
 Število vozlišč, ki lahko odpove brez, da bi s tem vplivalo na delovanje podatkovne baze je enako:
 \[(r - 1)/2 = f \text{, če}\ r = 3, 5, 7, ...\ \text{in}\ r <= N\]
-Kjer je \(N\) število vseh vozlišč v gruči, \(r\) faktor replikacije liho število večje ali enako tri in manjše ali enako številu vseh vozlišč v gruči. Ter \(f\) maksimalno število vozlišč, ki še lahko odpove brez, \DIFdelbegin \DIFdel{brez }\DIFdelend da bi vplivalo na delovanje podatkovne baze. Na primer če je replikacijski faktor \(r = 3\)\DIFaddbegin \DIFadd{, }\DIFaddend gruča lahko tolerira odpoved enega vozlišča \(f = 1\).
+Kjer je \(N\) število vseh vozlišč v gruči, \(r\) faktor replikacije liho število večje ali enako tri in manjše ali enako številu vseh vozlišč v gruči. Ter \(f\) maksimalno število vozlišč, ki še lahko odpove brez, da bi vplivalo na delovanje podatkovne baze. Na primer če je replikacijski faktor \(r = 3\), gruča lahko tolerira odpoved enega vozlišča \(f = 1\).
 
 Za vsak obseg obstaja Raft skupina, kjer je eno vozlišče, ki vsebuje repliko, označena kot "vodja". Vodja je izvoljen in koordinira vse pisalne zahtevke za določen obseg. V idealnih pogojih je vodja Raft skupine tudi najemnik obsega (angl. leaseholder).
 
@@ -637,10 +742,10 @@ CockroachDB uporablja MVCC pristop in hrani več verzij vsakega podatka. Podatko
 Razvoj podatkovne baze CockroachDB je bil usmerjen prvotno v funkcionalnosti in še le kasneje v optimizacije. Tako verzija 1.0.0 omogoča razvijalcem večina potrebnih funkcionalnosti, verzija 2.0.0 pa je poleg manjših funkcionalnosti prinesla predvsem optimizacije.
 
 \subsection{Enostavnost}
-Podatkovna baza CockroachDB strmi k enostavnosti upravljanja in \DIFdelbegin \DIFdel{vzdrževanja}\DIFdelend \DIFaddbegin \DIFadd{vzdr\-že\-van\-ja}\DIFaddend . Večina kompleksnosti je skrite končnemu uporabniku. Izogiba se zunanjim odvisnostim in je na voljo kot ena sama binarna datoteka. Minimalno za zagon gruče je potrebno na vsakem vozlišču zagotoviti sinhronizacije ure, priporočena je uporaba zunanje Google NTP storitve ter namestiti CockroachDB binarno datoteko na vsako vozlišče in jo zagnati.
+Podatkovna baza CockroachDB strmi k enostavnosti upravljanja in vzdr\-že\-van\-ja. Večina kompleksnosti je skrite končnemu uporabniku. Izogiba se zunanjim odvisnostim in je na voljo kot ena sama binarna datoteka. Minimalno za zagon gruče je potrebno na vsakem vozlišču zagotoviti sinhronizacije ure, priporočena je uporaba zunanje Google NTP storitve ter namestiti CockroachDB binarno datoteko na vsako vozlišče in jo zagnati.
 
 \subsection{Uporabniški vmesnik in nadzorovanje}
-Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik, ki je prikazan na sliki \ref{img_crdb_admin_ui}. Administratorski vmesniki nudi vizualizacije raznih časovnih metrik o delovanju posameznih vozlišč, kakor tudi celotne gruče. Omogoča pregled dnevnikov in pripomore k lažjemu odkrivanju težav v gruči. CockroachDB omogoča tudi izvoz metrik v odprto kodno rešitev Prometheus, katera nam omogoča shrambo, obdelavo, vizualizacije in obveščanje nad časovnimi vrstami.
+Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik, ki je prikazan na sliki \ref{img_crdb_admin_ui}. Administratorski vmesniki nudi vizualizacije raznih časovnih metrik o delovanju posameznih vozlišč, kakor tudi celotne gruče. Omogoča pregled dnevnikov in pripomore k lažjemu odkrivanju težav v gruči. CockroachDB omogoča tudi izvoz metrik v \DIFdelbegin \DIFdel{odprto kodno }\DIFdelend \DIFaddbegin \DIFadd{odprtokodno }\DIFaddend rešitev Prometheus, katera nam omogoča shrambo, obdelavo, vizualizacije in obveščanje nad časovnimi vrstami.
 
 \begin{figure}[H]
 \begin{center}
@@ -651,56 +756,53 @@ Poleg podatkovne baze CockroachDB vsebuje tudi spletni administratorski vmesnik,
 \end{figure}
 
 \subsection{SQL}
-CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico ANSI SQL standarda. Poleg tega implementira nekatere najpogostejše \DIFdelbegin \DIFdel{razširitve}\DIFdelend \DIFaddbegin \DIFadd{raz\-ši\-rit\-ve}\DIFaddend , razširitve specifične za \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
+CockroachDB, kakor večina relacijskih podatkovnih baz, podpira podmnožico \DIFdelbegin \DIFdel{ANSI SQL standarda }\DIFdelend \DIFaddbegin \DIFadd{SQL standarda \mbox{%DIFAUXCMD
+\cite{CRDB-sql-standard}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Poleg tega implementira nekatere najpogostejše raz\-ši\-rit\-ve, razširitve specifične za \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend ter svoje razširitve. V spodnjih podpoglavjih bom v grobem opisal, kaj od jezika SQL ponuja CockroachDB, bolj podroben opis pa se nahaja v uradni dokumentaciji \cite{CRDB-sql-features}.
 
 \subsubsection{Podatkovni tipi}
-CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{\DIFdelbegin \DIFdel{DECIMAL}\DIFdelend \DIFaddbegin \DIFadd{DE\-CI\-MAL}\DIFaddend }, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
+CockroachDB podpira podatkovne tipe kot so \texttt{ARRAY}, \texttt{BOOL}, \texttt{BOOL}, \texttt{BYTES}, \texttt{COLLATE} (podobno kot \texttt{STRING} vendar upošteva specifike jezika), \texttt{DATE}, \texttt{DE\-CI\-MAL}, \texttt{FLOAT}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{INTERVAL} (časovni interval), \texttt{JSONB}, \texttt{SERIAL} (\texttt{INT} z avtomatsko kreirano številko, priporočena uporaba \texttt{UUID}), \texttt{STRING}, \texttt{TIME}, \texttt{TIMESTAMP} in \texttt{UUID}. CockroachDB ne podpira podatkovnih tipov \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
 
 \subsubsection{Shema}
-CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje tabel, stolpcev, omejitev in indeksov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Izjema je \texttt{PRIMARY KEY}, to omejitev lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele\DIFaddbegin \DIFadd{, }\DIFaddend CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
+CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje tabel, stolpcev, omejitev in indeksov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Izjema je \texttt{PRIMARY KEY}, to omejitev lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele, CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
 
 Poizvedovanje sheme je na voljo na standardni način, preko virtualne sheme \texttt{informationq\_schema}.
 
-Prožilci še niso podprti in tudi ne \DIFdelbegin \DIFdel{planirani }\DIFdelend \DIFaddbegin \DIFadd{načrtovani }\DIFaddend za naslednje verzije.
+Prožilci še niso podprti in tudi ne načrtovani za naslednje verzije.
 
 \subsubsection{Transakcije}
-CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SERIALIZABLE}\DIFdelend \DIFaddbegin \DIFadd{SE\-RI\-AL\-IZ\-ABLE}\DIFaddend }, omogoča pa še zastareli izolacijski nivo \texttt{\DIFdelbegin \DIFdel{SNAPSHOT}\DIFdelend \DIFaddbegin \DIFadd{SNAP\-SHOT}\DIFaddend }. Ostali standardni izolacijski nivoji niso podprti.
+CockroachDB podpira ACID transakcije, katere so lahko distribuirane preko celotne gruče. Privzeto transakcije uporabljajo najvišji izolacijski nivo \texttt{SE\-RI\-AL\-IZ\-ABLE}, omogoča pa še zastareli izolacijski nivo \texttt{SNAP\-SHOT}. Ostali standardni izolacijski nivoji niso podprti.
 
 \subsubsection{Tabelarični izrazi}
-CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funkcij. Od \texttt{JOIN} operacij omogoča \texttt{INNER}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{FULL}, \texttt{CROSS}, vendar pa te operacije še niso optimizirane\DIFdelbegin \DIFdel{, da }\DIFdelend \DIFaddbegin \DIFadd{. Da }\DIFaddend bi dosegli optimalno delovanje je potrebno \texttt{JOIN} operacije pravilno omejiti.
+CockroachDB podpira referenciranje tabel, pogledov, poizvedb, tabelaričnih funkcij. Od \texttt{JOIN} operacij omogoča \texttt{INNER}, \texttt{LEFT}, \texttt{RIGHT}, \texttt{FULL}, \texttt{CROSS}, vendar pa te operacije še niso optimizirane. Da bi dosegli optimalno delovanje je potrebno \texttt{JOIN} operacije pravilno omejiti.
 
 \subsubsection{Operatorji, skalarni izrazi, logični izrazi in funkcije}
 CockroachDB implementira večji del standardnih operatorjev, skalarnih izrazov, logičnih izrazov ter funkcij. Slabo podporo zagotavlja konsturktu \texttt{EXISTS} in skalarnim pod-poizvedbam. Podpira poizvedovanje po tipu JSON, omogoča iskanje z POSIX regularnimi izrazi ter implementira okenske funkcije (funkcije katere se izvedejo nad podmnožico, tipično ob uporabi \texttt{GROUP BY}).
 
-Uporabniške funkcije niso podprte in tudi ne \DIFdelbegin \DIFdel{planirane }\DIFdelend \DIFaddbegin \DIFadd{načrtovane }\DIFaddend za naslednje verzije. Shranjene procedure so \DIFdelbegin \DIFdel{planirane }\DIFdelend \DIFaddbegin \DIFadd{načrtovane }\DIFaddend za eno od naslednjih verzij.
+Uporabniške funkcije niso podprte in tudi ne načrtovane za naslednje verzije. Shranjene procedure so načrtovane za eno od naslednjih verzij.
 
 \subsection{Poslovna licenca}
 
-CockroachDB je odprto kodna in zastonjska podatkovna baza. Večina potrebnih funkcionalnosti omogoča zastonjska različica, poleg tega pa ponuja tudi poslovno licenco. Poslovna licenca omogoča strankam:
+CockroachDB je \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend in zastonjska podatkovna baza. Večina potrebnih funkcionalnosti omogoča zastonjska različica, poleg tega pa ponuja tudi poslovno licenco. Poslovna licenca omogoča strankam:
 
 \begin{itemize}
     \item svetovanje,
     \item tehnično pomoč,
     \item geografsko distribucijo na nivoju ene vrstice,
     \item vizualizacijo geografsko distribuirane gruče na zemljevidu,
-    \item nadzor dostopa na nivoju skupin \DIFdelbegin %DIFDELCMD < \item %%%
-\item%DIFAUXCMD
-\DIFdel{in
-    }\DIFdelend \DIFaddbegin \DIFadd{in
-    }\item \DIFaddend distribuirano kreiranje in obnova varnostnih kopij.
+    \item nadzor dostopa na nivoju skupin in
+    \item distribuirano kreiranje in obnova varnostnih kopij.
 \end{itemize}
 
-\subsection{Podprta orodja, gonilniki in ORMji in skupnost}
+\subsection{Podprta orodja, gonilniki in \DIFdelbegin \DIFdel{ORMji }\DIFdelend \DIFaddbegin \DIFadd{ORM-ji }\DIFaddend in skupnost}
 
-Podatkovna baza CockroachDB implementira standardni ANSI SQL, za komunikacijo med odjemalcem in strežnikom pa uporablja \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend žični protokol, kar omogoča dobro kompatibilnost z obstoječimi \DIFdelbegin \DIFdel{PostgreSQL }\DIFdelend \DIFaddbegin \DIFadd{Postgres }\DIFaddend komponentami.
+Podatkovna baza CockroachDB implementira standardni \DIFdelbegin \DIFdel{ANSI SQL }\DIFdelend \DIFaddbegin \DIFadd{SQL \mbox{%DIFAUXCMD
+\cite{CRDB-sql-standard}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend , za komunikacijo med odjemalcem in strežnikom pa uporablja \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend žični protokol, kar omogoča dobro kompatibilnost z obstoječimi \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend komponentami.
 
-Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in ORMjev. Za te CockroachLabs v času pisanja zagotavlja le beta podporo \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\cite{CRDB-meta-drivers-orms}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend .
+Na uradni spletni dokumentaciji je za jezike Go, Java, .NET, C++, NodeJS, PHP, Python, Ruby, Rust, Clojure ter Elixir objavljen seznam podprtih gonilnikov in \DIFdelbegin \DIFdel{ORMjev}\DIFdelend \DIFaddbegin \DIFadd{ORM-jev}\DIFaddend . Za te CockroachLabs v času pisanja zagotavlja le beta podporo \cite{CRDB-meta-drivers-orms}.
 
-Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno aplikacijo \texttt{cockroach sql}. Od grafičnih orodij nudijo beta podporo za pgweb, dbglass, Postico, PSequel, TablePlus in Valentina studio \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\cite{CRDB-meta-vizualizers}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend . Orodje pgweb ima trenutno najbolj zdravo in aktivno skupnost, je odprtokodno in podpira vse glavne operacijske sisteme (Windows, OSX in Linux). Aplikacijo dostopamo preko spletnega brskalnika in podpira funkcionalnosti kot so:
+Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno aplikacijo \texttt{cockroach sql}. Od grafičnih orodij nudijo beta podporo za pgweb, dbglass, Postico, PSequel, TablePlus in Valentina studio \cite{CRDB-meta-vizualizers}. Orodje pgweb ima trenutno najbolj zdravo in aktivno skupnost, je odprtokodno in podpira vse glavne operacijske sisteme (Windows, OSX in Linux). Aplikacijo dostopamo preko spletnega brskalnika in podpira funkcionalnosti kot so:
 
 \begin{itemize}
     \item pregled podatkovne baze in sheme
@@ -709,72 +811,43 @@ Od orodij za upravljanje z podatkovno bazo nam CockroachLabs ponuja konzolno apl
     \item izvoz podatkov v formatu CSV, JSON in XML
 \end{itemize}
 
-\DIFdelbegin %DIFDELCMD < \iffalse
+Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozitorija \texttt{cockroachdb/cockraoch} \cite{cockroachdb/cockroach}. Projekt ima zdravo skupnost, kateremu trenutno sledi približno 14 tisoč navdušencev. Poleg GitHub repozitorija, kjer se odvija ves razvoj, vodenje nalog in pomoč, CockroachLabs vodi še spletno stran \cite{CRDB-home} (dokumentacija, form, blog, mediji), Gitter kanal \cite{CRDB-gitter} in Docker repozitorij \cite{CRDB-docker}.
+
+\chapter{Primerjalna analiza zmogljivosti CockroachDB\DIFdelbegin \DIFdel{z Citus}\DIFdelend }
+
+Primerjalna analiza zmogljivosti (angl. \DIFdelbegin \DIFdel{"performance benchmarking"}\DIFdelend \DIFaddbegin \DIFadd{performance benchmarking}\DIFaddend ) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend z nameščeno razširitvijo Citus (v \DIFdelbegin \DIFdel{nadeljevanju }\DIFdelend \DIFaddbegin \DIFadd{nadaljevanju }\DIFaddend samo Citus). 
+
+Za primerjavo z Citus sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo \DIFdelbegin \DIFdel{podobeni}\DIFdelend \DIFaddbegin \DIFadd{podobni}\DIFaddend . Obe podatkovni bazi implementirat \DIFdelbegin \DIFdel{ANSI }\DIFdelend \DIFaddbegin \DIFadd{standardni }\DIFaddend SQL ter komunicirata preko \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend žičnega protokola. 
+
+Za orodje YCSB sem se odločil, saj podpira vmesnik JDBC, katerega podpirata tudi obe podatkovni bazi poleg tega pa je enostaven za uporabo. Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
+
+\begin{itemize}
+    \item \textbf{TPC:}\\ TPC (angl. transaction processing performance council) \cite{TPC-home} je ne profitna organizacija, katera nudi preverljive podatke TPC zmogljivostnih analiz podatkovnih baz. TPC definira več različnih standardnih testov, kateri simulirajo različne realne obremenitve. Te testi so točno opisani in strogo omejeni. Najbolj \DIFdelbegin \DIFdel{pozan }\DIFdelend \DIFaddbegin \DIFadd{poznan }\DIFaddend tip testa za transakcijske obremenitve je TPC-C, za analitične pa TPC-H.
+
+    To so standardizirani testi in bi bili najbolj primerni, vendar pa so zelo kompleksni. Uradnih TPC testov za podatkovno bazo \DIFdelbegin \DIFdel{CockraochDB }\DIFdelend \DIFaddbegin \DIFadd{CockroachDB }\DIFaddend še ne obstaja.
+    \item \textbf{pgbench:}\\ Je enostavno orodje namenjeno \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovni bazi. Simulira ne standardno TPC-C obremenitev.
+
+    Orodje pgbench v času izvajanja testov še ni bilo kompatibilno z podatkovno bazo CockroachDB.
+    \item \textbf{cockroachdb/loadgen:}\\ Je orodje namenjeno CockroachDB podatkovni bazi. Orodje vsebuje nabor testov kot so TPC-C, TPC-H in YCSB. Te orodja interno uporabljajo za zmogljivostno primerjavo med verzijami CockroachDB podatkovne baze. Kasneje je bil objavljena tudi objava na njihovem blogu, kjer so primerjali rezultate TPC-C obremenitve med podatkovnima bazama CockroachDB in Amazon Aurora.
+
+    Orodje je enostavno, vendar ne omogoča zmogljivostne analize \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovne baze.
+    \item \textbf{Apache JMeter:}\\ Je orodje primarno namenjeno izvajanju obremenitvenih testov. Tega orodje omogoča izvajanje obremenitvenih testov preko JDBC vmesnika.
+
+    Orodje je zelo konfigurabilno vendar pa ne omogoča v naprej definiranih obremenitvenih testov in je težko za uporabo.
+    \item \textbf{YCSB:}\\ YCSB (angl. Yahoo! Cloud Serving Benchmark) je orodje namenjeno za primerjavo zmogljivostnih metrik med raznimi podatkovnimi bazami.
+\end{itemize}
+
+V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel primerjalno analizo. Opisal bom arhitekturo, pripravo posameznih konfiguracij, pripravo podatkov in samo testiranje. Na koncu bom predstavil rezultate zmogljivostne analize ter ugotovitve.
+\DIFdelbegin %DIFDELCMD < \newpage
 %DIFDELCMD < %%%
-\DIFdel{Drivers }%DIFDELCMD < & %%%
-\DIFdel{ORMs:
-https://github. com/cockroachdb/cockroach/issues/25468
-}\DIFdelend \DIFaddbegin \DIFadd{Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozitorija }\texttt{\DIFadd{cockroachdb/cockraoch}} \DIFadd{\mbox{%DIFAUXCMD
-\cite{cockroachdb/cockroach}}\hspace{0pt}%DIFAUXCMD
-. Projekt ima zdravo skupnost, kateremu trenutno sledi približno 14 tisoč navdušencev. Poleg GitHub repozitorija, kjer se odvija ves razvoj, vodenje nalog in pomoč, CockroachLabs vodi še spletno stran \mbox{%DIFAUXCMD
-\cite{CRDB-home} }\hspace{0pt}%DIFAUXCMD
-(dokumentacija, form, blog, mediji), Gitter kanal \mbox{%DIFAUXCMD
-\cite{CRDB-gitter} }\hspace{0pt}%DIFAUXCMD
-in Docker repozitorij \mbox{%DIFAUXCMD
-\cite{CRDB-docker}}\hspace{0pt}%DIFAUXCMD
-.
-}\DIFaddend 
-
-\DIFdelbegin \DIFdel{DB Visualizers:
-https://github.com/cockroachdb/cockroach/issues/25467
-}%DIFDELCMD < \fi
-%DIFDELCMD < 
-
-%DIFDELCMD < \hl{TODO:} %%%
-\DIFdel{skupnost, sam sem uporabil pgweb in gorm
-}%DIFDELCMD < 
-
-%DIFDELCMD < %%%
-\DIFdelend \chapter{Primerjalna analiza zmogljivosti CockroachDB z Citus}
-
-Primerjalna analiza zmogljivosti (angl. "performance benchmarking") je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V mojem primeru bom z orodjem YCSB primerjal podatkovni bazi CockroachDB ter Postgres \DIFdelbegin \DIFdel{(z }\DIFdelend \DIFaddbegin \DIFadd{z nameščeno }\DIFaddend razširitvijo Citus \DIFaddbegin \DIFadd{(v nadeljevanju samo Citus}\DIFaddend ). 
-
-Za primerjavo z \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus }\DIFaddend sem se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov\DIFdelbegin \DIFdel{, saj je CockroachDB v nekaterih vidikih zelo podoben Postgres podatkovni bazi }\DIFdelend \DIFaddbegin \DIFadd{. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobeni. Obe podatkovni bazi implementirat ANSI SQL ter komunicirata preko Postgres žičnega protokola}\DIFaddend . 
-
-Za orodje YCSB sem se odločil, \DIFdelbegin \DIFdel{ker }\DIFdelend \DIFaddbegin \DIFadd{saj }\DIFaddend podpira vmesnik JDBC\DIFaddbegin \DIFadd{, }\DIFaddend katerega podpirata tudi obe \DIFdelbegin \DIFdel{bazi}\DIFdelend \DIFaddbegin \DIFadd{podatkovni bazi poleg tega pa je enostaven za uporabo}\DIFaddend . Orodje YCSB sem bolj podrobno opisal v poglavju \ref{YCSB_about}. \DIFaddbegin \DIFadd{Ob iskanju najprimernejšega orodja sem pregledal naslednja orodja:
-}\DIFaddend 
-
-\DIFaddbegin \begin{itemize}
-    \item \textbf{\DIFadd{TPC:}}\\ \DIFadd{TPC (angl. transaction processing performance council) \mbox{%DIFAUXCMD
-\cite{TPC-home} }\hspace{0pt}%DIFAUXCMD
-je ne profitna organizacija, katera nudi preverljive podatke TPC zmogljivostnih analiz podatkovnih baz. TPC definira več različnih standardnih testov, kateri simulirajo različne realne obremenitve. Te testi so točno opisani in strogo omejeni. Najbolj pozan tip testa za transakcijske obremenitve je TPC-C, za analitične pa TPC-H.
-}
-
-    \DIFadd{To so standardizirani testi in bi bili najbolj primerni, vendar pa so zelo kompleksni. Uradnih TPC testov za podatkovno bazo CockraochDB še ne obstaja.
-    }\item \textbf{\DIFadd{pgbench:}}\\ \DIFadd{Je enostavno orodje namenjeno Postgres podatkovni bazi. Simulira ne standardno TPC-C obremenitev.
-    }
-
-    \DIFadd{Orodje pgbench v času izvajanja testov še ni bilo kompatibilno z podatkovno bazo CockroachDB.
-    }\item \textbf{\DIFadd{cockroachdb/loadgen:}}\\ \DIFadd{Je orodje namenjeno CockroachDB podatkovni bazi. Orodje vsebuje nabor testov kot so TPC-C, TPC-H in YCSB. Te orodja interno uporabljajo za zmogljivostno primerjavo med verzijami CockroachDB podatkovne baze. Kasneje je bil objavljena tudi objava na njihovem blogu, kjer so primerjali rezultate TPC-C obremenitve med podatkovnima bazama CockroachDB in Amazon Aurora.
-}
-
-    \DIFadd{Orodje je enostavno, vendar ne omogoča zmogljivostne analize Postgres podatkovne baze.
-    }\item \textbf{\DIFadd{Apache JMeter:}}\\ \DIFadd{Je orodje primarno namenjeno izvajanju obremenitvenih testov. Tega orodje omogoča izvajanje obremenitvenih testov preko JDBC vmesnika.
-    }
-
-    \DIFadd{Orodje je zelo konfigurabilno vendar pa ne omogoča v naprej definiranih obremenitvenih testov in je težko za uporabo.
-    }\item \textbf{\DIFadd{YCSB:}}\\ \DIFadd{YCSB (angl. Yahoo! Cloud Serving Benchmark) je orodje namenjeno za primerjavo zmogljivostnih metrik med raznimi podatkovnimi bazami.
-}\end{itemize}
-
-\DIFaddend V naslednjih podpoglavjih bom opisal točen postopek s katerim sem izvedel primerjalno analizo. Opisal bom arhitekturo, pripravo posameznih konfiguracij, pripravo podatkov in samo testiranje. Na koncu bom predstavil rezultate zmogljivostne analize ter ugotovitve.
-\newpage
+\DIFdelend 
 
 \section{Hipoteze}
-Pred začetkom izvajanja primerjalne analize sem \DIFdelbegin \DIFdel{postavil }\DIFdelend \DIFaddbegin \DIFadd{postavill }\DIFaddend naslednje hipoteze:
+Pred začetkom izvajanja primerjalne analize sem \DIFdelbegin \DIFdel{postavill }\DIFdelend \DIFaddbegin \DIFadd{postavil }\DIFaddend naslednje hipoteze:
 \begin{enumerate}
-    \item CockroachDB bo na enem vozlišču nekoliko počasnejši od Postgres podatkovne baze.
+    \item CockroachDB bo na enem vozlišču nekoliko počasnejši od \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovne baze.
     \iffalse
-    Razlog za to hipotezo je, da je CockroachDB na trgu dobro leto in še ni dokončno optimizirana. Medtem, ko je Postgres na trgu dobrih 20 let.
+    Razlog za to hipotezo je, da je CockroachDB na trgu dobro leto in še ni dokončno optimizirana. Medtem, ko je \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend na trgu dobrih 20 let.
     \fi
     \item CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj tri krat bolj zmogljiv.
 \end{enumerate}
@@ -788,7 +861,7 @@ Vozlišča so med seboj povezana preko gigabitnega Ethernet omrežja v Docker Sw
 \begin{center}
 \begin{tabular}{ |l|l|l|l|l| } 
 \hline
- & \DIFdelbeginFL \DIFdelFL{procesor }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{PROCESOR}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{pomnilnik }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{POMNILNIK}} \DIFaddendFL & \DIFdelbeginFL \DIFdelFL{trdi disk }\DIFdelendFL \DIFaddbeginFL \textbf{\DIFaddFL{TRDI DISK}} \DIFaddendFL \\
+ & \textbf{\DIFdelbeginFL \DIFdelFL{PROCESOR}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{procesor}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{POMNILNIK}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{pomnilnik}\DIFaddendFL } & \textbf{\DIFdelbeginFL \DIFdelFL{TRDI DISK}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{trdi disk}\DIFaddendFL } \\
 \hline
 n0 & Intel Core2 Quad CPU Q9400 & 4GB & SAMSUNG HD753LJ \\
 n1 & Intel Core i5 CPU 650 & 4GB & WDC WD10EARS-22Y5B1 \\ 
@@ -805,39 +878,38 @@ n3 & Intel Core i5-2400 & 4GB & Hitachi HDS721050CLA662 \\
 Vozlišče n0 je v vlogi odjemalca. Na njem teče program, ki zažene podatkovno bazo, obnovi podatke, izvaja teste in beleži rezultate. Podroben opis delovanja odjemalca se nahaja v poglavju \ref{YCSB_benchmarking_steps}.
 
 \subsection{Strežnik}
-V vlogi strežnika so vozlišča n1, n2 in n3. Na njih teče ali CockroachDB ali Postgres z \DIFaddbegin \DIFadd{nameščeno }\DIFaddend razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču n2.
+V vlogi strežnika so vozlišča \DIFdelbegin \DIFdel{n1, n2 in n3}\DIFdelend \DIFaddbegin \texttt{\DIFadd{n1}}\DIFadd{, }\texttt{\DIFadd{n2}} \DIFadd{in }\texttt{\DIFadd{n3}}\DIFaddend . Na njih teče ali CockroachDB ali \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend z nameščeno razširitvijo Citus. V primeru, da gre za konfiguracijo z enim vozliščem, podatkovna baza teče na vozlišču \DIFdelbegin \DIFdel{n2}\DIFdelend \DIFaddbegin \texttt{\DIFadd{n2}}\DIFaddend .
 
-\section{YCSB}
+\DIFaddbegin \section{\DIFadd{Citus}}
+\label{benchmarking/citus}
+\hl{TODO}
+
+\DIFaddend \section{YCSB}
 \label{YCSB_about}
-\DIFdelbegin %DIFDELCMD < \hl{TODO} %%%
-\DIFdel{katere so še ostale metode kater sem pregledal (pgBench, TPC-C, CRDB tpcc, JMeter,...)
-}%DIFDELCMD < 
+YCSB \cite{brianfrankcooper/YCSB} je razširljiva in \DIFdelbegin \DIFdel{odprto kodna }\DIFdelend \DIFaddbegin \DIFadd{odprtokodna }\DIFaddend rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
 
-%DIFDELCMD < %%%
-\DIFdelend YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprto kodna rešitev za primerjalno analizo zmogljivosti. Največkrat se uporablja za zmogljivostno analizo različnih NoSQL podatkovnih baz. Podpira veliko število različnih podatkovnih baz kot so  Mongo, Couchbase, S3, Redis, itd. Poleg tega pa podpira tudi JDBC vmesnik, preko katerega sem primerjal CockroachDB ter Postgres podatkovni bazi. YCSB nudi šest enostavnih predefiniranih tipov obremenitev \cite{YCSB-core-workloads} označenih z A, B, C, D, E in F.
-
-\section{Postopek testiranja}
+\section{\DIFdelbegin \DIFdel{Postopek testiranja}\DIFdelend \DIFaddbegin \DIFadd{Testiranja YCSB obremenitev}\DIFaddend }
 \label{YCSB_benchmarking_steps}
-Testiranje je potekalo iz odjemalca, torej vozlišča n0. Meritev je bilo veliko, zato sem pripravil program s katerim sem si pomagal. Program je enostaven in ni prenosljiv. Izvorna koda in rezultati meritev so na voljo na GitHub repozitoriju \cite{matjazmav/diploma-ycsb}. V tem poglavju bom opisal vse korake kateri so bili potrebni za izvedbo meritev.
+Testiranje je potekalo iz odjemalca, torej vozlišča \DIFdelbegin \DIFdel{n0}\DIFdelend \DIFaddbegin \texttt{\DIFadd{n0}}\DIFaddend . Meritev je bilo veliko, zato sem pripravil program s katerim sem si pomagal. Program je enostaven in ni prenosljiv. Izvorna koda in rezultati meritev so na voljo na GitHub repozitoriju \cite{matjazmav/diploma-ycsb}. V tem poglavju bom opisal vse korake kateri so bili potrebni za izvedbo meritev.
 
 \subsection{Namestitev programske opreme}
 Na vozlišču \texttt{n0} sem namestil naslednjo programsko opremo:
 \begin{itemize}
     \item YCSB (verzija 0.12.0) \cite{brianfrankcooper/YCSB} je orodje namenjeno za izvedbo zmogljivostne analize ter primerjavo med različnimi podatkovnimi bazami. Samo orodje sem bolj natančno opisal v poglavju \ref{YCSB_about}.
     \item Ansible (verzija 2.5.0) \cite{Ansible} je orodje za avtomatizacijo, uporabil sem ga zaradi lažjega konfiguriranja gruče preko SSH povezave.
-    \item Go (verzija 1.10.1) \cite{Golang} je programski jezik, v katerem je napisan program za avtomatizacijo testov.
-\end{itemize} 
+    \item Go (verzija 1.10.1) \cite{Golang} je programski jezik, v katerem je napisan program za avtomatizacijo \DIFdelbegin \DIFdel{testov. }\DIFdelend \DIFaddbegin \DIFadd{testiranja. Za programski jezik Go sem se odločil, zaradi njegove enostavnosti.
+}\DIFaddend \end{itemize} 
 
 \subsection{Priprava podatkov}
 \label{benchmarking-prepare-data}
-Program za avtomatizacijo predpostavlja, da imajo vsa vozlišča na točno določeni lokaciji pripravljene podatke za obnovo podatkovne baze. Pred vsakim testom se podatki skopirajo v začasno mapo nad katero kasneje baza izvaja operacije. Po končanem testu se začasna mapa izbriše.
+Program za avtomatizacijo predpostavlja, da imajo vsa vozlišča na točno določeni lokaciji pripravljene podatke za obnovo \DIFaddbegin \DIFadd{fizične }\DIFaddend podatkovne baze. Pred vsakim testom se podatki \DIFdelbegin \DIFdel{skopirajo }\DIFdelend \DIFaddbegin \DIFadd{kopirajo }\DIFaddend v začasno mapo\DIFaddbegin \DIFadd{, }\DIFaddend nad katero kasneje baza izvaja operacije. Po končanem testu se začasna mapa izbriše.
 
 V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako konfiguracijo (eno vozlišče in tri vozlišča) pripravil podatke. Vse konfiguracijske datoteke, ki so uporabljene v spodnjih primerih so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb} \cite{matjazmav/diploma-ycsb}.
 
-\subsubsection{\DIFdelbegin \DIFdel{Postgres z razširitvijo }\DIFdelend Citus}
+\subsubsection{Citus}
 \begin{enumerate}
-    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) sem pognal \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus podatkovno }\DIFaddend bazo na vozlišču \texttt{n2}.
-    \item Na primarnem vozlišču \texttt{n2} sem ročno kreiral shemo katero potrebuje YCSB za svoje delovanje.
+    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) sem pognal Citus podatkovno bazo na vozlišču \texttt{n2}.
+    \item Na \DIFdelbegin \DIFdel{primarnem }\DIFdelend vozlišču \texttt{n2} sem ročno kreiral shemo katero potrebuje YCSB za svoje delovanje.
     \begin{listing}[H]
     \begin{minted}{vim}
         CREATE DATABASE ycsb;
@@ -853,7 +925,7 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
     \end{minted}
     \label{code-ycsb-schema-postgres}
     \end{listing}
-    \item Nato sem generiral podatke. V bazo na primarnem vozlišču n2 sem z YCSB orodjem naložil 5 milijonov zapisov, kar na disku zasede približno 6GB prostora.
+    \item Nato sem generiral podatke. V bazo na \DIFdelbegin \DIFdel{primarnem }\DIFdelend vozlišču \DIFdelbegin \DIFdel{n2 }\DIFdelend \DIFaddbegin \texttt{\DIFadd{n2}} \DIFaddend sem z YCSB orodjem naložil 5 milijonov zapisov, kar na disku zasede približno 6GB prostora.
     \begin{listing}[H]
     \begin{minted}{vim}
         ycsb load jdbc \
@@ -864,10 +936,10 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
     \end{minted}
     \label{code-ycsb-load-postgres}
     \end{listing}
-    \item Varno sem ustavil bazo ter naredil varnostno kopijo podatkov na disku.
-    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n3.yml}) pognal \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{Citus podatkovno }\DIFaddend bazo na treh vozliščih.
+    \item \DIFdelbegin \DIFdel{Varno sem ustavil bazo }\DIFdelend \DIFaddbegin \DIFadd{Podatkovno bazo sem varno ustavil }\DIFaddend ter naredil varnostno kopijo \DIFdelbegin \DIFdel{podatkov }\DIFdelend \DIFaddbegin \DIFadd{fizične podatkovne baze }\DIFaddend na disku.
+    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/\DIFaddbegin \\\DIFaddend postgres-n3.yml}) pognal Citus podatkovno bazo na treh vozliščih.
     \item Na vozliščih \texttt{n1} in \texttt{n3} sem kreiral shemo definirano v točki 2.
-    \item Nato sem na primarnem vozlišču \texttt{n2} povezal obe sekunarni vozlišči \texttt{n1} ter \texttt{n3} in kreiral distribuirano tabelo. Podatki v tabeli \texttt{usertable} so se enakomerno porazdelili med vsa tri vozlišča.
+    \item Nato sem na \DIFdelbegin \DIFdel{primarnem }\DIFdelend vozlišču \texttt{n2} povezal \DIFdelbegin \DIFdel{obe sekunarni }\DIFdelend \DIFaddbegin \DIFadd{še }\DIFaddend vozlišči \texttt{n1} ter \texttt{n3} in kreiral distribuirano tabelo. Podatki v tabeli \texttt{usertable} so se enakomerno porazdelili med vsa tri vozlišča.
     \begin{listing}[H]
     \begin{minted}{vim}
         \c ycsb;
@@ -882,7 +954,7 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
 
 \subsubsection{CockroachDB}
 \begin{enumerate}
-    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/cockroachdb-n1.yml}) sem pognal CockroachDB bazo na vozlišču \texttt{n2}.
+    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/\DIFaddbegin \\\DIFaddend cockroachdb-n1.yml}) sem pognal CockroachDB bazo na vozlišču \texttt{n2}.
     \item Na vozlišču \texttt{n2} sem ročno kreiral shemo katero potrebuje YCSB za svoje delovanje.
     \begin{listing}[H]
     \begin{minted}{vim}
@@ -899,7 +971,7 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
     \end{minted}
     \label{code-ycsb-schema-cockroach}
     \end{listing}
-    \item Nato sem generiral podatke. V bazo na vozlišču n2 sem z YCSB orodjem naložil 5 milijonov zapisov, kar na disku zasede približno 6GB prostora.
+    \item Nato sem generiral podatke. V bazo na vozlišču \DIFdelbegin \DIFdel{n2 }\DIFdelend \DIFaddbegin \texttt{\DIFadd{n2}} \DIFaddend sem z YCSB orodjem naložil 5 milijonov zapisov, kar na disku zasede približno 6GB prostora.
     \begin{listing}[H]
     \begin{minted}{vim}
         ycsb load jdbc \
@@ -910,20 +982,20 @@ V spodnjih korakih je opisan postopek, po katerem sem za vsako bazo ter za vsako
     \end{minted}
     \label{code-ycsb-load-cockroach}
     \end{listing}
-    \item Varno sem ustavil bazo ter naredil varnostno kopijo podatkov na disku.
-    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/cockroachdb-n3.yml}) pognal CockroachDB bazo na treh vozliščih.
-    \item Baza je sama zaznala dve novi vozlišči in pričela avtomatsko z replikacijo podatkov na ostala dva vozlišča. Ko se je replikacija končala sem bazo varno ustavil ter naredil varnostno kopijo podatkov na disku.
+    \item \DIFdelbegin \DIFdel{Varno sem ustavil bazo }\DIFdelend \DIFaddbegin \DIFadd{Podatkovno bazo sem varno ustavil }\DIFaddend ter naredil varnostno kopijo \DIFdelbegin \DIFdel{podatkov }\DIFdelend \DIFaddbegin \DIFadd{fizične podatkovne baze }\DIFaddend na disku.
+    \item Nato sem Docker Swarm konfiguracijsko skripto (\texttt{stacks/\DIFaddbegin \\\DIFaddend cockroachdb-n3.yml}) pognal CockroachDB bazo na treh vozliščih.
+    \item Baza je sama zaznala dve novi vozlišči in pričela avtomatsko z replikacijo podatkov na ostala dva vozlišča. Ko se je replikacija končala sem bazo varno ustavil ter naredil varnostno kopijo \DIFdelbegin \DIFdel{podatkov }\DIFdelend \DIFaddbegin \DIFadd{fizične podatkovne baze }\DIFaddend na disku.
 \end{enumerate}
 
 
 \subsection{Program za avtomatizacijo}
 Vozlišče \texttt{n0} je v vlogi odjemalca. Na njem teče program, ki za vse kombinacije parametrov (baza, število vozlišč, število sočasnih povezav) izvaja teste in beleži rezultate. Program predpostavlja, da obstajajo za vsako konfiguracijo v naprej pripravljeni podatki na točno določenem mestu. Postopek za pripravo podatkov sem opisal v poglavju \ref{benchmarking-prepare-data}. Program v grobem za vsako kombinacijo parametrov izvede naslednje koraka:
 \begin{enumerate}
-    \item Obnovi v naprej definirane podatke (\texttt{cp -a})
+    \item Obnovi \DIFdelbegin \DIFdel{v naprej }\DIFdelend \DIFaddbegin \DIFadd{vnaprej }\DIFaddend definirane podatke (\texttt{cp -a})
     \item Zažene podatkovno bazo (\texttt{docker stack up})
     \item Izvede YCSB test (\texttt{ycsb run jdbc ...})
-    \item Zabeleži rezultat v CSV datoteko
-    \item Ustavi podatkovno bazo (\texttt{docker stack rm})
+    \item Zabeleži rezultat v \DIFdelbegin \DIFdel{CSV datoteko }\DIFdelend \DIFaddbegin \DIFadd{datoteko CSV
+    }\DIFaddend \item Ustavi podatkovno bazo (\texttt{docker stack rm})
     \item Počisti podatke (\texttt{rm -rf})
 \end{enumerate}
 
@@ -931,14 +1003,37 @@ Koraki 2, 3, 4 in 5 se ponovijo za vsak tip obremenitve v točno določenem vrst
 
 Zaradi morebitnih odstopanj sem vse teste ponovil trikrat.
 
-\section{Rezultati}
+\DIFaddbegin \section{\DIFadd{Testiranje stičnih operacij}}
+\hl{TODO}
+
+\DIFaddend \section{Rezultati}
 Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb} \cite{matjazmav/diploma-ycsb}. V mapi \texttt{results} se nahajajo datoteke z neobdelani podatki. Analizo rezultatov pa sem izvedel v excel datoteki \texttt{results.xlsx}. Po analizi sem prišel do spodnjih rezultatov.
 
 \newpage
 
 \begin{figure}[H]
+    \begin{center}
+    \DIFaddbeginFL \includegraphics[width=1\textwidth]{resources/top-level-comparison.png}
+    \end{center}
+    \caption{\DIFaddFL{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih.}}
+    \label{img_ycsb_results_top_level_comparison}
+    \end{figure}
+
+\newpage
+
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-n1-v2.png}
+\includegraphics[width=1\textwidth]{resources/comparison-throughputnlatency-bnw.png}
+\end{center}
+\caption{\DIFaddFL{Prikazuje primerjavo prepustnosti in latenc glede na vrsto obremenitve med podatkovno bazo Citus in CockroachDB. Graf }\textbf{\DIFaddFL{CockroachDB - 1 vozlišče - latenca }[\DIFaddFL{ms}]} \DIFaddFL{je zaradi lažje primerjave odrezan.}}
+\label{img_ycsb_results_bnw_comparison}
+\end{figure}
+
+\newpage
+
+\begin{figure}[H]
+\begin{center}
+\DIFaddendFL \includegraphics[width=1\textwidth]{resources/maxThroughput-n1-v2.png}
 \end{center}
 \caption{Primerjava maksimalne prepustnosti glede na tip obremenitve pri enem vozliščih.}
 \label{img_ycsb_results_max_throughput_n1}
@@ -971,100 +1066,198 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 \end{figure}
 
 \section{Ugotovitve}
-Zmogljivostna analiza je pokazala, da se \DIFdelbegin \DIFdel{Postgres z Citus razširitvijo v }\DIFdelend \DIFaddbegin \DIFadd{Citus pri }\DIFaddend večini \DIFdelbegin \DIFdel{primerov }\DIFdelend \DIFaddbegin \DIFadd{obremenitev, katere sem testiral, }\DIFaddend odziva bolje kot CockroachDB.
+Zmogljivostna analiza je pokazala, da se \DIFaddbegin \DIFadd{podatkovna baza }\DIFaddend Citus pri večini obremenitev, katere sem testiral, odziva \DIFdelbegin \DIFdel{bolje kot }\DIFdelend \DIFaddbegin \DIFadd{bitveno bolje kot podatkovna baza }\DIFaddend CockroachDB.
 
-Izjema je bila latenca pri obremenitev tipa A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
+\DIFdelbegin \DIFdel{Izjema je bila latenca pri obremenitev tipa A, ker je CockroachDB }\DIFdelend \DIFaddbegin \DIFadd{S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB v primerjavi s Citus dosega 2,7 krat manjšo prepustnost na enem vozlišču in kar 5 krat manjšo prepustnost na treh vozliščih. Pri primerjavi latence pa je CockroachDB v primerjavi s Citus na enem vozlišču }\DIFaddend dosegel približno \DIFdelbegin \DIFdel{pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja}\DIFdelend \DIFaddbegin \DIFadd{25,2 krat večjo latenco, na treh vozljiščih pa samo še 3 krat večjo}\DIFaddend .
 
-Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot Postgres.
+\DIFdelbegin \DIFdel{Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot Postgres. }\DIFdelend \DIFaddbegin \DIFadd{S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih saj so podatki pri podatkovni bazi CockroachDB veliko bolj razpršeni.
+}\DIFaddend 
 
-\subsection{Hipoteza 1}
-\textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od Postgres podatkovne baze.}\\\\Razlog za to hipotezo je, da je podatkovna baza Postgres že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
+%DIF >  Izjema je bila latenca pri vrsti obremenitve A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
+\DIFaddbegin 
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
-\end{center}
-\caption{Primerjava povprečne prepustnosti na enem vozlišču.}
-\label{img_ycsb_results_throughptu_comparison_n1}
-\end{figure}
+%DIF >  Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot PostgreSQL.
 
-Hipotezo sem potrdil, kar kaže tudi zgornja slika \ref{img_ycsb_results_throughptu_comparison_n1}. CockroachDB v primerjavi z Postgres dosega približno 2,7 krat nižjo prepustnost.
+\DIFaddend \subsection{Hipoteza 1}
+\textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovne baze.}
+\DIFaddbegin 
 
-Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB so primerjali obremenitve tipa A, B in C. Ugotovili so, da se CockroachDB odziva približno 10 krat slabše kakor Postgres.
+\DIFadd{\ }\DIFaddend \\
+\DIFdelbegin %DIFDELCMD < \\%%%
+\DIFdelend Razlog za to hipotezo je, da je podatkovna baza \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]
+%DIFDELCMD < \begin{center}
+%DIFDELCMD < \includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
+%DIFDELCMD < \end{center}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Primerjava povprečne prepustnosti na enem vozlišču.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{img_ycsb_results_throughptu_comparison_n1}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend %DIF >  \begin{figure}[H]
+%DIF >  \begin{center}
+%DIF >  \includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
+%DIF >  \end{center}
+%DIF >  \caption{Primerjava povprečne prepustnosti na enem vozlišču.}
+%DIF >  \label{img_ycsb_results_throughptu_comparison_n1}
+%DIF >  \end{figure}
+
+Hipotezo sem potrdil, kar \DIFdelbegin \DIFdel{kaže tudi zgornja slika \ref{img_ycsb_results_throughptu_comparison_n1}. }\DIFdelend \DIFaddbegin \DIFadd{je razvidno tudi na sliki \ref{img_ycsb_results_top_level_comparison}. Podatkovna baza }\DIFaddend CockroachDB v primerjavi z \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend dosega približno 2,7 krat nižjo prepustnost.
+
+Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB \DIFaddbegin \DIFadd{(verzija 0.12.0) }\DIFaddend so primerjali obremenitve tipa A, B in C. Ugotovili so, da se \DIFdelbegin \DIFdel{CockroachDB }\DIFdelend \DIFaddbegin \DIFadd{podatkovna baza CockroachDB (verzija 1.1.3) v primerjavi z PostgreSQL (verzija 9.6.5) }\DIFaddend odziva približno 10 krat slabše kakor \DIFdelbegin \DIFdel{Postgres. }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL. V njihovem primeru so testno okolje postavili v Amazon oblaku, vsako bazo na treh vozljiščih.
+}\DIFaddend 
 
 \subsection{Hipoteza 2}
-\textit{CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj tri krat bolj zmogljiv.}\\\\Vsa vozlišča povezana v CockroachDB gručo so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč ter, da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna. \cite{CRDB-design}.
+\textit{CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj tri krat bolj zmogljiv.}
+\DIFaddbegin 
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
-\end{center}
-\caption{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}
-\label{img_ycsb_results_scaling_throughptu_comparison}
-\end{figure}
+\DIFadd{\ }\DIFaddend \\
+\DIFdelbegin %DIFDELCMD < \\%%%
+\DIFdelend Vsa vozlišča povezana v CockroachDB gručo so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč\DIFaddbegin \DIFadd{, }\DIFaddend ter, da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna \DIFdelbegin \DIFdel{. }\DIFdelend \cite{CRDB-design}.
 
-To hipotezo sem ovrgel. Meritve so pokazale, da CockroachDB doseže celo slabšo prepustnost na treh vozliščih. To je prikazano na zgornji sliki \ref{img_ycsb_results_scaling_throughptu_comparison}.
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]
+%DIFDELCMD < \begin{center}
+%DIFDELCMD < \includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
+%DIFDELCMD < \end{center}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{img_ycsb_results_scaling_throughptu_comparison}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend %DIF >  \begin{figure}[H]
+%DIF >  \begin{center}
+%DIF >  \includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
+%DIF >  \end{center}
+%DIF >  \caption{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}
+%DIF >  \label{img_ycsb_results_scaling_throughptu_comparison}
+%DIF >  \end{figure}
+
+To hipotezo sem ovrgel. Meritve so pokazale, da \DIFaddbegin \DIFadd{podatkovna baza }\DIFaddend CockroachDB doseže celo slabšo prepustnost na treh vozliščih. To \DIFdelbegin \DIFdel{je prikazano na zgornji sliki \ref{img_ycsb_results_scaling_throughptu_comparison}}\DIFdelend \DIFaddbegin \DIFadd{razvidno na sliki \ref{img_ycsb_results_top_level_comparison}}\DIFaddend .
 
 Razlog za tak rezultat naj bi bila primerjava med konfiguracijo na enem in treh vozliščih \cite{CRDB-YCSB-perf-analisis}. CockroachDB na treh vozliščih s privzetimi nastavitvami začne z postopkom replikacije podatkov. Privzeto je vsak podatek repliciran trikrat, enkrat na vsakem vozlišču. CockroachDB tako zagotavlja konsistenco in visoko razpoložljivost.
 
-Rezultati neuradne TPC-C zmogljivostne analize, katero so izvedli v CockroachLabs, kažejo, da je CockroachDB linearno skalabilen \cite{CRDB-TPCC-perforamance-report}. Ob skaliranju z 3 na 30 vozlišč ter ob sorazmernem povečanju obremenitve so dosegli tudi sorazmerno večjo prepustnost.
+Rezultati neuradne TPC-C zmogljivostne analize, katero so izvedli v \DIFdelbegin \DIFdel{CockroachLabs}\DIFdelend \DIFaddbegin \DIFadd{Co\-ckroachLabs}\DIFaddend , kažejo, da je CockroachDB linearno skalabilen \cite{CRDB-TPCC-perforamance-report}. Ob \DIFdelbegin \DIFdel{skaliranju }\DIFdelend \DIFaddbegin \DIFadd{skali\-ranju }\DIFaddend z 3 na 30 vozlišč ter ob sorazmernem povečanju obremenitve so dosegli tudi sorazmerno večjo prepustnost.
 
-Prišel sem do ugotovitve, da je CockroachDB linearno skalabilna podatkovna baza, če velja naslednje:
-\begin{enumerate}
-    \item Obremenitev mora biti enakomerno porazdeljena med vsa vozlišča.
-    \item Faktor replikacije mora ostati konstanten.
-\end{enumerate}
+Prišel sem do ugotovitve, da je CockroachDB linearno skalabilna podatkovna baza, \DIFaddbegin \DIFadd{(1) }\DIFaddend če \DIFdelbegin \DIFdel{velja naslednje:
+}%DIFDELCMD < \begin{enumerate}
+%DIFDELCMD <     \item %%%
+\DIFdel{Obremenitev mora biti }\DIFdelend \DIFaddbegin \DIFadd{je obremenitev }\DIFaddend enakomerno porazdeljena med vsa vozlišča \DIFdelbegin \DIFdel{.
+    }%DIFDELCMD < \item %%%
+\DIFdel{Faktor replikacije mora ostati konstanten.
+}%DIFDELCMD < \end{enumerate}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{in (2) faktor replikacije ob skaliranju ostane konstanten.
+}\DIFaddend 
 
-Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri Postgres konfiguraciji vsi odjemalci direktno povezujejo na eno vozlišče (koordinatorja), to vozlišče je ozko grlo, saj bo ob večanjem v neki točki prišlo do zasičenosti resursev \cite{Citus-add-coordinator}.
+Na podlagi teh ugotovitev sem pripravil optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend konfiguraciji vsi odjemalci direktno povezujejo na eno vozlišče (koordinatorja), to vozlišče je ozko grlo \DIFaddbegin \DIFadd{(točka A)}\DIFaddend , saj bo ob večanjem v neki točki prišlo do zasičenosti \DIFdelbegin \DIFdel{resursev \mbox{%DIFAUXCMD
+\cite{Citus-add-coordinator}}\hspace{0pt}%DIFAUXCMD
+. }\DIFdelend \DIFaddbegin \DIFadd{resursov \mbox{%DIFAUXCMD
+\cite{Citus-add-coordinator}}\hspace{0pt}%DIFAUXCMD
+. V neki točki (točka B) pa bo CockroachDB presegel prepustnost podatkovne baze Citus.
+}\DIFaddend 
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1\textwidth]{resources/scaling-throughput-prediction-v2.png}
 \end{center}
-\caption{Optimistična ocena rasti povprečne prepustnosti.}
+\caption{Optimistična ocena rasti povprečne prepustnosti. \DIFaddbeginFL \DIFaddFL{Pri podatkovni bazi Citus, se v točki A linearna rast konča. V točki B pa je ima CockroachDB že večjo prepustnost. Graf je le simboličen in ne predstavlja realnih meritev.}\DIFaddendFL }
 \label{img_ycsb_results_scaling_throughptu_prediction}
 \end{figure}
 
 
-\DIFdelbegin \section{\DIFdel{Pregled primerjalnih analiz drugih avtorjev}}
-%DIFAUXCMD
-\addtocounter{section}{-1}%DIFAUXCMD
-%DIFDELCMD < 
+\chapter{Sklepne ugotovitve}
 
+V diplomskem delu \DIFdelbegin \DIFdel{sem pregledal }\DIFdelend \DIFaddbegin \DIFadd{smo pregledali }\DIFaddend lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. \DIFdelbegin \DIFdel{Nato sem opisal }\DIFdelend \DIFaddbegin \DIFadd{Opisali smo }\DIFaddend arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{CRDB-home}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Podatkovno bazo CockroachDB \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{smo }\DIFaddend kasneje praktično \DIFdelbegin \DIFdel{testiral. Izvedel sem }\DIFdelend \DIFaddbegin \DIFadd{testirali. Izvedeli smo }\DIFaddend primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL \mbox{%DIFAUXCMD
+\cite{postgres} }\hspace{0pt}%DIFAUXCMD
+}\DIFaddend (z nameščeno razširitvijo Citus \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{citus}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend ). Veliko časa \DIFdelbegin \DIFdel{sem vložil }\DIFdelend \DIFaddbegin \DIFadd{smo vložili }\DIFaddend v postavitev testnega okolja \DIFdelbegin \DIFdel{, pazil sem, da sem odpravil }\DIFdelend \DIFaddbegin \DIFadd{in bili pozorni, da smo odpravili }\DIFaddend čim več spremenljivk, ki bi lahko \DIFdelbegin \DIFdel{uplivale ne }\DIFdelend \DIFaddbegin \DIFadd{vplivale na }\DIFaddend testne scenarije. Testno okolje je bilo sestavljeno \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server \DIFdelbegin \DIFdel{in Docker}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{ubuntu-server} }\hspace{0pt}%DIFAUXCMD
+in Docker \mbox{%DIFAUXCMD
+\cite{docker}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Testno okolje \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{smo }\DIFaddend v začetku \DIFdelbegin \DIFdel{nadziral }\DIFdelend \DIFaddbegin \DIFadd{nadzirali }\DIFaddend preko Telegraf agenta \DIFdelbegin \DIFdel{, InfulxDB }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{telegraf}}\hspace{0pt}%DIFAUXCMD
+, InfluxDB }\DIFaddend podatkovne baze za \DIFdelbegin \DIFdel{sehranjevanje }\DIFdelend \DIFaddbegin \DIFadd{shranjevanje }\DIFaddend časovnih podatkov \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{influxdb} }\hspace{0pt}%DIFAUXCMD
+}\DIFaddend in Grafane za vizualizacijo podatkov \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{grafana}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . Kljub trudu, ki \DIFdelbegin \DIFdel{je bil vložen }\DIFdelend \DIFaddbegin \DIFadd{smo ga vložili }\DIFaddend v postavitev testnega okolja, bi le tega lahko še \DIFdelbegin \DIFdel{izboljšal}\DIFdelend \DIFaddbegin \DIFadd{izboljšali}\DIFaddend . Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja \DIFdelbegin \DIFdel{sem avtomatiziral, z orodjem YCSB sem izvajal }\DIFdelend \DIFaddbegin \DIFadd{smo avtomatizirali. Z orodjem YCSB \mbox{%DIFAUXCMD
+\cite{brianfrankcooper/YCSB} }\hspace{0pt}%DIFAUXCMD
+smo izvajali }\DIFaddend različne zmogljivostne teste, \DIFdelbegin \DIFdel{razultate pa sem shranjeval v csv }\DIFdelend \DIFaddbegin \DIFadd{rezultate pa shranjevali v CSV }\DIFaddend datoteko in jih kasneje \DIFdelbegin \DIFdel{obdelal z programom Microsoft Excel}\DIFdelend \DIFaddbegin \DIFadd{analizirali}\DIFaddend .
+
+Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov \DIFaddbegin \DIFadd{bistveno }\DIFaddend slabša od \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend podatkovne baze. V \DIFdelbegin \DIFdel{porvprečju je imel }\DIFdelend \DIFaddbegin \DIFadd{povprečju je imela podatkovna baza }\DIFaddend Cock\-roachDB \DIFaddbegin \DIFadd{3 krat }\DIFaddend večjo latenco in \DIFaddbegin \DIFadd{5 krat }\DIFaddend manjšo prepustnost \DIFdelbegin \DIFdel{, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres.
+}\DIFdelend \DIFaddbegin \DIFadd{kakor podatkovna baza PostgreSQL na treh vozljiščih.
+%DIF >  Poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi PostgreSQL.
+}\DIFaddend Kljub slabšim \DIFdelbegin \DIFdel{rezultatov }\DIFdelend \DIFaddbegin \DIFadd{rezultatom }\DIFaddend zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve \DIFdelbegin \DIFdel{zele }\DIFdelend \DIFaddbegin \DIFadd{zelo }\DIFaddend različni podatkovni bazi. Podatkovna baza \DIFdelbegin \DIFdel{Postgres }\DIFdelend \DIFaddbegin \DIFadd{PostgreSQL }\DIFaddend je bistveno starejša in zato bolj stabilna \DIFdelbegin \DIFdel{in }\DIFdelend \DIFaddbegin \DIFadd{ter }\DIFaddend optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze \DIFdelbegin \DIFdel{pa }\DIFdelend moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, \DIFdelbegin \DIFdel{oslate }\DIFdelend \DIFaddbegin \DIFadd{ostale }\DIFaddend lastnosti specifične za vsako podatkovno bazo, ...
+
+Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz \DIFdelbegin \DIFdel{(YCSB, TPC-C, lastnosti), do }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{kaur2017performance, Benchmarking-GCS-CRDB-NuoDB, CRDB-tpcc-vs-aurora, CRDB-2017}}\hspace{0pt}%DIFAUXCMD
+, do Jepsen }\DIFaddend testov konsistence in obnašanja sistema med napakami \DIFdelbegin \DIFdel{(Jepsen)}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{CRDB-jepsen, CRDB-jepsen-diy}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend .
+
+Kljub temu, da je CockroachDB relativno nova podatkovna baza\DIFdelbegin \DIFdel{jo nekatera podjetja }\DIFdelend \DIFaddbegin \DIFadd{, jo podjeta }\DIFaddend že uporabljajo. \DIFdelbegin \DIFdel{CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prisplevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
+}%DIFDELCMD < 
+
+%DIFDELCMD < \begin{itemize}
+%DIFDELCMD <     \item %%%
+\textbf{\DIFdel{Baidu}} %DIFAUXCMD
+\DIFdelend \DIFaddbegin \DIFadd{Na primer podjetje Baidu \mbox{%DIFAUXCMD
+\cite{crdb-baidu}}\hspace{0pt}%DIFAUXCMD
+, }\DIFaddend uporablja CockroachDB pri dveh novih aplikacijah, ki sta predhodno uporabljale MySQL podatkovno bazo. Ti dve aplikaciji obsegata približno 2TB podatkov in ustvarita \DIFdelbegin \DIFdel{prbližno }\DIFdelend \DIFaddbegin \DIFadd{približno }\DIFaddend 50M zapisov na dan. \DIFdelbegin %DIFDELCMD < \item %%%
+\textbf{\DIFdel{Kindred}} %DIFAUXCMD
+\DIFdelend \DIFaddbegin \DIFadd{Podjetje Kindred \mbox{%DIFAUXCMD
+\cite{crdb-kindred}}\hspace{0pt}%DIFAUXCMD
+, ki }\DIFaddend se ukvarja z \DIFaddbegin \DIFadd{spletnim }\DIFaddend igralništvom\DIFdelbegin \DIFdel{, z }\DIFdelend \DIFaddbegin \DIFadd{. Z }\DIFaddend letom 2014 pa so začeli s prehodom na globalni trg. Imajo kompleksen ekosistem \DIFaddbegin \DIFadd{z }\DIFaddend več kot 200 mikrostoritev\DIFdelbegin \DIFdel{, ta }\DIFdelend \DIFaddbegin \DIFadd{. Ta }\DIFaddend arhitektura omogoča elastičnost \DIFdelbegin \DIFdel{poleg tega }\DIFdelend \DIFaddbegin \DIFadd{vendar }\DIFaddend pa mora biti skoraj v celoti avtonomna. \DIFdelbegin %DIFDELCMD < \item %%%
+\textbf{\DIFdel{Tierion}} %DIFAUXCMD
+\DIFdel{ponuja "Blockchain proof engine" rešitev. Ovrednotili so več opcij na koncu pa so se odločili za CockroachDB.
+    }%DIFDELCMD < \item %%%
+\textbf{\DIFdel{Heroic}} %DIFAUXCMD
+\DIFdel{Labs je hitro rastoč startup, ukvarja se z skalabilnimi zalednimi sistemi v igralniški industriji. }%DIFDELCMD < \item %%%
+\DIFdel{Gorgias ponuja platformo za pomoč uporabnikom.
+}%DIFDELCMD < \end{itemize}
 %DIFDELCMD < %%%
-\DIFdelend \chapter{Sklepne ugotovitve}
-\DIFaddbegin 
+\DIFdelend \DIFaddbegin \DIFadd{CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prispevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
+}\DIFaddend 
 
-\DIFadd{V diplomskem delu sem pregledal lastnosti  ter najpogosteje uporabljene mehanizme in pristope pri implementacijah novih arhitektur NewSQL podatkovnih baz. Nato sem opisal arhitekturo in lastnosti izbrane NewSQL podatkovne baze CockroachDB. Podatkovno bazo CockroachDB sem kasneje praktično testiral. Izvedel sem primerjalno analizo zmogljivosti med podatkovno bazo CockroachDB in Postgres (z nameščeno razširitvijo Citus). Veliko časa sem vložil v postavitev testnega okolja, pazil sem, da sem odpravil čim več spremenljivk, ki bi lahko uplivale ne testne scenarije. Testno okolje je bilo sestavljeno z štirih starejših računalnikov, kateri so bili povezani preko gigabitnega omrežja, na njih pa je tekel Ubuntu Server in Docker. Testno okolje sem v začetku nadziral preko Telegraf agenta, InfulxDB podatkovne baze za sehranjevanje časovnih podatkov in Grafane za vizualizacijo podatkov. Kljub trudu, ki je bil vložen v postavitev testnega okolja, bi le tega lahko še izboljšal. Za boljšo primerljivost zmogljivostnih metrik, bi morala imeti vsa vozlišča enako strojno opremo, testirati pa bi moral še konfiguracije z več kot tremi vozlišči. Izvedbo testiranja sem avtomatiziral, z orodjem YCSB sem izvajal različne zmogljivostne teste, razultate pa sem shranjeval v csv datoteko in jih kasneje obdelal z programom Microsoft Excel.
+\DIFdelbegin \DIFdel{\ }%DIFDELCMD < \\
+%DIFDELCMD < \hl{TODO:}
+%DIFDELCMD < \begin{itemize}
+%DIFDELCMD <     \item %%%
+\DIFdel{Konkurenčne baze? TiDB , Spanner, ...
+    }%DIFDELCMD < \item %%%
+\DIFdel{Kdaj bi bila ta baza primerna?
+    }%DIFDELCMD < \item %%%
+\DIFdel{Kaj bi bilo smiselno }\DIFdelend \DIFaddbegin \DIFadd{Glede na znanje katerega smo pridobil skozi diplomsko delo, menimo, da je podatkovna baza CockroachDB primerna za nove transakcijsko usmerjene (OLTP) aplikacije, katere zahtevajo konsistenco in visko razpoložljivost hkrati pa ciljajo hitrorastoč globalni trg. Za aplikacije kjer je čas do trga zelo pomemben in kjer si ne moremo privoščiti velikih stroškov vzdrževanja. Pred odločitvijo moramo oceniti }\DIFaddend še \DIFdelbegin \DIFdel{raziskati?
+}%DIFDELCMD < \end{itemize}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{podprto sintakso SQL jezika \mbox{%DIFAUXCMD
+\cite{CRDB-sql-features} }\hspace{0pt}%DIFAUXCMD
+in morebitne ostale lastnosti \mbox{%DIFAUXCMD
+\cite{CRDB-limitations}}\hspace{0pt}%DIFAUXCMD
+. Podatkovna baza CockroachDB trenutno ni primerna za scenarije kateri zahtevajo kompleksne stične operacije, nizko latenco in aplikacije katere so analitično usmerjene (OLAP) \mbox{%DIFAUXCMD
+\cite{CRDB-FAQ}}\hspace{0pt}%DIFAUXCMD
+.
 }
 
-\DIFadd{Primerjalna analiza zmogljivosti je pokazala, da je podatkovna baza Cock\-roachDB kljub enostavnim obremenitvam, katere vrši orodje YCSB, v večini primerov slabša od Postgres podatkovne baze. V porvprečju je imel Cock\-roachDB večjo latenco in manjšo prepustnost, poleg tega pa je z večanjem sočasnih povezav zmogljivost padala bistveno hitreje kot pri podatkovni bazi Postgres. Kljub slabšim rezultatov zmogljivostne analize, se moramo zavedati, da je težko pošteno primerjati dve zele različni podatkovni bazi. Podatkovna baza Postgres je bistveno starejša in zato bolj stabilna in optimizirana. CockroachDB pa je na trgu šele dobri dve leti in je trenutno še vedno bolj funkcionalno usmerjena. Za smiselno odločitev pri izbiri podatkovne baze pa moramo poleg zmogljivostnih metrik upoštevati tudi druge, kot so poizvedovalni jezik, podpora transakcijam, zrelost sistema, skupnost, zmogljivost, težavnost postavitve ter vzdrževanja, oslate lastnosti specifične za vsako podatkovno bazo, ...
+\DIFadd{V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprtokodno podatkovno bazo TiDB \mbox{%DIFAUXCMD
+\cite{PingCAP-home}}\hspace{0pt}%DIFAUXCMD
+. TiDB je trenutno še zelo mlad produkt, z verzijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 iz aprila 2018. TiDB prav tako idejno temelji na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
 }
 
-\DIFadd{Podatkovna baza CockroachDB ima močno in aktivno skupnost. Na spletu najdemo že kar nekaj vrednotenj drugih avtorjev, od raznih primerjalnih analiz (YCSB, TPC-C, lastnosti), do testov konsistence in obnašanja sistema med napakami (Jepsen).
-}
-
-\DIFadd{Kljub temu, da je CockroachDB relativno nova podatkovna baza jo nekatera podjetja že uporabljajo. CockroachLabs poizkuša s podjetji sodelovati, nekatera podjetja so tudi prisplevala del funkcionalnosti. Podjetja katera so se odločila za uporabo podatkovne baze CockroachDB, ciljajo globalni trg, poleg tega pa želijo poenostaviti postavitev in vzdrževanje, tako v oblak, kako tudi na svoji infrastrukturi.
-}
-
-\begin{itemize}
-    \item \textbf{\DIFadd{Baidu}} \DIFadd{uporablja CockroachDB pri dveh novih aplikacijah, ki sta predhodno uporabljale MySQL podatkovno bazo. Ti dve aplikaciji obsegata približno 2TB podatkov in ustvarita prbližno 50M zapisov na dan.
-    }\item \textbf{\DIFadd{Kindred}} \DIFadd{se ukvarja z igralništvom, z letom 2014 pa so začeli s prehodom na globalni trg. Imajo kompleksen ekosistem več kot 200 mikrostoritev, ta arhitektura omogoča elastičnost poleg tega pa mora biti skoraj v celoti avtonomna.
-    }\item \textbf{\DIFadd{Tierion}} \DIFadd{ponuja "Blockchain proof engine" rešitev. Ovrednotili so več opcij na koncu pa so se odločili za CockroachDB.
-    }\item \textbf{\DIFadd{Heroic}} \DIFadd{Labs je hitro rastoč startup, ukvarja se z skalabilnimi zalednimi sistemi v igralniški industriji.
-    }\item \DIFadd{Gorgias ponuja platformo za pomoč uporabnikom.
-}\end{itemize}
-
-
-
-\DIFadd{\ }\\
-\hl{TODO:}
-\begin{itemize}
-    \item \DIFadd{Konkurenčne baze? TiDB, Spanner, ...
-    }\item \DIFadd{Kdaj bi bila ta baza primerna?
-    }\item \DIFadd{Kaj bi bilo smiselno še raziskati?
-}\end{itemize}
-\DIFaddend 
+\DIFadd{Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Distribuirane podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TCP-C in TCP-H. V tej diplomski nalogi smo se tem obremenitvam izognil, saj orodje \mbox{%DIFAUXCMD
+\cite{cockroachdb/loadgen} }\hspace{0pt}%DIFAUXCMD
+še ni bilo podprto za primerjavo s podatkovno bazo PostgreSQL.
+}\DIFaddend 
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!
