@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-3544.tex   Sun Aug 26 18:01:35 2018
-%DIF ADD main.tex               Sun Aug 26 18:01:24 2018
+%DIF DEL main-oldtmp-11068.tex   Sun Aug 26 21:52:11 2018
+%DIF ADD main.tex                Sun Aug 26 21:49:03 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -879,7 +879,8 @@ CockroachDB podpira \DIFdelbegin \DIFdel{podatkovne tipe kot so }\DIFdelend \DIF
 
 \noindent \DIFadd{Poleg zgoraj naštetih podatkovnih tipov, ima vsak podatkovni tip zaradi kompatibilnost s standardnim SQL jezikom še nekaj psevdonimov}\DIFaddend . CockroachDB ne podpira podatkovnih tipov \DIFaddbegin \DIFadd{kot so }\DIFaddend \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
 
-\subsubsection{Shema}
+\DIFaddbegin \newpage
+\DIFaddend \subsubsection{Shema}
 CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje \DIFaddbegin \DIFadd{baz, }\DIFaddend tabel, stolpcev, omejitev\DIFdelbegin \DIFdel{in indeksov }\DIFdelend \DIFaddbegin \DIFadd{, indeksov in pogledov}\DIFaddend . Od podatkovnih omejitev podpira vse standardne, to so: \DIFaddbegin \texttt{\DIFadd{PRIMARY KEY}}\DIFadd{, }\DIFaddend \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. \DIFdelbegin \DIFdel{Izjema je }\DIFdelend \DIFaddbegin \DIFadd{Omejitev }\DIFaddend \texttt{PRIMARY KEY}, \DIFdelbegin \DIFdel{to omejitev }\DIFdelend lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele, CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
 
 Poizvedovanje sheme je na voljo na standardni način, preko virtualne sheme \texttt{\DIFdelbegin \DIFdel{informationq}\DIFdelend \DIFaddbegin \DIFadd{information}\DIFaddend \_schema}.
@@ -1071,7 +1072,7 @@ V vlogi strežnika so vozlišča \texttt{n1}, \texttt{n2} in \texttt{n3}. Na nji
 \cite{citus}}\hspace{0pt}%DIFAUXCMD
 . Omogoča enostavno horizontalno skaliranje podatkov za več najemniške (angl. multi tenant) aplikacije in obdelavo analitičnih podatkov v realnem času (angl. real time analytics). Uporaba razširitve Citus ni primerna če:
 }\begin{itemize}
-    \item \DIFadd{nam zadošča le eno vozljišče,
+    \item \DIFadd{nam zadošča le eno vozlišče,
     }\item \DIFadd{poizvedbe vračajo ogromno podatkov in
     }\item \DIFadd{ne potrebujemo analitike v realnem času.
 }\end{itemize}
@@ -1231,7 +1232,8 @@ Vozlišče \texttt{n0} je v vlogi odjemalca. Na njem teče program, ki za vse ko
 %DIFDELCMD < %%%
 \DIFdelend Zaradi morebitnih odstopanj \DIFdelbegin \DIFdel{sem }\DIFdelend \DIFaddbegin \DIFadd{smo }\DIFaddend vse teste ponovil trikrat.
 
-\section{\DIFdelbegin \DIFdel{Testiranje }\DIFdelend \DIFaddbegin \DIFadd{Izvedba testiranja }\DIFaddend stičnih operacij}
+\DIFaddbegin \newpage
+\DIFaddend \section{\DIFdelbegin \DIFdel{Testiranje }\DIFdelend \DIFaddbegin \DIFadd{Izvedba testiranja }\DIFaddend stičnih operacij}
 \DIFdelbegin %DIFDELCMD < \hl{TODO}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \DIFadd{Ker orodje YCSB izvaja le enostavne operacije nad eno tabelo, smo kasneje sami ročno preverili podporo za stične operacije.
@@ -1282,8 +1284,6 @@ Vozlišče \texttt{n0} je v vlogi odjemalca. Na njem teče program, ki za vse ko
 \label{benchmarking_joins_citus_data}
 \end{listing}
 
-\newpage
-
 \subsection{\DIFadd{Izvedba testiranja in rezultati}}
 \DIFadd{Testna poizvedba, ki smo jo uporabili na vseh štirih konfiguracijah vrača 11 vrstic in 2 stolpca (}\texttt{\DIFadd{ycsb\_key}} \DIFadd{ter }\texttt{\DIFadd{field4}}\DIFadd{). Testna poizvedba je sledeča:
 }
@@ -1331,9 +1331,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 %DIFDELCMD <     %%%
 \DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.7\textwidth]{resources/top-level-comparison.png}
 \DIFaddendFL \end{center}
-\caption{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih. \DIFaddbeginFL \DIFaddFL{Z grafov je razvidno, da podatkovna baza CockroachDB dosega bistveno manjšo prepustnost poleg tega pa ima večjo latenco.
-%DIF > Ob skaliranju na tri vozlišča je CockroachDB zmanjšal latenco hkrati pa je zmanjšal tudi prepustnost, saj zaradi večje kompleksnosti zmožen sprocesirati manj operacij.
-}\DIFaddendFL }
+\caption{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih. \DIFaddbeginFL \DIFaddFL{Z grafov je razvidno, da podatkovna baza CockroachDB dosega bistveno manjšo prepustnost poleg tega pa ima večjo latenco.}\DIFaddendFL }
 \label{img_ycsb_results_top_level_comparison}
 \end{figure}
 
@@ -1354,50 +1352,75 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-n1-v2.png}
-\end{center}
-\caption{Primerjava maksimalne prepustnosti glede na tip obremenitve pri enem vozliščih.}
-\label{img_ycsb_results_max_throughput_n1}
-\end{figure}
+\DIFdelbeginFL %DIFDELCMD < \includegraphics[width=1\textwidth]{resources/maxThroughput-n1-v2.png}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=1.0\textwidth]{resources/maxThroughput.png}
+\DIFaddendFL \end{center}
+\caption{\DIFdelbeginFL \DIFdelFL{Primerjava maksimalne }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Prikazuje primerjavo }\DIFaddendFL prepustnosti \DIFdelbeginFL \DIFdelFL{glede na tip obremenitve }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{in latence za vzorec z maksimalna prepustnost. Številke v spodnjem delu serije predstavljajo število sočasnih niti, }\DIFaddendFL pri \DIFdelbeginFL \DIFdelFL{enem vozliščih}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{katerih je bila dosežena maksimalna prepustnost}\DIFaddendFL . \DIFaddbeginFL \DIFaddFL{Z grafov lahko razberemo, da se podatkovna baza CockroachDB z vidika sočasnih obremenitev skalira bolje kot Citus.}\DIFaddendFL }
+\DIFdelbeginFL %DIFDELCMD < \label{img_ycsb_results_max_throughput_n1}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \label{img_ycsb_results_max_throughput}
+\DIFaddendFL \end{figure}
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n1-v2.png}
-\end{center}
-\caption{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri enem vozliščih.}
-\label{img_ycsb_results_max_throughput_latency_n1}
-\end{figure}
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]
+%DIFDELCMD < \begin{center}
+%DIFDELCMD < \includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n1-v2.png}
+%DIFDELCMD < \end{center}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri enem vozliščih.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{img_ycsb_results_max_throughput_latency_n1}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
 
-\newpage
+%DIFDELCMD < %%%
+\DIFdelend \newpage
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-n3-v2.png}
-\end{center}
-\caption{Primerjava maksimalne prepustnosti glede na tip obremenitve pri treh vozliščih.}
-\label{img_ycsb_results_max_throughput_n3}
-\end{figure}
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]
+%DIFDELCMD < \begin{center}
+%DIFDELCMD < \includegraphics[width=1\textwidth]{resources/maxThroughput-n3-v2.png}
+%DIFDELCMD < \end{center}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Primerjava maksimalne prepustnosti glede na tip obremenitve pri treh vozliščih.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{img_ycsb_results_max_throughput_n3}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n3-v2.png}
-\end{center}
-\caption{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri treh vozliščih.}
-\label{img_ycsb_results_max_throughput_latency_n3}
-\end{figure}
+%DIFDELCMD < \begin{figure}[H]
+%DIFDELCMD < \begin{center}
+%DIFDELCMD < \includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n3-v2.png}
+%DIFDELCMD < \end{center}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri treh vozliščih.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{img_ycsb_results_max_throughput_latency_n3}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
 
-\section{Ugotovitve}
+%DIFDELCMD < %%%
+\DIFdelend \section{Ugotovitve}
 Zmogljivostna analiza je pokazala, da se podatkovna baza Citus pri večini obremenitev, katere sem testiral, odziva bitveno bolje kot podatkovna baza CockroachDB.
 
 S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB v primerjavi s Citus dosega 2,7 krat manjšo prepustnost na enem vozlišču in kar 5 krat manjšo prepustnost na treh vozliščih. Pri primerjavi latence pa je CockroachDB v primerjavi s Citus na enem vozlišču dosegel približno 25,2 krat večjo latenco, na treh \DIFdelbegin \DIFdel{vozljiščih }\DIFdelend \DIFaddbegin \DIFadd{vozliščih }\DIFaddend pa samo še 3 krat večjo.
 
 S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih saj so podatki pri podatkovni bazi CockroachDB veliko bolj razpršeni.
 
-% Izjema je bila latenca pri vrsti obremenitve A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
+%DIF <  Izjema je bila latenca pri vrsti obremenitve A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
+\DIFaddbegin \DIFadd{Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput}) opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča v povprečju lahko obdela 5,4 več sočasnih niti, podatkovna baza Citus pa kar 10,8 manj.
+}\DIFaddend 
 
-% Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot PostgreSQL.
+%DIF <  Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot PostgreSQL.
+\DIFdelbegin %DIFDELCMD < 
 
-\subsection{Hipoteza 1}
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Hipoteza 1}
 \textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od PostgreSQL podatkovne baze.}
 
 \ \\
@@ -1464,7 +1487,9 @@ Glede na znanje katerega smo pridobil skozi diplomsko delo, menimo, da je podatk
 
 V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprtokodno podatkovno bazo TiDB \cite{PingCAP-home}. TiDB je trenutno še zelo mlad produkt, z verzijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 iz aprila 2018. TiDB prav tako idejno temelji na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
 
-Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. \DIFdelbegin \DIFdel{Distribuirane }\DIFdelend \DIFaddbegin \DIFadd{Porazdeljene }\DIFaddend podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta \DIFdelbegin \DIFdel{TCP-C in TCP-H}\DIFdelend \DIFaddbegin \DIFadd{TPC-C in TPC-H}\DIFaddend . V tej diplomski nalogi smo se tem obremenitvam izognil, saj orodje \cite{cockroachdb/loadgen} še ni bilo podprto za primerjavo s podatkovno bazo PostgreSQL.
+Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. \DIFdelbegin \DIFdel{Distribuirane }\DIFdelend \DIFaddbegin \DIFadd{Porazdeljene }\DIFaddend podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta \DIFdelbegin \DIFdel{TCP-C in TCP-H. V tej diplomski nalogi smo se tem obremenitvam izognil, saj orodje \mbox{%DIFAUXCMD
+\cite{cockroachdb/loadgen} }\hspace{0pt}%DIFAUXCMD
+še ni bilo podprto za primerjavo s podatkovno bazo PostgreSQL}\DIFdelend \DIFaddbegin \DIFadd{TPC-C in TPC-H}\DIFaddend .
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!

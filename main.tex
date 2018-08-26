@@ -701,6 +701,7 @@ CockroachDB podpira naslednje podatkovne tipe:
 
 \noindent Poleg zgoraj naštetih podatkovnih tipov, ima vsak podatkovni tip zaradi kompatibilnost s standardnim SQL jezikom še nekaj psevdonimov. CockroachDB ne podpira podatkovnih tipov kot so \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
 
+\newpage
 \subsubsection{Shema}
 CockroachDB podpira vse standardne ukaze za kreiranje, spreminjanje in odstranjevanje baz, tabel, stolpcev, omejitev, indeksov in pogledov. Od podatkovnih omejitev podpira vse standardne, to so: \texttt{PRIMARY KEY}, \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK}, \texttt{FOREIGN KEY} in \texttt{DEFAULT}. Omejitev \texttt{PRIMARY KEY}, lahko nastavimo samo ob kreiranju tabele in je kasneje ne moremo spreminjati. Če omejitve \texttt{PRIMARY KEY} ne nastavimo v času kreiranja tabele, CockroachDB v ozadju sam kreira skriti stolpec z tipom \texttt{UUID}, saj je ta pomemben za samo delovanje podatkovne baze.
 
@@ -846,7 +847,7 @@ V vlogi strežnika so vozlišča \texttt{n1}, \texttt{n2} in \texttt{n3}. Na nji
 \label{benchmarking/citus}
 Citus je razširitev za podatkovno bazo PostgreSQL \cite{citus}. Omogoča enostavno horizontalno skaliranje podatkov za več najemniške (angl. multi tenant) aplikacije in obdelavo analitičnih podatkov v realnem času (angl. real time analytics). Uporaba razširitve Citus ni primerna če:
 \begin{itemize}
-    \item nam zadošča le eno vozljišče,
+    \item nam zadošča le eno vozlišče,
     \item poizvedbe vračajo ogromno podatkov in
     \item ne potrebujemo analitike v realnem času.
 \end{itemize}
@@ -992,6 +993,7 @@ Vozlišče \texttt{n0} je v vlogi odjemalca. Na njem teče program, ki za vse ko
 
 \noindent Koraki 2, 3, 4 in 5 se ponovijo za vsak tip obremenitve v točno določenem vrstnem redu (A, B, C, F, D). Vrstni red obremenitev je pomemben \cite{YCSB-core-workloads}, ker obremenitve tipa A, B, C in F ne vstavljajo novih zapisov. Obremenitev tipa D pa vstavlja nove zapise, zato je po vsaki izvedbi potrebno obnoviti bazo na prvotno stanje. Zaradi morebitnih odstopanj smo vse teste ponovil trikrat.
 
+\newpage
 \section{Izvedba testiranja stičnih operacij}
 Ker orodje YCSB izvaja le enostavne operacije nad eno tabelo, smo kasneje sami ročno preverili podporo za stične operacije.
 
@@ -1034,8 +1036,6 @@ Za Citus podatkovno bazo je postopek nekoliko daljši. Ker ne moremo direkno s p
 \label{benchmarking_joins_citus_data}
 \end{listing}
 
-\newpage
-
 \subsection{Izvedba testiranja in rezultati}
 Testna poizvedba, ki smo jo uporabili na vseh štirih konfiguracijah vrača 11 vrstic in 2 stolpca (\texttt{ycsb\_key} ter \texttt{field4}). Testna poizvedba je sledeča:
 
@@ -1075,9 +1075,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{resources/top-level-comparison.png}
 \end{center}
-\caption{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih. Z grafov je razvidno, da podatkovna baza CockroachDB dosega bistveno manjšo prepustnost poleg tega pa ima večjo latenco.
-%Ob skaliranju na tri vozlišča je CockroachDB zmanjšal latenco hkrati pa je zmanjšal tudi prepustnost, saj zaradi večje kompleksnosti zmožen sprocesirati manj operacij.
-}
+\caption{Groba primerjava povprečne prepustnosti in latence med obema podatkovnima bazama na enem in treh vozliščih. Z grafov je razvidno, da podatkovna baza CockroachDB dosega bistveno manjšo prepustnost poleg tega pa ima večjo latenco.}
 \label{img_ycsb_results_top_level_comparison}
 \end{figure}
 
@@ -1095,37 +1093,13 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-n1-v2.png}
+\includegraphics[width=1.0\textwidth]{resources/maxThroughput.png}
 \end{center}
-\caption{Primerjava maksimalne prepustnosti glede na tip obremenitve pri enem vozliščih.}
-\label{img_ycsb_results_max_throughput_n1}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n1-v2.png}
-\end{center}
-\caption{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri enem vozliščih.}
-\label{img_ycsb_results_max_throughput_latency_n1}
+\caption{Prikazuje primerjavo prepustnosti in latence za vzorec z maksimalna prepustnost. Številke v spodnjem delu serije predstavljajo število sočasnih niti, pri katerih je bila dosežena maksimalna prepustnost. Z grafov lahko razberemo, da se podatkovna baza CockroachDB z vidika sočasnih obremenitev skalira bolje kot Citus.}
+\label{img_ycsb_results_max_throughput}
 \end{figure}
 
 \newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-n3-v2.png}
-\end{center}
-\caption{Primerjava maksimalne prepustnosti glede na tip obremenitve pri treh vozliščih.}
-\label{img_ycsb_results_max_throughput_n3}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1\textwidth]{resources/maxThroughput-latency-n3-v2.png}
-\end{center}
-\caption{Latenca pri maksimalni obremenitvi glede na tip obremenitve pri treh vozliščih.}
-\label{img_ycsb_results_max_throughput_latency_n3}
-\end{figure}
 
 \section{Ugotovitve}
 Zmogljivostna analiza je pokazala, da se podatkovna baza Citus pri večini obremenitev, katere sem testiral, odziva bitveno bolje kot podatkovna baza CockroachDB.
@@ -1134,9 +1108,7 @@ S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB 
 
 S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih saj so podatki pri podatkovni bazi CockroachDB veliko bolj razpršeni.
 
-% Izjema je bila latenca pri vrsti obremenitve A, ker je CockroachDB dosegel približno pol manjšo latenco. Kljub temu pa je bila prepustnost bistveno nižja.
-
-% Druga izjema se je pojavila pri obremenitvi tipa C na enem vozlišču, kjer je CockroachDB dosegel približno eno četrtino večjo prepustnost kot PostgreSQL.
+Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput}) opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča v povprečju lahko obdela 5,4 več sočasnih niti, podatkovna baza Citus pa kar 10,8 manj.
 
 \subsection{Hipoteza 1}
 \textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od PostgreSQL podatkovne baze.}
@@ -1205,7 +1177,7 @@ Glede na znanje katerega smo pridobil skozi diplomsko delo, menimo, da je podatk
 
 V prihodnje bi bilo zanimivo raziskati in primerjati še zelo podobno in prav tako odprtokodno podatkovno bazo TiDB \cite{PingCAP-home}. TiDB je trenutno še zelo mlad produkt, z verzijo 1.0.0, ki je izšla sredi oktobra 2017 in verzijo 2.0.0 iz aprila 2018. TiDB prav tako idejno temelji na podatkovni bazi Google Spanner in se v nekaterih arhitekturnih lastnostih zelo ujema s podatkovno bazo CockroachDB. Najbolj očitna razlika je, da je arhitektura ločena na tri večje komponente, poleg tega za sinhronizacijo ure uporablja drugačen pristop. Razvijalci podatkovne baze TiDB obljubljajo, da je podatkovna baza primerna za hibridne transakcijske in analitične obremenitve.
 
-Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Porazdeljene podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TPC-C in TPC-H. V tej diplomski nalogi smo se tem obremenitvam izognil, saj orodje \cite{cockroachdb/loadgen} še ni bilo podprto za primerjavo s podatkovno bazo PostgreSQL.
+Zanimivo bi bilo tudi razširiti zmogljivostno primerjalno analizo izvedeno v tej diplomski nalogi. Porazdeljene podatkovne baze kot je CockroachDB so primerne za okolja z vsaj tremi vozlišči, zanimivo bi bilo ugotoviti kaj se dogaja, ko v gručo povežemo še več vozlišč. Poleg osnovnih YCSB obremenitev, bi bilo zanimivo preveriti še druge, kot sta TPC-C in TPC-H.
 
 
 \newpage %dodaj po potrebi, da bo številka strani za Literaturo v Kazalu pravilna!
