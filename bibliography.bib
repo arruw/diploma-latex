@@ -64,20 +64,14 @@
 	url = {https://github.com/brianfrankcooper/YCSB/wiki/Core-Workloads}
 }
 
-@article{NewSqlInMemoryAnalytics,
-	author = {Duggirala, Siddhartha},
-	title = {{Chapter Two - NewSQL Databases and Scalable In-Memory Analytics}},
-	journal = {Advances in Computers},
-	volume = {109},
-	pages = {49--76},
-	year = {2018},
-	month = {Jan},
-	issn = {0065-2458},
-	publisher = {Elsevier},
-    url = {http://www.sciencedirect.com/science/article/pii/S0065245818300135},
-	url = {http://www.sciencedirect.com/science/article/pii/S0065245818300135},
-	doi = {10.1016/bs.adcom.2018.01.004},
-	keywords = {Distributed databases, NoSQL, NewSQL, IMDB, Cloud, MVCC, 2PL, HANA, VoltDB, Logging, Indexes}
+@incollection{NewSqlInMemoryAnalytics,
+  title={{NewSQL Databases and Scalable In-Memory Analytics}},
+  author={Duggirala, Siddhartha},
+  booktitle={Advances in Computers},
+  volume={109},
+  pages={49--76},
+  year={2018},
+  publisher={Elsevier}
 }
 
 @misc{brianfrankcooper/YCSB,
@@ -154,8 +148,8 @@
 }
 
 @misc{CRDB-YCSB-perf-analisis,
-	key = {{YCSB performance analisis {$\cdot$} Issue {\#}26137 {$\cdot$} cockroachdb/cockroach}},
-	title = {{YCSB performance analisis {$\cdot$} Issue {\#}26137 {$\cdot$} cockroachdb/cockroach}},
+	key = {{YCSB performance analysis {$\cdot$} Issue {\#}26137 {$\cdot$} cockroachdb/cockroach}},
+	title = {{YCSB performance analysis {$\cdot$} Issue {\#}26137 {$\cdot$} cockroachdb/cockroach}},
 	journal = {GitHub},
 	year = {2018},
 	month = {Jun},
@@ -185,10 +179,11 @@
 	url = {https://docs.citusdata.com/en/v7.4/admin_guide/cluster_management.html#adding-a-coordinator}
 }
 
-@article{oliveira2017newsql,
-  title={NewSQL Databases},
+@inproceedings{oliveira2017newsql,
+  title={{NewSQL Databases - MemSQL and VoltDB Experimental Evaluation}},
   author={Oliveira, Jo{\~a}o and Bernardino, Jorge},
-  url={http://www.scitepress.org/Papers/2017/65189/65189.pdf},
+  booktitle={KEOD},
+  pages={276--281},
   year={2017}
 }
 
@@ -210,7 +205,7 @@
 
 @article{harding2017evaluation,
  author = {Harding, Rachael and Van Aken, Dana and Pavlo, Andrew and Stonebraker, Michael},
- title = {An Evaluation of Distributed Concurrency Control},
+ title = {{An Evaluation of Distributed Concurrency Control}},
  journal = {Proc. VLDB Endow.},
  issue_date = {January 2017},
  volume = {10},
@@ -227,7 +222,7 @@
 } 
 
 @inproceedings{kaur2017performance,
-  title={Performance evaluation of NewSQL databases},
+  title={{Performance evaluation of NewSQL databases}},
   author={Kaur, Karambir and Sachdeva, Monika},
   booktitle={Inventive Systems and Control (ICISC), 2017 International Conference on},
   pages={1--5},
@@ -238,7 +233,7 @@
 
 @misc{NewSQLNewWayToHandleBigData,
 	key = {NewSQL — The New Way to Handle Big Data},
-	title = {NewSQL — The New Way to Handle Big Data},
+	title = {{NewSQL — The New Way to Handle Big Data}},
 	journal = {Open Source For You},
 	year = {2012},
 	month = {Jan},
@@ -257,18 +252,19 @@
 	url = {https://www.academia.edu/13363206/NewSQL_Databases_Scalable_RDBMS_for_OLTP_Needs_to_Handle_Big_Data}
 }
 
-@misc{Mikuletic2015Feb,
+@techreport{Mikuletic2015Feb,
 	author = {Mikuleti{\ifmmode\check{c}\else\v{c}\fi}, Marko},
 	title = {{Comparison of relational, NoSQL and NewSQL databases}},
+	type = {Bachelor's Thesis},
 	year = {2015},
 	month = {Feb},
-    howpublished={Dosegljivo: \url{http://eprints.fri.uni-lj.si/2925}},
 	url = {http://eprints.fri.uni-lj.si/2925},
-	keywords = {relational database, SQL, NoSQL, NewSQL, ACID, CAP, BASE, computer}
+	keywords = {relational database, SQL, NoSQL, NewSQL, ACID, CAP, BASE, computer},
+	institution = {University of Ljubljana, Faculty of Computer and Information Science},
 }
 
 @article{MainMemoryDatabaseSystems,
-  title={Main memory database systems},
+  title={{Main memory database systems}},
   author={Faerber, Franz and Kemper, Alfons and Larson, Per-{\AA}ke and Levandoski, Justin and Neumann, Thomas and Pavlo, Andrew and others},
   journal={Foundations and Trends{\textregistered} in Databases},
   volume={8},
@@ -280,7 +276,7 @@
 
 
 @article{rudolf2017sql,
-  title={SQL, noSQL or newSQL--comparison and applicability for Smart Spaces},
+  title={{SQL, noSQL or newSQL--comparison and applicability for Smart Spaces}},
   author={Rudolf, Christoph},
   journal={Network Architectures and Services},
   year={2017},
@@ -288,7 +284,7 @@
 }
 
 @article{garcia1992main,
-  title={Main memory database systems: An overview},
+  title={{Main memory database systems: An overview}},
   author={Garcia-Molina, Hector and Salem, Kenneth},
   journal={IEEE Transactions on knowledge and data engineering},
   volume={4},
@@ -321,7 +317,7 @@
 
 @article{Mohan:1992:ATR:128765.128770,
  author = {Mohan, C. and Haderle, Don and Lindsay, Bruce and Pirahesh, Hamid and Schwarz, Peter},
- title = {ARIES: A Transaction Recovery Method Supporting Fine-granularity Locking and Partial Rollbacks Using Write-ahead Logging},
+ title = {{ARIES: A Transaction Recovery Method Supporting Fine-granularity Locking and Partial Rollbacks Using Write-ahead Logging}},
  journal = {ACM Trans. Database Syst.},
  issue_date = {March 1992},
  volume = {17},
@@ -340,7 +336,7 @@
 } 
 
 @phdthesis{zheng2014fast,
-  title={Fast checkpoint and recovery techniques for an in-memory database},
+  title={{Fast checkpoint and recovery techniques for an in-memory database}},
   author={Zheng, Wenting},
   year={2014},
   school={Massachusetts Institute of Technology}
@@ -378,7 +374,7 @@
 
 @article{Corbett:2013:SGG:2518037.2491245,
  author = {Corbett, James C. and Dean, Jeffrey and Epstein, Michael and Fikes, Andrew and Frost, Christopher and Furman, J. J. and Ghemawat, Sanjay and Gubarev, Andrey and Heiser, Christopher and Hochschild, Peter and Hsieh, Wilson and Kanthak, Sebastian and Kogan, Eugene and Li, Hongyi and Lloyd, Alexander and Melnik, Sergey and Mwaura, David and Nagle, David and Quinlan, Sean and Rao, Rajesh and Rolig, Lindsay and Saito, Yasushi and Szymaniak, Michal and Taylor, Christopher and Wang, Ruth and Woodford, Dale},
- title = {Spanner: Google\&Rsquo;s Globally Distributed Database},
+ title = {{Spanner: Google's Globally Distributed Database}},
  journal = {ACM Trans. Comput. Syst.},
  issue_date = {August 2013},
  volume = {31},
@@ -398,7 +394,7 @@
 } 
 
 @article{demirbas2014logical,
-  title={Logical Physical Clocks and Consistent Snapshots in Globally Distributed Databases},
+  title={{Logical Physical Clocks and Consistent Snapshots in Globally Distributed Databases}},
   author={Demirbas, Murat and Leone, Marcelo and Avva, Bharadwaj and Madeppa, Deepak and Kulkarni, Sandeep},
   year={2014}
 }
@@ -514,14 +510,14 @@
 }
 
 @article{grim2016consistency,
-  title={Consistency analysis of CockroachDB under fault injection},
+  title={{Consistency analysis of CockroachDB under fault injection}},
   author={Grim, Max Wouter},
   journal={Science},
   year={2016}
 }
 
 @article{aroradynamic,
-  title={Dynamic Timestamp Allocation for Reducing Transaction Aborts},
+  title={{Dynamic Timestamp Allocation for Reducing Transaction Aborts}},
   author={Arora, Vaibhav and Babu, Ravi Kumar Suresh and Maiyya, Sujaya and Agrawal, Divyakant and El Abbadi, Amr and Xue, Xun and Zhiyanan, Zhujianfeng}
 }
 
@@ -681,8 +677,8 @@
 }
 
 @misc{agiledata-home,
-	key = {{SCALING MYSQL AND BIG DATA SERVICES}},
-	title = {{SCALING MYSQL AND BIG DATA SERVICES}},
+	key = {{MySQL Scaling  and Big Data Services}},
+	title = {{MySQL Scaling  and Big Data Services}},
 	note = {[Dostopano: 22. 8. 2018]},
 	howpublished = {Dosegljivo: \url{http://www.agildata.com}}
 }
@@ -704,7 +700,7 @@
 @misc{lecture-mvcc,
   institution = {Carnegie Mellon University},
   journal = {CMU Database Systems},
-  title = {Multi-Version Concurrency Control},
+  title = {{Multi-Version Concurrency Control}},
   author = {Pavlo, Andy},
   year = {2017},
   note = {[Dostopano: 22. 8. 2018]},
@@ -714,7 +710,7 @@
 @misc{lecture-2pl,
   institution = {Carnegie Mellon University},
   journal = {CMU Database Systems},
-  title = {Two-Phase Locking},
+  title = {{Two-Phase Locking}},
   author = {Pavlo, Andy},
   year = {2017},
   note = {[Dostopano: 22. 8. 2018]},
@@ -722,7 +718,7 @@
 }
 
 @inproceedings{raft-vs-paxos,
-  title={In search of an understandable consensus algorithm.},
+  title={{In search of an understandable consensus algorithm.}},
   author={Ongaro, Diego and Ousterhout, John K},
   booktitle={USENIX Annual Technical Conference},
   pages={305--319},
@@ -730,7 +726,7 @@
 }
 
 @article{aries,
-  title={ARIES: a transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging},
+  title={{ARIES: a transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging}},
   author={Mohan, C and Haderle, Don and Lindsay, Bruce and Pirahesh, Hamid and Schwarz, Peter},
   journal={ACM Transactions on Database Systems (TODS)},
   volume={17},
@@ -819,7 +815,7 @@
 
 @article{zipfs-law,
   title={An introduction to textual econometrics},
-  author={Fagan, Stephen and Gen{\c{c}}ay, Ramazan},
+  author={{Fagan, Stephen and Gen{\c{c}}ay, Ramazan}},
   journal={Handbook of empirical economics and finance},
   pages={133--154},
   year={2011},
