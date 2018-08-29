@@ -9,10 +9,10 @@ xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">
 </rdf:Description> 
 <rdf:Description rdf:about="" 
 xmlns:xap="http://ns.adobe.com/xap/1.0/"> 
-<xap:CreateDate>2018-08-27T08:01:10+02:00</xap:CreateDate> 
+<xap:CreateDate>2018-08-29T11:10:39+02:00</xap:CreateDate> 
 <xap:CreatorTool>TeX</xap:CreatorTool> 
-<xap:ModifyDate>2018-08-27T08:01:10+02:00</xap:ModifyDate> 
-<xap:MetadataDate>2018-08-27T08:01:10+02:00</xap:MetadataDate> 
+<xap:ModifyDate>2018-08-29T11:10:39+02:00</xap:ModifyDate> 
+<xap:MetadataDate>2018-08-29T11:10:39+02:00</xap:MetadataDate> 
 </rdf:Description> 
 <rdf:Description rdf:about="" 
 xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/"> 
@@ -34,7 +34,7 @@ xmlns:dc="http://purl.org/dc/elements/1.1/">
 </dc:title> 
 <dc:description> 
 <rdf:Alt> 
-<rdf:li xml:lang="x-default">Higly scalable NewSQL relational database CockroachDB</rdf:li> 
+<rdf:li xml:lang="x-default">Higly Scalable NewSQL Relational Database CockroachDB</rdf:li> 
 </rdf:Alt> 
 </dc:description> 
 <dc:creator> 
@@ -44,7 +44,7 @@ xmlns:dc="http://purl.org/dc/elements/1.1/">
 </dc:creator> 
 <dc:subject> 
 <rdf:Bag> 
-<rdf:li>Higly scalable NewSQL relational database CockroachDB</rdf:li> 
+<rdf:li>Higly Scalable NewSQL Relational Database CockroachDB</rdf:li> 
 </rdf:Bag> 
 </dc:subject> 
 </rdf:Description> 

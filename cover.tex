@@ -12,23 +12,24 @@
 \usepackage{comment}       % dodal Solina
 
 \usepackage[pdftex, colorlinks=true,
-						citecolor=black, filecolor=black, 
-						linkcolor=black, urlcolor=black,
-						pagebackref=false, 
-						pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
+                        citecolor=black, filecolor=black, 
+                        linkcolor=black, urlcolor=black,
+                        pagebackref=false, 
+                        pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
 
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
 
 \usepackage{longtable}  % dodal jaz
-\usepackage{minted}      % dodal jaz
-\usemintedstyle{bw}    % dodal jaz
+\usepackage{makecell}   % dodal jaz
+\usepackage{minted}     % dodal jaz
+\usemintedstyle{bw}     % dodal jaz
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\ttitle}{Visoko skalabilna NewSQL relacijska podatkovna baza CockroachDB}
-\newcommand{\ttitleEn}{Higly scalable NewSQL relational database CockroachDB}
+\newcommand{\ttitleEn}{Higly Scalable NewSQL Relational Database CockroachDB}
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Matjaž Mav}
@@ -45,7 +46,7 @@
 \hypersetup{pdfkeywords=\tkeywordsEn}
 
 
- 
+    
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,7 +109,7 @@
 }
 
 {\catcode`\D=12
- \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
+    \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
 }
 \def\getMonth#1#2{\edef\xMonth{#1#2}\getDay}
 \def\getDay#1#2{\edef\xDay{#1#2}\getHour}
@@ -163,19 +164,18 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %naslovnica
- \thispagestyle{empty}%
-   \begin{center}
+    \thispagestyle{empty}%
+    \begin{center}
     {\large\sc Univerza v Ljubljani\\%
-      Fakulteta za računalništvo in informatiko}%
+        Fakulteta za računalništvo in informatiko}%
     \vskip 10em%
     {\autfont \tauthor\par}%
     {\titfont \ttitle \par}%
     {\vskip 3em \textsc{DIPLOMSKO DELO\\[5mm]
-    UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}
+    UNIVERZITETNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}
     \vfill\null%
+    {\large \textsc{Mentor}: izr.\ prof.\ dr.\ Matjaž Kukar\par}%
     {\vskip 2em \large Ljubljana, 2018 \par}%
 \end{center}
-% prazna stran
-%\clearemptydoublepage      % dodal Solina (izjava o licencah itd. se izpiše na hrbtni strani naslovnice)
 
 \end{document}
