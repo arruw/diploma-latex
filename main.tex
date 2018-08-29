@@ -345,7 +345,7 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent The thesis deals with a NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance of the new database CockroachDB and the well-established PostgreSQL database. NewSQL databases are built for distributed environments and integrate the properties of both SQL and NoSQL databases. NewSQL databases use the standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB achieves on average 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
+\noindent The thesis deals with a NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance of the new database CockroachDB and the well-established PostgreSQL database. NewSQL databases are built for distributed environments and integrate the properties of both SQL and NoSQL databases. NewSQL databases use the standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB achieves on average 5 times lower throughput and 3 times higher latency compared to PostgreSQL on three node cluster. Furthermore, CockroachDB provides only basic support for join operations.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -392,7 +392,7 @@ NewSQL je oznaka za sodobne relacijske podatkovne baze, ki združujejo lastnosti
 
 \noindent Lastnosti NewSQL podatkovnih baz so \cite{Kumar2018Jun}:
 \begin{itemize}
-    \item uporabljajo standardni SQL vmenik kot primarni aplikacijski vmesnik za interakcijo;
+    \item uporabljajo standardni SQL jezik kot primarni aplikacijski vmesnik za interakcijo;
     \item podpirajo ACID transakcijske lastnosti;
     \item uporabljajo neblokirajoče mehanizme za nadzor sočasnosti. Tako pisalni zahtevki ne povzročajo konfliktov z bralnimi zahtevki \cite{NewSQLNewWayToHandleBigData}. To smo podrobneje opisali v poglavju \ref{newsql/concurrencycontroll};
     \item implementirajo porazdeljeno in ne deljeno (angl. shared-nothing) arhitekturo. Ta arhitektura zagotavlja horizontalno skalabilnost, podatkovna baza pa lahko teče na velikem številu vozlišč brez trpljenja ozkih grl \cite{NewSQLNewWayToHandleBigData};
@@ -538,7 +538,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Najem obsega (angl. range lease):} Za vsako območje obstaja ena replika (angl. leaseholder), katera ima obseg v najemu. Ta replika sprejme in koordinira vse bralne in pisalne zahtevke za določen obseg.
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja uporablja algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
-    \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kovruma, preden se sprememba šteje za potrjeno.
+    \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kvoruma, preden se sprememba šteje za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica izvršenih operacij na podatkovni bazi, katere ohranjajo ACID lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni, da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
 \end{itemize}
@@ -568,11 +568,11 @@ SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Po
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek oziroma ga preusmeri na vozlišče, katero ga zna obdelati. To omogoči enostavno porazdelitev bremena.
 
-Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sitaksno drevo. Potem CockroachDB začne s pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi semantično pravilnost poizvedb, nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije. Kot primer poglejmo poenostavljeno stanje KV hrambe (tabela \ref{tbl_crdb_sql_kv_mapping}) po izvedbi naslednjih SQL stavkov:
+Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sintaksno drevo. Potem CockroachDB začne s pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi semantično pravilnost poizvedb, nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije. Kot primer poglejmo poenostavljeno stanje KV hrambe (tabela \ref{tbl_crdb_sql_kv_mapping}) po izvedbi naslednjih SQL stavkov:
 
 \begin{listing}[H]
 \begin{minted}{vim}
-    CREATEA TABLE customer (
+    CREATE TABLE customer (
         name STRING PRIMARY KEY,
         address STRING,
         url STRING

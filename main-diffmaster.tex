@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-18796.tex   Wed Aug 29 09:31:46 2018
-%DIF ADD main.tex                Wed Aug 29 09:28:47 2018
+%DIF DEL main-oldtmp-17776.tex   Wed Aug 29 09:49:38 2018
+%DIF ADD main.tex                Wed Aug 29 09:49:33 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -415,7 +415,7 @@ Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent The thesis deals with \DIFaddbegin \DIFadd{a }\DIFaddend NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance \DIFdelbegin \DIFdel{between }\DIFdelend \DIFaddbegin \DIFadd{of }\DIFaddend the new database CockroachDB and \DIFaddbegin \DIFadd{the }\DIFaddend well-established PostgreSQL database. NewSQL databases are \DIFdelbegin \DIFdel{build }\DIFdelend \DIFaddbegin \DIFadd{built }\DIFaddend for distributed environments and \DIFdelbegin \DIFdel{join properties from }\DIFdelend \DIFaddbegin \DIFadd{integrate the properties of }\DIFaddend both SQL and NoSQL databases. NewSQL databases use \DIFaddbegin \DIFadd{the }\DIFaddend standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB \DIFdelbegin \DIFdel{in average achieves }\DIFdelend \DIFaddbegin \DIFadd{achieves on average }\DIFaddend 3 times lower throughput and 5 times higher latency compared to PostgreSQL. Furthermore, CockroachDB provides only basic support for join operations.
+\noindent The thesis deals with \DIFaddbegin \DIFadd{a }\DIFaddend NewSQL database called CockroachDB. The aim of the thesis is to describe key concepts used in NewSQL databases and then evaluate and compare performance \DIFdelbegin \DIFdel{between }\DIFdelend \DIFaddbegin \DIFadd{of }\DIFaddend the new database CockroachDB and \DIFaddbegin \DIFadd{the }\DIFaddend well-established PostgreSQL database. NewSQL databases are \DIFdelbegin \DIFdel{build }\DIFdelend \DIFaddbegin \DIFadd{built }\DIFaddend for distributed environments and \DIFdelbegin \DIFdel{join properties from }\DIFdelend \DIFaddbegin \DIFadd{integrate the properties of }\DIFaddend both SQL and NoSQL databases. NewSQL databases use \DIFaddbegin \DIFadd{the }\DIFaddend standard SQL query language for interaction with a database. They use ACID transactions that guarantee high data consistency. They enable easier horizontal scaling, replication, high availability and automatic failover. The results of simple queries showed that CockroachDB \DIFdelbegin \DIFdel{in average achieves 3 }\DIFdelend \DIFaddbegin \DIFadd{achieves on average 5 }\DIFaddend times lower throughput and \DIFdelbegin \DIFdel{5 }\DIFdelend \DIFaddbegin \DIFadd{3 }\DIFaddend times higher latency compared to PostgreSQL \DIFaddbegin \DIFadd{on three node cluster}\DIFaddend . Furthermore, CockroachDB provides only basic support for join operations.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -464,7 +464,7 @@ NewSQL je oznaka za sodobne relacijske podatkovne baze, ki združujejo lastnosti
 
 \noindent Lastnosti NewSQL podatkovnih baz so \cite{Kumar2018Jun}:
 \begin{itemize}
-    \item \DIFdelbegin \DIFdel{Uporabljajo }\DIFdelend \DIFaddbegin \DIFadd{uporabljajo }\DIFaddend standardni SQL vmenik kot primarni aplikacijski vmesnik za interakcijo\DIFdelbegin \DIFdel{.
+    \item \DIFdelbegin \DIFdel{Uporabljajo standardni SQL vmenik }\DIFdelend \DIFaddbegin \DIFadd{uporabljajo standardni SQL jezik }\DIFaddend kot primarni aplikacijski vmesnik za interakcijo\DIFdelbegin \DIFdel{.
     }\DIFdelend \DIFaddbegin \DIFadd{;
     }\DIFaddend \item \DIFdelbegin \DIFdel{Podpirajo }\DIFdelend \DIFaddbegin \DIFadd{podpirajo }\DIFaddend ACID transakcijske lastnosti\DIFdelbegin \DIFdel{.
     }\DIFdelend \DIFaddbegin \DIFadd{;
@@ -636,7 +636,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Najem obsega (angl. range lease):} Za vsako območje obstaja ena replika (angl. leaseholder)\DIFaddbegin \DIFadd{, }\DIFaddend katera ima obseg v najemu. Ta replika sprejme in koordinira vse bralne in pisalne zahtevke za določen obseg.
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja \DIFdelbegin \DIFdel{uporabja }\DIFdelend \DIFaddbegin \DIFadd{uporablja }\DIFaddend algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
-    \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kovruma, preden se sprememba \DIFdelbegin \DIFdel{smatra }\DIFdelend \DIFaddbegin \DIFadd{šteje }\DIFaddend za potrjeno.
+    \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje \DIFdelbegin \DIFdel{kovruma}\DIFdelend \DIFaddbegin \DIFadd{kvoruma}\DIFaddend , preden se sprememba \DIFdelbegin \DIFdel{smatra }\DIFdelend \DIFaddbegin \DIFadd{šteje }\DIFaddend za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica \DIFdelbegin \DIFdel{operacij }\DIFdelend izvršenih \DIFaddbegin \DIFadd{operacij }\DIFaddend na podatkovni bazi, katere ohranjajo ACID lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni\DIFaddbegin \DIFadd{, }\DIFaddend da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
 \end{itemize}
@@ -666,11 +666,11 @@ SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Po
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek \DIFdelbegin \DIFdel{, }\DIFdelend oziroma ga preusmeri na vozlišče\DIFdelbegin \DIFdel{katero zna obdelati zahtevek}\DIFdelend \DIFaddbegin \DIFadd{, katero ga zna obdelati}\DIFaddend . To omogoči enostavno porazdelitev bremena.
 
-Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno sitaksno drevo. Potem CockroachDB začne s pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi semantično pravilnost poizvedb\DIFdelbegin \DIFdel{ter }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije. Kot primer poglejmo poenostavljeno stanje KV hrambe (tabela \ref{tbl_crdb_sql_kv_mapping}) po izvedbi naslednjih SQL stavkov:
+Ko vozlišče prejme SQL zahtevek, ga najprej razčleni v abstraktno \DIFdelbegin \DIFdel{sitaksno }\DIFdelend \DIFaddbegin \DIFadd{sintaksno }\DIFaddend drevo. Potem CockroachDB začne s pripravo poizvedovalnega plana. V tem koraku CockroachDB preveri tudi semantično pravilnost poizvedb\DIFdelbegin \DIFdel{ter }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend nato vse operacije prevedene v KV operacije ter transformira podatke v binarno obliko. S pomočjo poizvedovalnega plana transakcijska plast nato izvede vse operacije. Kot primer poglejmo poenostavljeno stanje KV hrambe (tabela \ref{tbl_crdb_sql_kv_mapping}) po izvedbi naslednjih SQL stavkov:
 
 \begin{listing}[H]
 \begin{minted}{vim}
-    CREATEA TABLE customer (
+    \DIFdelbegin \DIFdel{CREATEA }\DIFdelend \DIFaddbegin \DIFadd{CREATE }\DIFaddend TABLE customer (
         name STRING PRIMARY KEY,
         address STRING,
         url STRING
