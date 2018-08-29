@@ -489,7 +489,7 @@ Drobljenje (angl. sharding) je pristop, s katerim večina NewSQL podatkovnih baz
 
 Idealno podatkovna baza iz poizvedbe prepozna, katerih particij se poizvedba tiče, ter nato izvede poizvedbo, porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
 
-Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particije rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno, moramo podatke ponovno enakomerno razdeliti. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen, saj morajo NewSQL podatkovne baze zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
+Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particije rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno, moramo podatke ponovno enakomerno razdeliti. Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen, saj morajo NewSQL podatkovne baze zagotavljati ACID transakcijske lastnosti \cite{Pavlo2016Sep}.
 
 \section{Replikacija}
 
@@ -500,7 +500,7 @@ Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. 
     \item \textbf{Asinhrona replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) replikacija. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočas\-nosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep, harding2017evaluation}.
 \end{enumerate}
 
-V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se šteje, da je replikacija uspešna \cite{NewSqlInMemoryAnalytics}. Pri porazdeljenih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik. Od soglasnih algoritmov najpogosteje zasledimo algoritma Paxos in Raft \cite{raft-vs-paxos}. Algoritem Raft je nekoliko enostavnejši za razumevanje in implementacijo ter je v porazdeljenih sistemih pogosteje uporabljen \cite{raft-vs-paxos}. 
+V visoko konsistentnih podatkovnih bazah morajo biti replikacije potrjene na vseh replikah, šele takrat se šteje, da je replikacija uspešna \cite{NewSqlInMemoryAnalytics}. Pri porazdeljenih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik. Od soglasnih algoritmov najpogosteje zasledimo algoritma Paxos in Raft \cite{raft-vs-paxos}. Algoritem Raft je nekoliko enostavnejši za razumevanje in implementacijo ter je v porazdeljenih sistemih pogosteje uporabljen \cite{raft-vs-paxos}. 
 
 Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve, med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) omrežij.
 
@@ -539,7 +539,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja uporablja algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kvoruma, preden se sprememba šteje za potrjeno.
-    \item \textbf{Transakcija (angl. transaction):} Množica izvršenih operacij na podatkovni bazi, katere ohranjajo ACID lastnosti.
+    \item \textbf{Transakcija (angl. transaction):} Množica izvršenih operacij na podatkovni bazi, katere ohranjajo ACID transakcijske lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni, da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
 \end{itemize}
 
@@ -900,7 +900,7 @@ V spodnjih korakih je opisan postopek, po katerem smo pripravili podatke za vsak
 \subsubsection{Citus}
 \begin{enumerate}
     \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) smo pognal Citus podatkovno bazo na vozlišču \texttt{n2}.
-    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo, katero za svoje delovanje potrebuje YCSB.
+    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo, katero za svoje delovanje potrebuje orodje YCSB.
     \begin{listing}[H]
     \begin{minted}{vim}
         CREATE DATABASE ycsb;
@@ -946,7 +946,7 @@ V spodnjih korakih je opisan postopek, po katerem smo pripravili podatke za vsak
 \subsubsection{CockroachDB}
 \begin{enumerate}
     \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/\\cockroachdb-n1.yml}) smo pognali CockroachDB bazo na vozlišču \texttt{n2}.
-    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo, katero za svoje delovanje potrebuje YCSB.
+    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo, katero za svoje delovanje potrebuje orodje YCSB.
     \begin{listing}[H]
     \begin{minted}{vim}
         CREATE DATABASE ycsb;
@@ -1105,7 +1105,7 @@ Zmogljivostna analiza je pokazala, da se podatkovna baza Citus pri večini obrem
 
 S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB v primerjavi s Citus dosega 2,7-krat manjšo prepustnost na enem vozlišču in kar 5-krat manjšo prepustnost na treh vozliščih. Pri primerjavi latence pa je CockroachDB v primerjavi s Citus na enem vozlišču dosegel približno 25,2-krat večjo latenco, na treh vozliščih pa samo še 3-krat večjo.
 
-S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih, saj so podatki pri podatkovni bazi CockroachDB veliko bolj razpršeni.
+S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih, saj so rezultati meritev pri podatkovni bazi CockroachDB veliko bolj razpršeni.
 
 Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput}), opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča lahko v povprečju obdela 5,4 več sočasnih niti, podatkovna baza Citus pa kar 10,8 manj.
 
@@ -1114,14 +1114,6 @@ S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza
 
 \ \\
 Razlog za to hipotezo je, da je podatkovna baza PostgreSQL že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana, kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
-
-% \begin{figure}[H]
-% \begin{center}
-% \includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
-% \end{center}
-% \caption{Primerjava povprečne prepustnosti na enem vozlišču.}
-% \label{img_ycsb_results_throughptu_comparison_n1}
-% \end{figure}
 
 Hipotezo smo potrdili, kar je razvidno tudi na sliki \ref{img_ycsb_results_top_level_comparison}. Podatkovna baza CockroachDB v primerjavi s PostgreSQL dosega približno 2,7-krat nižjo prepustnost.
 
@@ -1132,14 +1124,6 @@ Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovaln
 
 \ \\
 Vsa vozlišča, povezana v CockroachDB gručo, so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč, ter da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna \cite{CRDB-design}.
-
-% \begin{figure}[H]
-% \begin{center}
-% \includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
-% \end{center}
-% \caption{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}
-% \label{img_ycsb_results_scaling_throughptu_comparison}
-% \end{figure}
 
 To hipotezo smo ovrgli. Meritve so pokazale, da podatkovna baza CockroachDB doseže celo slabšo prepustnost na treh vozliščih. To je razvidno iz slike \ref{img_ycsb_results_top_level_comparison}.
 
@@ -1153,7 +1137,7 @@ Na podlagi teh ugotovitev smo pripravili optimistično oceno rasti povprečne pr
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=1\textwidth]{resources/scaling-throughput-prediction-v2.png}
+\includegraphics[width=0.7\textwidth]{resources/scaling-throughput-prediction-v2.png}
 \end{center}
 \caption{Optimistična ocena rasti povprečne prepustnosti. Pri podatkovni bazi Citus se v točki A linearna rast konča. V točki B pa ima CockroachDB že večjo prepustnost. Graf je le simboličen in ne predstavlja realnih meritev.}
 \label{img_ycsb_results_scaling_throughptu_prediction}

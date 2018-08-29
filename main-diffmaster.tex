@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-17776.tex   Wed Aug 29 09:49:38 2018
-%DIF ADD main.tex                Wed Aug 29 09:49:33 2018
+%DIF DEL main-oldtmp-17436.tex   Wed Aug 29 10:55:14 2018
+%DIF ADD main.tex                Wed Aug 29 10:47:20 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -572,7 +572,7 @@ Drobljenje (angl. sharding) je pristop\DIFaddbegin \DIFadd{, }\DIFaddend s kater
 
 Idealno podatkovna baza iz poizvedbe prepozna\DIFaddbegin \DIFadd{, }\DIFaddend katerih particij se poizvedba tiče\DIFaddbegin \DIFadd{, }\DIFaddend ter nato izvede poizvedbo\DIFaddbegin \DIFadd{, }\DIFaddend porazdeljeno preko teh particij. Dobljene rezultate združi in vrne en rezultat \cite{Pavlo2016Sep}.
 
-Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particije rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno, \DIFdelbegin \DIFdel{potrebujemo podatke ponovno razdeliti enakomerno }\DIFdelend \DIFaddbegin \DIFadd{moramo podatke ponovno enakomerno razdeliti}\DIFaddend . Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen, saj \DIFaddbegin \DIFadd{morajo }\DIFaddend NewSQL podatkovne baze \DIFdelbegin \DIFdel{potrebujejo }\DIFdelend zagotavljati ACID lastnosti \cite{Pavlo2016Sep}.
+Nekatere izmed NewSQL podatkovnih baz omogočajo migracijo podatkov med particijami med izvajanjem podatkovne baze. Ta mehanizem je potreben, ker nekatere particije rastejo hitreje kot druge. Če želimo, da podatkovna baza deluje optimalno, \DIFdelbegin \DIFdel{potrebujemo podatke ponovno razdeliti enakomerno }\DIFdelend \DIFaddbegin \DIFadd{moramo podatke ponovno enakomerno razdeliti}\DIFaddend . Ta pristop ni nov, uporablja ga večina NoSQL podatkovnih baz, je pa bolj kompleksen, saj \DIFaddbegin \DIFadd{morajo }\DIFaddend NewSQL podatkovne baze \DIFdelbegin \DIFdel{potrebujejo zagotavljati ACID }\DIFdelend \DIFaddbegin \DIFadd{zagotavljati ACID transakcijske }\DIFaddend lastnosti \cite{Pavlo2016Sep}.
 
 \section{Replikacija}
 
@@ -583,7 +583,7 @@ Najboljši način za doseganje visoke razpoložljivosti je uporaba replikacije. 
     \item \textbf{Asinhrona replikacija}:\\Imenujemo jo tudi aktivno-pasivna (angl. active-passive) replikacija. Pri tem pristopu se zahtevek najprej obdela na eni repliki, nato pa se sprememba posreduje ostalim replikam. Ta pristop implementira večina NewSQL podatkovnih baz, saj zaradi ne deterministične sočas\-nosti ni mogoče izvesti zahtevkov v pravilnem vrstnem redu na vseh replikah \cite{Pavlo2016Sep, harding2017evaluation}.
 \end{enumerate}
 
-V visoko konsistentnih podatkovnih bazah morajo biti replikacija potrjene na vseh replikah, šele takrat se \DIFdelbegin \DIFdel{smatra}\DIFdelend \DIFaddbegin \DIFadd{šteje}\DIFaddend , da je replikacija uspešna \cite{NewSqlInMemoryAnalytics}. Pri porazdeljenih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik. Od soglasnih algoritmov najpogosteje zasledimo algoritma Paxos in Raft \cite{raft-vs-paxos}. Algoritem Raft je nekoliko enostavnejši za razumevanje in implementacijo ter je v porazdeljenih sistemih pogosteje uporabljen \cite{raft-vs-paxos}. 
+V visoko konsistentnih podatkovnih bazah morajo biti \DIFdelbegin \DIFdel{replikacija }\DIFdelend \DIFaddbegin \DIFadd{replikacije }\DIFaddend potrjene na vseh replikah, šele takrat se \DIFdelbegin \DIFdel{smatra}\DIFdelend \DIFaddbegin \DIFadd{šteje}\DIFaddend , da je replikacija uspešna \cite{NewSqlInMemoryAnalytics}. Pri porazdeljenih podatkovnih bazah, katere uporabljajo soglasni algoritem (angl. consensus algorithm), je dovolj, da replikacijo potrdi večina replik. Od soglasnih algoritmov najpogosteje zasledimo algoritma Paxos in Raft \cite{raft-vs-paxos}. Algoritem Raft je nekoliko enostavnejši za razumevanje in implementacijo ter je v porazdeljenih sistemih pogosteje uporabljen \cite{raft-vs-paxos}. 
 
 Ker so NewSQL podatkovne baze prilagojene za oblak in namestitve\DIFaddbegin \DIFadd{, }\DIFaddend med katerimi so velike geografske razlike, podpirajo tudi optimizirano replikacijo preko WAN (angl. wide-area network) \DIFdelbegin \DIFdel{omrežji}\DIFdelend \DIFaddbegin \DIFadd{omrežij}\DIFaddend .
 
@@ -637,7 +637,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
     \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja \DIFdelbegin \DIFdel{uporabja }\DIFdelend \DIFaddbegin \DIFadd{uporablja }\DIFaddend algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje \DIFdelbegin \DIFdel{kovruma}\DIFdelend \DIFaddbegin \DIFadd{kvoruma}\DIFaddend , preden se sprememba \DIFdelbegin \DIFdel{smatra }\DIFdelend \DIFaddbegin \DIFadd{šteje }\DIFaddend za potrjeno.
-    \item \textbf{Transakcija (angl. transaction):} Množica \DIFdelbegin \DIFdel{operacij }\DIFdelend izvršenih \DIFaddbegin \DIFadd{operacij }\DIFaddend na podatkovni bazi, katere ohranjajo ACID lastnosti.
+    \item \textbf{Transakcija (angl. transaction):} Množica \DIFdelbegin \DIFdel{operacij }\DIFdelend izvršenih \DIFaddbegin \DIFadd{operacij }\DIFaddend na podatkovni bazi, katere ohranjajo ACID \DIFaddbegin \DIFadd{transakcijske }\DIFaddend lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni\DIFaddbegin \DIFadd{, }\DIFaddend da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
 \end{itemize}
 
@@ -1003,7 +1003,7 @@ V spodnjih korakih je opisan postopek, po katerem smo \DIFaddbegin \DIFadd{pripr
 \subsubsection{Citus}
 \begin{enumerate}
     \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) smo pognal Citus podatkovno bazo na vozlišču \texttt{n2}.
-    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo\DIFdelbegin \DIFdel{katero potrebuje YCSB }\DIFdelend \DIFaddbegin \DIFadd{, katero }\DIFaddend za svoje delovanje \DIFaddbegin \DIFadd{potrebuje YCSB}\DIFaddend .
+    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo\DIFdelbegin \DIFdel{katero potrebuje YCSB }\DIFdelend \DIFaddbegin \DIFadd{, katero }\DIFaddend za svoje delovanje \DIFaddbegin \DIFadd{potrebuje orodje YCSB}\DIFaddend .
     \begin{listing}[H]
     \begin{minted}{vim}
         CREATE DATABASE ycsb;
@@ -1049,7 +1049,7 @@ V spodnjih korakih je opisan postopek, po katerem smo \DIFaddbegin \DIFadd{pripr
 \subsubsection{CockroachDB}
 \begin{enumerate}
     \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/\\cockroachdb-n1.yml}) smo pognali CockroachDB bazo na vozlišču \texttt{n2}.
-    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo\DIFdelbegin \DIFdel{katero potrebuje YCSB }\DIFdelend \DIFaddbegin \DIFadd{, katero }\DIFaddend za svoje delovanje \DIFaddbegin \DIFadd{potrebuje YCSB}\DIFaddend .
+    \item Na vozlišču \texttt{n2} smo ročno kreirali shemo\DIFdelbegin \DIFdel{katero potrebuje YCSB }\DIFdelend \DIFaddbegin \DIFadd{, katero }\DIFaddend za svoje delovanje \DIFaddbegin \DIFadd{potrebuje orodje YCSB}\DIFaddend .
     \begin{listing}[H]
     \begin{minted}{vim}
         CREATE DATABASE ycsb;
@@ -1208,7 +1208,7 @@ Zmogljivostna analiza je pokazala, da se podatkovna baza Citus pri večini obrem
 
 S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB v primerjavi s Citus dosega 2,\DIFdelbegin \DIFdel{7 krat }\DIFdelend \DIFaddbegin \DIFadd{7-krat }\DIFaddend manjšo prepustnost na enem vozlišču in kar \DIFdelbegin \DIFdel{5 krat }\DIFdelend \DIFaddbegin \DIFadd{5-krat }\DIFaddend manjšo prepustnost na treh vozliščih. Pri primerjavi latence pa je CockroachDB v primerjavi s Citus na enem vozlišču dosegel približno 25,\DIFdelbegin \DIFdel{2 krat }\DIFdelend \DIFaddbegin \DIFadd{2-krat }\DIFaddend večjo latenco, na treh vozliščih pa samo še \DIFdelbegin \DIFdel{3 krat }\DIFdelend \DIFaddbegin \DIFadd{3-krat }\DIFaddend večjo.
 
-S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih\DIFaddbegin \DIFadd{, }\DIFaddend saj so podatki pri podatkovni bazi CockroachDB veliko bolj razpršeni.
+S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih\DIFdelbegin \DIFdel{saj so podatki }\DIFdelend \DIFaddbegin \DIFadd{, saj so rezultati meritev }\DIFaddend pri podatkovni bazi CockroachDB veliko bolj razpršeni.
 
 Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput})\DIFaddbegin \DIFadd{, }\DIFaddend opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča \DIFaddbegin \DIFadd{lahko }\DIFaddend v povprečju \DIFdelbegin \DIFdel{lahko }\DIFdelend obdela 5,4 več sočasnih niti, podatkovna baza Citus pa kar 10,8 manj.
 
@@ -1218,15 +1218,17 @@ S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza
 \ \\
 Razlog za to hipotezo je, da je podatkovna baza PostgreSQL že dolgo na trgu \cite{Postgres-first-release} in je uporabljena na mnogih projektih. Zato je zmogljivostno bolje optimizirana\DIFaddbegin \DIFadd{, }\DIFaddend kakor CockroachDB. CockroachDB pa je na trgu od leta 2015. Prvo stabilno verzijo (1.0.0) so objavili maja 2017 \cite{CRDB-2017}, druga verzija (2.0.0) pa je bila objavljena aprila 2018. Vsaka verzija je dodala veliko novih funkcionalnosti.
 
-% \begin{figure}[H]
-% \begin{center}
-% \includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
-% \end{center}
-% \caption{Primerjava povprečne prepustnosti na enem vozlišču.}
-% \label{img_ycsb_results_throughptu_comparison_n1}
-% \end{figure}
+%DIF <  \begin{figure}[H]
+%DIF <  \begin{center}
+%DIF <  \includegraphics[width=1\textwidth]{resources/throughput-comparison-n1-v2.png}
+%DIF <  \end{center}
+%DIF <  \caption{Primerjava povprečne prepustnosti na enem vozlišču.}
+%DIF <  \label{img_ycsb_results_throughptu_comparison_n1}
+%DIF <  \end{figure}
+\DIFdelbegin %DIFDELCMD < 
 
-Hipotezo \DIFdelbegin \DIFdel{sem potrdil}\DIFdelend \DIFaddbegin \DIFadd{smo potrdili}\DIFaddend , kar je razvidno tudi na sliki \ref{img_ycsb_results_top_level_comparison}. Podatkovna baza CockroachDB v primerjavi \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend PostgreSQL dosega približno 2,\DIFdelbegin \DIFdel{7 krat }\DIFdelend \DIFaddbegin \DIFadd{7-krat }\DIFaddend nižjo prepustnost.
+%DIFDELCMD < %%%
+\DIFdel{Hipotezo sem potrdil}\DIFdelend \DIFaddbegin \DIFadd{Hipotezo smo potrdili}\DIFaddend , kar je razvidno tudi na sliki \ref{img_ycsb_results_top_level_comparison}. Podatkovna baza CockroachDB v primerjavi \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend PostgreSQL dosega približno 2,\DIFdelbegin \DIFdel{7 krat }\DIFdelend \DIFaddbegin \DIFadd{7-krat }\DIFaddend nižjo prepustnost.
 
 Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB (verzija 0.12.0) so primerjali obremenitve tipa A, B in C. Ugotovili so, da se podatkovna baza CockroachDB (verzija 1.1.3) v primerjavi \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend PostgreSQL (verzija 9.6.5) odziva približno \DIFdelbegin \DIFdel{10 krat }\DIFdelend \DIFaddbegin \DIFadd{10-krat }\DIFaddend slabše\DIFaddbegin \DIFadd{, }\DIFaddend kakor PostgreSQL. V njihovem primeru so testno okolje postavili v Amazon oblaku, vsako bazo na treh vozliščih.
 
@@ -1236,15 +1238,17 @@ Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovaln
 \ \\
 Vsa vozlišča\DIFaddbegin \DIFadd{, }\DIFaddend povezana v CockroachDB gručo\DIFaddbegin \DIFadd{, }\DIFaddend so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč, ter \DIFdelbegin \DIFdel{, }\DIFdelend da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna \cite{CRDB-design}.
 
-% \begin{figure}[H]
-% \begin{center}
-% \includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
-% \end{center}
-% \caption{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}
-% \label{img_ycsb_results_scaling_throughptu_comparison}
-% \end{figure}
+%DIF <  \begin{figure}[H]
+%DIF <  \begin{center}
+%DIF <  \includegraphics[width=1\textwidth]{resources/scaling-throughput-v2.png}
+%DIF <  \end{center}
+%DIF <  \caption{Primerjava povprečne prepustnosti ob skaliranju baze na tri vozlišča.}
+%DIF <  \label{img_ycsb_results_scaling_throughptu_comparison}
+%DIF <  \end{figure}
+\DIFdelbegin %DIFDELCMD < 
 
-To hipotezo \DIFdelbegin \DIFdel{sem ovrgel}\DIFdelend \DIFaddbegin \DIFadd{smo ovrgli}\DIFaddend . Meritve so pokazale, da podatkovna baza CockroachDB doseže celo slabšo prepustnost na treh vozliščih. To \DIFdelbegin \DIFdel{razvidno na sliki }\DIFdelend \DIFaddbegin \DIFadd{je razvidno iz slike }\DIFaddend \ref{img_ycsb_results_top_level_comparison}.
+%DIFDELCMD < %%%
+\DIFdel{To hipotezo sem ovrgel}\DIFdelend \DIFaddbegin \DIFadd{To hipotezo smo ovrgli}\DIFaddend . Meritve so pokazale, da podatkovna baza CockroachDB doseže celo slabšo prepustnost na treh vozliščih. To \DIFdelbegin \DIFdel{razvidno na sliki }\DIFdelend \DIFaddbegin \DIFadd{je razvidno iz slike }\DIFaddend \ref{img_ycsb_results_top_level_comparison}.
 
 Razlog za tak rezultat naj bi bila primerjava med konfiguracijo na enem in treh vozliščih \cite{CRDB-YCSB-perf-analisis}. CockroachDB na treh vozliščih s privzetimi nastavitvami začne \DIFdelbegin \DIFdel{z }\DIFdelend \DIFaddbegin \DIFadd{s }\DIFaddend postopkom replikacije podatkov. Privzeto je vsak podatek repliciran trikrat, enkrat na vsakem vozlišču. CockroachDB tako zagotavlja konsistenco in visoko razpoložljivost.
 
@@ -1256,8 +1260,10 @@ Na podlagi teh ugotovitev \DIFdelbegin \DIFdel{sem pripravil }\DIFdelend \DIFadd
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=1\textwidth]{resources/scaling-throughput-prediction-v2.png}
-\end{center}
+\DIFdelbeginFL %DIFDELCMD < \includegraphics[width=1\textwidth]{resources/scaling-throughput-prediction-v2.png}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.7\textwidth]{resources/scaling-throughput-prediction-v2.png}
+\DIFaddendFL \end{center}
 \caption{Optimistična ocena rasti povprečne prepustnosti. Pri podatkovni bazi Citus \DIFdelbeginFL \DIFdelFL{, }\DIFdelendFL se v točki A linearna rast konča. V točki B pa \DIFdelbeginFL \DIFdelFL{je }\DIFdelendFL ima CockroachDB že večjo prepustnost. Graf je le simboličen in ne predstavlja realnih meritev.}
 \label{img_ycsb_results_scaling_throughptu_prediction}
 \end{figure}
