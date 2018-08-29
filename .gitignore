@@ -266,3 +266,6 @@ TSWLatexianTemp*
 
 # End of https://www.gitignore.io/api/git,code,latex
 
+### MS Office
+
+**/~$*
