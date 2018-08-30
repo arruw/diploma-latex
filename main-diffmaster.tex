@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-15724.tex   Thu Aug 30 09:26:33 2018
-%DIF ADD main.tex                Thu Aug 30 09:12:41 2018
+%DIF DEL main-oldtmp-8540.tex   Thu Aug 30 13:27:47 2018
+%DIF ADD main.tex               Thu Aug 30 13:22:22 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -31,11 +31,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\ttitle}{Visoko skalabilna NewSQL relacijska podatkovna baza CockroachDB}
-%DIF 32c32
+%DIF 31-32c31-32
+%DIF < \newcommand{\ttitle}{Visoko skalabilna NewSQL relacijska podatkovna baza CockroachDB}
 %DIF < \newcommand{\ttitleEn}{Higly scalable NewSQL relational database CockroachDB}
 %DIF -------
-\newcommand{\ttitleEn}{Higly Scalable NewSQL Relational Database CockroachDB} %DIF > 
+\newcommand{\ttitle}{Visoko skalabilen NewSQL sistem za upravljanje s podatkovnimi bazami CockroachDB} %DIF > 
+\newcommand{\ttitleEn}{Highly scalable NewSQL database management system CockroachDB} %DIF > 
 %DIF -------
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
@@ -283,8 +284,10 @@ Fakulteta za računalništvo in informatiko izdaja \DIFdelbegin \DIFdel{naslednj
 
 Tematika \DIFdelbegin \DIFdel{naloge}\DIFdelend \DIFaddbegin \DIFadd{dela}\DIFaddend :
 \end{tabbing}
-Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. Kaj so cilji, kakšne metode uporabiti, morda bo zapisal tudi ključno literaturo.
-\vspace{15mm}
+\DIFdelbegin \DIFdel{Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela.
+Kaj so cilji, kakšne metode uporabiti, morda bo zapisal tudi ključno literaturo.
+}\DIFdelend \DIFaddbegin \DIFadd{Preglejte in opišite osnovne koncepte, uporabljene v NewSQL sistemih za upravljanje s podatkovnimi bazami in jih predstavite na primeru sistema CockroachDB. Izvedite primerjalno analizo lastnosti in zmogljivosti med NewSQL sistemom CockroachDB ter tradicionalnim relacijskim sistemom PostgreSQL z razširitvijo Citus.
+}\DIFaddend \vspace{15mm}
 
 
 
