@@ -289,9 +289,9 @@ Preglejte in opišite osnovne koncepte, uporabljene v NewSQL sistemih za upravlj
     {\bf ORM}   & object-relational mapper
         & programski vmesnik za pretvorbo relacijskih podatkov v objekte in obratno
         \\
-    {\bf SQL}   & structured query language    
-        & strukturiran povpraševalni jezik za delo z relacijskimi podatkovnimi bazami
-        \\
+    % {\bf SQL}   & structured query language    
+    %     & strukturiran povpraševalni jezik za delo z relacijskimi podatkovnimi bazami
+    %     \\
     {\bf TPC}   & transaction processing performance council
         &  organizacija, ki se ukvarja s primerjalno analizo podatkovnih baz v industriji
         \\
@@ -368,7 +368,7 @@ Diplomsko delo je razdeljeno na tri večja poglavja. V prvem poglavju bomo preds
 
 V drugem poglavju bomo opisali podatkovno bazo CockroachDB. Predstavili bomo njeno zgodovino in idejno osnovo. Poglobili se bomo v arhitekturo podatkovne baze CockroachDB in predstavili nekaj ključnih mehanizmov, kateri omogočajo standardni SQL jezik, transakcije, konsistenco, replikacijo, visoko razpoložljivost in enostavnost z upravljanjem. Kasneje bomo predstavili še ostale lastnosti, kot so SQL vmesnik, poslovna licenca ter podprta orodja, gonilniki in ORM-ji.
 
-V tretjem poglavju bomo opisali celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in Citus \cite{citus}. Opisali bomo hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, podatkovno bazo Citus in razlog, za kaj smo CockroachDB primerjali ravno z njo, pripravo podatkov ter izvedbo analize. Na koncu bomo predstavili rezultate ter jih komentirali.
+V tretjem poglavju bomo opisali celoten postopek izvedbe primerjalne analize zmogljivosti med podatkovno bazo CockroachDB in PostgreSQL (z nameščeno razširitvijo Citus \cite{citus}). Opisali bomo hipoteze, testno infrastrukturo, izbiro orodij za izvedbo zmogljivostnih analiz, razširitev Citus in razlog, za kaj smo CockroachDB primerjali ravno z njo, pripravo podatkov ter izvedbo analize. Na koncu bomo predstavili rezultate ter jih komentirali.
 
 Sledijo sklepne ugotovitve, kjer bomo povzeli diplomsko delo in izpostavili nekatere zanimive ugotovitve. Našteli bomo nekaj produktov, kjer je ta baza že v uporabi. Za zaključek bomo predlagali še nekaj odprtih vprašanj in ideje za nadaljnje raziskovanje.
 
@@ -406,7 +406,7 @@ Kategorizacija NewSQL podatkovnih baz deli implementacije proizvajalcev glede na
     \item \textbf{Nove arhitekture:}\\V to kategorijo spadajo arhitekture, katere so optimizirane za več-vozliščna porazdeljena okolja. Te arhitekture so za nas najbolj zanimive in so implementirane od začetka. Omogočajo atomično sočasnost med več-vozliščnimi sistemi, odpornost na napake preko replikacije, nadzor pretoka ter porazdeljeno procesiranje poizvedb. Slabost teh arhitektur pa je predvsem slaba kompatibilnost z obstoječimi orodji. Primeri teh arhitektur so CockroachDB \cite{cockroachdb/cockroach}, NuoDB \cite{nuodb-home}, VoltDB \cite{voltdb-home}, MemSQL \cite{memsql-home}, ... Podatkovno bazo CockroachDB smo bolj podrobno opisali v poglavju \ref{cockroachdb}.
     \item \textbf{Storitve v oblaku:}\\V to kategorijo spadajo podatkovne baze z novo arhitekturo, ki so na voljo kot produkt oziroma storitev v oblaku (DBaaS). Za upravljanje je v celoti odgovoren ponudnik oblačne storitve. Slabost te arhitekture je, da nas tipično veže na enega od ponudnikov oblačnih storitev, poleg tega pa nimamo popolnega nadzora nad delovanjem podatkovne baze. V to kategorijo na primer sodijo Amazon Aurora \cite{aurora-home}, Google Spanner\cite{spanner-home}, ClearDB \cite{cleardb-home} ...
     \item \textbf{Transparentno drobljenje:}\\To so komponente, ki usmerjajo poizvedbe, koordinirajo transakcije, upravljajo s podatki, particijami ter replikacijo. Prednost teh komponent je, da največkrat ni potrebno prilagajati aplikacije novi arhitekturi, saj še vedno deluje kot ena logična podatkovna baza. Slabost teh arhitektur pa se odraža predvsem pri neenakomerno porazdeljenih podatkih in slabi izkoriščenosti računalniških resursov. Primeri teh arhitektur so MariaDB MaxScale \cite{mariadb-maxscale-home}, ScaleArc \cite{scalearc-home}, AgilData Scalable Cluster \cite{agiledata-home} ...
-    \item \textbf{Novi shranjevalni pogoni in razširitve:}\\V to kategorijo spadajo novi shranjevalni pogoni in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz \cite{Kumar2018Jun}. Glede na \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz, ampak le med razširitve relacijskih SQL podatkovnih baz. Slabost teh v primerjavi z novimi arhitekturami je predvsem slabša izraba računalniških resursov. Poleg tega pa so arhitekture veliko manj elastične in bolj funkionalno omejene. Primeri rešitev, ki sodijo v to kategorijo, so na primer MySQL NDB cluster \cite{mysqlndbcluster-home}, Citus \cite{citus} razširitev za PostgreSQL podatkovno bazo, Hekaton \cite{hekaton-home} OLTP pogon za SQL Server ... Podatkovno bazo Citus smo bolj podrobno opisali v poglavju \ref{benchmarking/citus}.
+    \item \textbf{Novi shranjevalni pogoni in razširitve:}\\V to kategorijo spadajo novi shranjevalni pogoni in razširitve, kateri poizkušajo rešiti probleme skaliranja tradicionalnih relacijskih podatkovnih baz \cite{Kumar2018Jun}. Glede na \cite{Pavlo2016Sep} te rešitve ne sodijo v svet NewSQL podatkovnih baz, ampak le med razširitve relacijskih SQL podatkovnih baz. Slabost teh v primerjavi z novimi arhitekturami je predvsem slabša izraba računalniških resursov. Poleg tega pa so arhitekture veliko manj elastične in bolj funkionalno omejene. Primeri rešitev, ki sodijo v to kategorijo, so na primer MySQL NDB cluster \cite{mysqlndbcluster-home}, Citus \cite{citus} razširitev za PostgreSQL podatkovno bazo, Hekaton \cite{hekaton-home} OLTP pogon za SQL Server ... Razširitev Citus smo bolj podrobno opisali v poglavju \ref{benchmarking/citus}.
 \end{enumerate}
 
 \section{Nadzor sočasnosti}
@@ -537,7 +537,8 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Replika (angl. replica):} Kopija obsega, ki se nahaja na vsaj treh vozliščih.
     \item \textbf{Najem obsega (angl. range lease):} Za vsako območje obstaja ena replika (angl. leaseholder), katera ima obseg v najemu. Ta replika sprejme in koordinira vse bralne in pisalne zahtevke za določen obseg.
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
-    \item \textbf{Soglasje (angl consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja uporablja algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
+    \item \textbf{Soglasje (angl. consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja uporablja algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
+    \item \textbf{Govoričenje (angl. gossip):} Je relativno enostaven postopek preko katerega si vozlišča izmenjujejo razne podatke. Podatki ne potrebujejo biti najbolj točni. Ti podatki so največkrat uporabljeni za odločanje pri raznih avtomatiziranih opravilih. Na primer avtomatsko prerazporejanje obsegov na manj obremenjena vozlišča.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kvoruma, preden se sprememba šteje za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica izvršenih operacij na podatkovni bazi, katere ohranjajo ACID transakcijske lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni, da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
@@ -555,16 +556,16 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
 Podatkovna baza CockroachDB je sestavljena iz petih plasti. Plasti med seboj delujejo kot črne škatle. Vsaka plast pa sodeluje le s plastjo neposredno nad in pod seboj.
 
 \begin{enumerate}
-    \item \textbf{SQL plast:} Prevede SQL poizvedbe v operacije tipa ključ-vrednost (KV).
+    \item \textbf{Plast SQL:} Prevede SQL poizvedbe v operacije tipa ključ-vrednost (KV).
     \item \textbf{Transakcijska plast:} Omogoča atomične spremembe nad večjim šte\-vi\-lom KV operacij.
     \item \textbf{Porazdelitvena plast:} Predstavi replicirana KV območja kot eno entiteto.
     \item \textbf{Replikacijska plast:} Konsistentno in sinhrono replicira KV obsege v gruči.
     \item \textbf{Shranjevalna plast:} Izvaja bralne in pisalne operacije na disku.
 \end{enumerate}
 
-\subsection{SQL plast}
+\subsection{Plast SQL}
 
-SQL plast predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del SQL standarda \cite{CRDB-sql-standard}. Zunanje aplikacije komunicirajo preko PostgreSQL žičnega protokola (angl. PostgreSQL wire protocol) \cite{psql-wire-protocol}. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORM-ji.
+Plast SQL predstavlja vmesnik med podatkovno bazo ter ostalimi aplikacijami.  Podatkovna baza CockroachDB implementira velik del SQL standarda \cite{CRDB-sql-standard}. Zunanje aplikacije komunicirajo preko PostgreSQL žičnega protokola (angl. PostgreSQL wire protocol) \cite{psql-wire-protocol}. To omogoča enostavno povezavo med zunanjimi aplikacijami in kompatibilnost z obstoječimi gonilniki, orodji ter ORM-ji.
 
 Poleg tega so vsa vozlišča v CockroachDB gruči simetrična, kar pomeni, da se lahko aplikacija poveže na katero koli vozlišče. To vozlišče obdela zahtevek oziroma ga preusmeri na vozlišče, katero ga zna obdelati. To omogoči enostavno porazdelitev bremena.
 
@@ -649,7 +650,7 @@ Replikacijska plast skrbi za kopiranje podatkov med vozlišči in jih ohranja v 
 \[(r - 1)/2 = f \text{, če}\ r = 3, 5, 7, ...\ \text{in}\ r <= N\]
 Kjer je \(N\) število vseh vozlišč v gruči; \(r\) faktor replikacije oz. liho število, večje ali enako tri in manjše ali enako številu vseh vozlišč v gruči; ter \(f\) maksimalno število vozlišč, ki še lahko odpove, brez da bi vplivalo na delovanje podatkovne baze. Na primer če je replikacijski faktor \(r = 3\), pomeni, da za vsak obseg obstajajo 3 replike, shranjene na treh različnih vozliščih. Gruča posledično lahko tolerira odpoved enega vozlišča \(f = 1\).
 
-Za vsak obseg obstaja Raft skupina, kjer je eno vozlišče, ki vsebuje repliko, označeno kot "vodja". Vodja je izvoljen in koordinira vse pisalne zahtevke za določen obseg. V idealnih pogojih je vodja Raft skupine tudi najemnik obsega (angl. leaseholder).
+Za vsak obseg obstaja skupina Raft, kjer je eno vozlišče, ki vsebuje repliko, označeno kot "vodja". Vodja je izvoljen in koordinira vse pisalne zahtevke za določen obseg. V idealnih pogojih je vodja skupine Raft tudi najemnik obsega (angl. leaseholder).
 
 \subsection{Shranjevalna plast}
 
@@ -695,7 +696,7 @@ CockroachDB podpira naslednje podatkovne tipe:
     \item \textbf{Decimalni}: \texttt{DECIMAL} in \texttt{FLOAT}
     \item \textbf{Textovni}: \texttt{STRING} in \texttt{COLLATE} (podobno kot \texttt{STRING}, vendar upošteva specifike jezika)
     \item \textbf{Datumski in časovni}: \texttt{DATE}, \texttt{TIME}, \texttt{INTERVAL} (časovni interval) in\\\texttt{TIMESTAMP} (datum in čas)
-    \item \textbf{Ostali}: \texttt{ARRAY}, \texttt{BOOL}, \texttt{BYTES}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{JSONB} in\\\texttt{UUID} (128-bitna heksadecimalna vrednost)
+    \item \textbf{Ostali}: \texttt{ARRAY}, \texttt{BOOL}, \texttt{BYTES}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{JSONB} (podatki v JSON obliki, brez presledkov in podvojenih ključev, predstavljeni v binarnem zapisu) in\\\texttt{UUID} (128-bitna heksadecimalna vrednost)
 \end{itemize}
 
 \noindent Poleg zgoraj naštetih podatkovnih tipov ima vsak podatkovni tip zaradi kompatibilnosti s standardnim SQL jezikom še nekaj psevdonimov. CockroachDB ne podpira podatkovnih tipov, kot so \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
@@ -776,7 +777,7 @@ Izvirna koda podatkovne baze CockroachDB je javno dostopna preko GitHub repozito
 
 \chapter{Primerjalna analiza zmogljivosti CockroachDB}
 
-Primerjalna analiza zmogljivosti (angl. performance benchmarking) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V našem primeru smo z orodjem YCSB primerjali podatkovni bazi CockroachDB ter PostgreSQL z nameščeno razširitvijo Citus (v nadaljevanju samo Citus). 
+Primerjalna analiza zmogljivosti (angl. performance benchmarking) je postopek za primerjavo enega sistema z ostalimi podobnimi sistemi. V našem primeru smo z orodjem YCSB primerjali podatkovni bazi CockroachDB ter PostgreSQL z nameščeno razširitvijo Citus (v nadaljevanju tudi samo Citus). 
 
 Za primerjavo s Citus smo se odločil zaradi lažje izvedbe ter bolj primerljivih rezultatov. Obe podatkovni bazi CockroachDB in Citus sta po nekaterih lastnostih zelo podobni. Obe podatkovni bazi implementirata standardni SQL ter komunicirata preko PostgreSQL žičnega protokola. Podatkovno bazo smo nekoliko bolj podrobno opisali v poglavju \ref{benchmarking/citus}.
 
@@ -794,7 +795,7 @@ Za orodje YCSB smo se odločili, saj podpira vmesnik JDBC, katerega podpirata tu
     Orodje je enostavno, vendar pa je slabo dokumentirano in ne omogoča zmogljivostne analize podatkovne baze PostgreSQL.
     \item \textbf{Apache JMeter:}\\ Je orodje, namenjeno izvajanju raznih obremenitvenih testov \cite{jmeter}. Orod\-je omogoča izvajanje poljubnih obremenitev podatkovnih baz preko JDBC vmesnika.
     
-    Orodje je zelo konfigurabilno, vendar pa ne omogoča v naprej definiranih obremenitvenih testov. Zaradi kompleksnosti je težko za uporabo.
+    Orodje je zelo konfigurabilno, vendar pa ne omogoča vnaprej definiranih obremenitvenih testov. Zaradi kompleksnosti je težko za uporabo.
     \item \textbf{YCSB:}\\ YCSB (angl. Yahoo! Cloud Serving Benchmark) je orodje, namenjeno za primerjavo zmogljivostnih metrik med raznimi podatkovnimi bazami \cite{brianfrankcooper/YCSB}. Orodje smo podrobneje opisali v poglavju \ref{YCSB_about}.
 \end{itemize}
 
@@ -816,7 +817,7 @@ Testno okolje sestavljajo štiri vozlišča, označena z \texttt{n0}, \texttt{n1
 Veliko časa smo vložili v samo postavitev testnega okolja. Zaradi natančnosti testov smo bili pozorni, da smo odpravili čim več spremenljivk, ki bi lahko vplivale na končne rezultate.
 Vsa štiri vozlišča so med seboj povezana preko gigabitnega Ethernet omrežja v Docker Swarm \cite{Docker-Swarm-Mode} gručo. Vozlišče \texttt{n0} je v vlogi vodje, vozlišča \texttt{n1}, \texttt{n2} in \texttt{n3} pa so v vlogi delavcev. Za uporabo Docker Swarm tehnologije smo se odločili zaradi enostavnosti postavitve testnega okolja, avtomatizacije in izvedbe samih testov ter lažje ponovljivosti testov.
 
-Ker tehnologije Docker še nismo dobro poznali, smo imeli v fazi prototipiranja težave pri zmogljivosti. Izkazalo se je, da je bil ključen problem v tem, da nismo uporabili podatkovnih nosilcev (angl. data volumes) \cite{docker-storage-layers}.
+Ker tehnologije Docker še nismo dobro poznali, smo imeli v fazi prototipiranja težave pri zmogljivosti. Izkazalo se je, da je bil ključen problem v tem, da sprva nismo uporabili podatkovnih nosilcev (angl. data volumes) \cite{docker-storage-layers}.
 
 \begin{table}[H]
 \begin{center}
@@ -844,7 +845,7 @@ V vlogi strežnika so vozlišča \texttt{n1}, \texttt{n2} in \texttt{n3}. Na nji
 
 \section{Razširitev Citus}
 \label{benchmarking/citus}
-Citus je razširitev za podatkovno bazo PostgreSQL \cite{citus}. Omogoča enostavno horizontalno skaliranje podatkov za več najemniške (angl. multi tenant) aplikacije in obdelavo analitičnih podatkov v realnem času (angl. real time analytics). Uporaba razširitve Citus ni primerna, če:
+Citus je razširitev za podatkovno bazo PostgreSQL \cite{citus}. Omogoča enostavno horizontalno skaliranje podatkov za večnajemniške (angl. multi tenant) aplikacije in obdelavo analitičnih podatkov v realnem času (angl. real time analytics). Uporaba razširitve Citus ni primerna, če:
 \begin{itemize}
     \item nam zadošča le eno vozlišče;
     \item poizvedbe vračajo ogromno podatkov in
@@ -853,7 +854,7 @@ Citus je razširitev za podatkovno bazo PostgreSQL \cite{citus}. Omogoča enosta
 
 Razširitev Citus nam je voljo kot odprtokodna razširitev, plačljiva različi\-ca in storitev (DBaaS). Plačljiva različica poleg fukcionalnosti odprtokodne raz\-širitve ponuja še nekaj dodatne funkcionalnosti in 24-urno podporo strankam.
 
-Za primerjavo s Citus smo se odločili predvsem zaradi enostavnosti izvedbe primerjalne zmogljivostne analize. Obe podatkovni bazi, CockroachDB in Citus, temeljita na podatkovni bazi PostgreSQL. Obe komunicirata preko PostgreSQL žičnega protokola. Prav tako pa enostavna YCSB shema, katero smo opisali v naslednjem poglavju \ref{YCSB_about}, dobro spada v kontekst več najemniških aplikacij.
+Za primerjavo s Citus smo se odločili predvsem zaradi enostavnosti izvedbe primerjalne zmogljivostne analize. Obe podatkovni bazi, CockroachDB in Citus, temeljita na podatkovni bazi PostgreSQL. Obe komunicirata preko PostgreSQL žičnega protokola. Prav tako pa enostavna YCSB shema, katero smo opisali v naslednjem poglavju \ref{YCSB_about}, dobro spada v kontekst večnajemniških aplikacij.
 
 
 \section{Orodje YCSB}
@@ -869,7 +870,7 @@ YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprtokodna rešitev za pri
 
 Izbira vrstice je pri A, B, C in F obremenitvah porazdeljena preko Zipf porazdelitvene funkcije. Zipfov zakon pravi, da je najbolj verjetna vrednost približno dvakrat bolj verjetna od druge najbolj verjetne vrednosti in trikrat bolj verjetna od tretje najbolj verjetne vrednosti \cite{zipfs-law}.
 
-Orodje YCSB vrača rezultate v enostavni tekstovni obliki. Od rezultatov vrne skupni čas trajanja, prepustnosti (enačba \ref{eq:throughput}) ter agregirano število vseh operacij in različne podatke o latencah (enačba \ref{eq:latency}). Od latence vrača povprečno vrednost, minimalno in maksimalno vrednost ter 95 in 99 percentil.
+Orodje YCSB vrača rezultate v enostavni tekstovni obliki. Od rezultatov vrne skupni čas trajanja, prepustnost (enačba \ref{eq:throughput}), število vseh operacij in različne podatke o latencah (latenca se meri na nivoju vsake operacije posebaj; enačba \ref{eq:latency}). Od latence vrača povprečno vrednost, minimalno in maksimalno vrednost ter 95 in 99 percentil.
 
 \begin{equation} \label{eq:throughput}
 throughput = 1000 * total\_operations / total\_duration\_ms
@@ -899,7 +900,7 @@ V spodnjih korakih je opisan postopek, po katerem smo pripravili podatke za vsak
 
 \subsubsection{Citus}
 \begin{enumerate}
-    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) smo pognal Citus podatkovno bazo na vozlišču \texttt{n2}.
+    \item Z Docker Swarm konfiguracijsko skripto (\texttt{stacks/postgres-n1.yml}) smo pognal Citus na vozlišču \texttt{n2}.
     \item Na vozlišču \texttt{n2} smo ročno kreirali shemo, katero za svoje delovanje potrebuje orodje YCSB.
     \begin{listing}[H]
     \begin{minted}{vim}
@@ -928,7 +929,7 @@ V spodnjih korakih je opisan postopek, po katerem smo pripravili podatke za vsak
     \label{code-ycsb-load-postgres}
     \end{listing}
     \item Podatkovno bazo smo varno ustavili ter naredili varnostno kopijo fizične podatkovne baze na disku.
-    \item Nato smo z Docker Swarm konfiguracijsko skripto (\texttt{stacks/\\postgres-n3.yml}) pognali Citus podatkovno bazo na treh vozliščih.
+    \item Nato smo z Docker Swarm konfiguracijsko skripto (\texttt{stacks/\\postgres-n3.yml}) pognali Citus na treh vozliščih.
     \item Na vozliščih \texttt{n1} in \texttt{n3} smo kreirali shemo, definirano v točki 2.
     \item Nato smo na vozlišču \texttt{n2} povezali še vozlišči \texttt{n1} ter \texttt{n3} in kreirali porazdeljeno tabelo. Podatki v tabeli \texttt{usertable} so se enakomerno porazdelili med vsa tri vozlišča.
     \begin{listing}[H]
@@ -1014,7 +1015,7 @@ Osnova za te teste so nam bili podatki, katere smo predhodno pripravili. Priprav
 \label{benchmarking_joins_data}
 \end{listing}
 
-Za Citus podatkovno bazo je postopek nekoliko daljši. Ker ne moremo neposredno s porazdeljene tabele \texttt{usertable} kopirati v lokalno tabelo \texttt{ext}, moramo najprej kreirati začasno tabelo, podatke napolniti in potem iz začasne tabele podatke prestaviti v novo tabelo \texttt{ext}. To smo storili z naslednjo skripto:
+Za Citus je postopek nekoliko daljši. Ker ne moremo neposredno s porazdeljene tabele \texttt{usertable} kopirati v lokalno tabelo \texttt{ext}, moramo najprej kreirati začasno tabelo, podatke napolniti in potem iz začasne tabele podatke prestaviti v novo tabelo \texttt{ext}. To smo storili z naslednjo skripto:
 
 \begin{listing}[H]
 \begin{minted}{vim}
@@ -1056,9 +1057,9 @@ Rezultati za podatkovno bazo CockroachDB so zelo slabi. Rezultati so predstavlje
 \textbf{konfiguracija} & \textbf{čas [ms]} \\
 \hline
 Citus 1 vozlišče        & 66,336 \\
-Citus 3 vozlišče        & 163,049 \\
+Citus 3 vozlišča        & 163,049 \\
 CockroachDB 1 vozlišče  & (prekinjeno po 1 minuti)\\
-CockroachDB 3 vozlišče  & (prekinjeno po 1 minuti)\\
+CockroachDB 3 vozlišča  & (prekinjeno po 1 minuti)\\
 \end{tabular}
 \end{center}
 \caption{Čas trajanja testne poizvedbe s stično operacijo glede na konfiguracijo.}
@@ -1084,7 +1085,7 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 \begin{center}
 \includegraphics[width=1\textwidth]{resources/comparison-throughputnlatency-bnw.png}
 \end{center}
-\caption{Prikazuje primerjavo prepustnosti in latenc glede na vrsto obremenitve med podatkovno bazo Citus in CockroachDB. Graf (7) je zaradi lažje primerjave odrezan. Iz grafov je razvidno, da je podatkovna baza Citus v primerjavi s CockroachDB veliko bolj stabilna, kar se odraža v razponu med največjo in najmanjšo vrednostjo.}
+\caption{Prikazuje primerjavo prepustnosti in latenc glede na vrsto obremenitve med podatkovno bazo CockroachDB in Citus. Graf (7) je zaradi lažje primerjave odrezan. Iz grafov je razvidno, da je Citus v primerjavi s podatkovno bazo CockroachDB veliko bolj stabilen, kar se odraža v razponu med največjo in najmanjšo vrednostjo.}
 \label{img_ycsb_results_bnw_comparison}
 \end{figure}
 
@@ -1101,13 +1102,13 @@ Vsi rezultati so na voljo na GitHub repozitoriju \texttt{matjazmav/diploma-ycsb}
 \newpage
 
 \section{Ugotovitve}
-Zmogljivostna analiza je pokazala, da se podatkovna baza Citus pri večini obremenitev, katere smo testirali, odziva bistveno bolje kot podatkovna baza CockroachDB.
+Zmogljivostna analiza je pokazala, da se Citus pri večini obremenitev, katere smo testirali, odziva bistveno bolje kot podatkovna baza CockroachDB.
 
 S slike \ref{img_ycsb_results_top_level_comparison} je razvidno, da CockroachDB v primerjavi s Citus dosega 2,7-krat manjšo prepustnost na enem vozlišču in kar 5-krat manjšo prepustnost na treh vozliščih. Pri primerjavi latence pa je CockroachDB v primerjavi s Citus na enem vozlišču dosegel približno 25,2-krat večjo latenco, na treh vozliščih pa samo še 3-krat večjo.
 
-S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s podatkovno bazo Citus manj stabilna. To se odraža na posameznih grafih, saj so rezultati meritev pri podatkovni bazi CockroachDB veliko bolj razpršeni.
+S slike \ref{img_ycsb_results_bnw_comparison} je razvidno, da je podatkovna baza CockroachDB v primerjavi s Citus manj stabilna. To se odraža na posameznih grafih, saj so rezultati meritev pri podatkovni bazi CockroachDB veliko bolj razpršeni.
 
-Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput}), opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča lahko v povprečju obdela 5,4 več sočasnih niti, podatkovna baza Citus pa kar 10,8 manj.
+Če primerjamo spremembe sočasnih niti, pri katerih sta bazi dosegali maksimalno prepustnost (slika \ref{img_ycsb_results_max_throughput}), opazimo naslednje. Podatkovna baza CockroachDB ob skaliranju na tri vozlišča lahko v povprečju obdela 5,4 več sočasnih niti, Citus pa kar 10,8 manj.
 
 \subsection{Hipoteza 1}
 \textit{CockroachDB bo na enem vozlišču nekoliko počasnejši od PostgreSQL podatkovne baze.}
@@ -1133,13 +1134,13 @@ Rezultati neuradne TPC-C zmogljivostne analize, katero so izvedli v Co\-ckroachL
 
 Prišli smo do ugotovitve, da je CockroachDB linearno skalabilna podatkovna baza (1), če je obremenitev enakomerno porazdeljena med vsa vozlišča in (2) faktor replikacije ob skaliranju ostane konstanten.
 
-Na podlagi teh ugotovitev smo pripravili optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri PostgreSQL konfiguraciji vsi odjemalci neposredno povezujejo na eno vozlišče (koordinatorja), ki je ozko grlo (točka A), saj bo ob večanju v neki točki prišlo do zasičenosti resursov \cite{Citus-add-coordinator}. V neki točki (točka B) pa bo CockroachDB presegel prepustnost podatkovne baze Citus.
+Na podlagi teh ugotovitev smo pripravili optimistično oceno rasti povprečne prepustnosti. Obe bazi se v idealnih pogojih in do neke mere skalirata linearno, kar je prikazano na sliki \ref{img_ycsb_results_scaling_throughptu_prediction}. Vendar pa se pri PostgreSQL konfiguraciji vsi odjemalci neposredno povezujejo na eno vozlišče (koordinatorja), ki je ozko grlo (točka A), saj bo ob večanju v neki točki prišlo do zasičenosti resursov \cite{Citus-add-coordinator}. V neki točki (točka B) pa bo CockroachDB presegel prepustnost podatkovne baze PostgreSQL z nameščeno razširitvijo Citus.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.7\textwidth]{resources/scaling-throughput-prediction-v2.png}
 \end{center}
-\caption{Optimistična ocena rasti povprečne prepustnosti. Pri podatkovni bazi Citus se v točki A linearna rast konča. V točki B pa ima CockroachDB že večjo prepustnost. Graf je le simboličen in ne predstavlja realnih meritev.}
+\caption{Optimistična ocena rasti povprečne prepustnosti. Pri Citus se v točki A linearna rast konča. V točki B pa ima CockroachDB že večjo prepustnost. Graf je le simboličen in ne predstavlja realnih meritev.}
 \label{img_ycsb_results_scaling_throughptu_prediction}
 \end{figure}
 
