@@ -1,7 +1,7 @@
 \documentclass[a4paper, 12pt]{book}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main-oldtmp-12808.tex   Fri Aug 31 08:53:14 2018
-%DIF ADD main.tex                Fri Aug 31 08:47:39 2018
+%DIF DEL main-oldtmp-4588.tex   Fri Aug 31 09:01:21 2018
+%DIF ADD main.tex               Fri Aug 31 08:58:02 2018
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
@@ -779,7 +779,8 @@ CockroachDB podpira naslednje podatkovne tipe:
     \item \textbf{Decimalni}: \texttt{DECIMAL} in \texttt{FLOAT}
     \item \textbf{Textovni}: \texttt{STRING} in \texttt{COLLATE} (podobno kot \texttt{STRING}, vendar upošteva specifike jezika)
     \item \textbf{Datumski in časovni}: \texttt{DATE}, \texttt{TIME}, \texttt{INTERVAL} (časovni interval) in\\\texttt{TIMESTAMP} (datum in čas)
-    \item \textbf{Ostali}: \texttt{ARRAY}, \texttt{BOOL}, \texttt{BYTES}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{JSONB} \DIFdelbegin \DIFdel{in}\DIFdelend \DIFaddbegin \DIFadd{(podatki v JSON obliki, brez presledkov in podvojenih ključev, predstavljeni v binarnem zapisu) in}\DIFaddend \\\texttt{UUID} (128-bitna heksadecimalna vrednost)
+    \item \textbf{Ostali}: \texttt{ARRAY}, \texttt{BOOL}, \texttt{BYTES}, \texttt{INET} (IPv4 in IPv6 naslovi), \texttt{JSONB} \DIFdelbegin \DIFdel{in}%DIFDELCMD < \\%%%
+\DIFdelend \DIFaddbegin \DIFadd{(podatki v JSON obliki, brez presledkov in podvojenih ključev, predstavljeni v binarnem zapisu) in }\DIFaddend \texttt{UUID} (128-bitna heksadecimalna vrednost)
 \end{itemize}
 
 \noindent Poleg zgoraj naštetih podatkovnih tipov ima vsak podatkovni tip zaradi kompatibilnosti s standardnim SQL jezikom še nekaj psevdonimov. CockroachDB ne podpira podatkovnih tipov, kot so \texttt{XML}, \texttt{UNSIGNED INT} ter \texttt{SET} in \texttt{ENUM}.
