@@ -203,7 +203,7 @@ Za objavo in koriščenje rezultatov diplomskega dela je potrebno pisno privolje
 \vspace*{4cm}
 
 \noindent
-Fakulteta za računalništvo in informatiko izdaja naslednje delo:
+Fakulteta za računalništvo in informatiko izdaja naslednje delo: Visoko skalabilen NewSQL sistem za upravljanje s podatkovnimi bazami CockroachDB
 \medskip
 \begin{tabbing}
 \hspace{32mm}\= \hspace{6cm} \= \kill
@@ -538,7 +538,7 @@ CockroachDB v grobem sestavlja pet funkcionalnih plasti. Zaradi lažjega razumev
     \item \textbf{Najem obsega (angl. range lease):} Za vsako območje obstaja ena replika (angl. leaseholder), katera ima obseg v najemu. Ta replika sprejme in koordinira vse bralne in pisalne zahtevke za določen obseg.
     \item \textbf{Konsistenca (angl. consistency):} Podatki v podatkovni bazi so vedno v končnem veljavnem stanju in nikoli v vmesnem stanju. Cock\-roach\-DB ohranja konsistenco preko ACID transakcij.
     \item \textbf{Soglasje (angl. consensus):} To je postopek, preko katerega porazdeljeni sistemi pridejo do soglasja o vrednosti enega podatka. Podatkovna baza CockroachDB za doseganje soglasja uporablja algoritem Raft. Cock\-roach\-DB ob pisalnem zahtevku čaka, da večina replik potrditi, da je podatek uspešno zapisan. S tem mehanizmom se izognemo izgubi podatkov ter ohranimo konsistentnost podatkovne baze v primeru, da odpove eno od vozlišč.
-    \item \textbf{Govoričenje (angl. gossip):} Je relativno enostaven postopek preko katerega si vozlišča izmenjujejo razne podatke. Podatki ne potrebujejo biti najbolj točni. Ti podatki so največkrat uporabljeni za odločanje pri raznih avtomatiziranih opravilih. Na primer avtomatsko prerazporejanje obsegov na manj obremenjena vozlišča.
+    \item \textbf{Govoričenje (angl. gossip):} Je relativno enostaven postopek preko katerega si vozlišča izmenjujejo razne podatke. Podatki niso nujno čisto točni. Ti podatki so največkrat uporabljeni za odločanje pri raznih avtomatiziranih opravilih, na primer avtomatsko prerazporejanje obsegov na manj obremenjena vozlišča.
     \item \textbf{Replikacija (angl. replication):} Je postopek kopiranja in porazdelitve podatkov med vozlišči, tako da podatki ostanejo v konsistentnem stanju. Cock\-roach\-DB uporablja sinhrono replikacijo. To pomeni, da morajo vsi pisalni zahtevki najprej dobiti soglasje kvoruma, preden se sprememba šteje za potrjeno.
     \item \textbf{Transakcija (angl. transaction):} Množica izvršenih operacij na podatkovni bazi, katere ohranjajo ACID transakcijske lastnosti.
     \item \textbf{Visoka razpoložljivost (angl. high availability):} CockroachDB zagotavlja visoko razpoložljivost, ki ji pravimo pet devetk (angl. five nines), kar pomeni, da je sistem dosegljiv vsaj 99,999 \% časa \cite{CRDB-FAQ}.
@@ -808,7 +808,7 @@ Pred začetkom izvajanja primerjalne analize smo postavili naslednje hipoteze:
     \iffalse
     Razlog za to hipotezo je, da je CockroachDB na trgu dobro leto in še ni dokončno optimiziran, medtem ko je PostgreSQL na trgu dobrih 20 let.
     \fi
-    \item CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj trikrat bolj zmogljiv.
+    \item CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj 3-krat bolj zmogljiv kot na enem vozlišču.
 \end{enumerate}
 
 \section{Testno okolje}
@@ -870,7 +870,7 @@ YCSB \cite{brianfrankcooper/YCSB} je razširljiva in odprtokodna rešitev za pri
 
 Izbira vrstice je pri A, B, C in F obremenitvah porazdeljena preko Zipf porazdelitvene funkcije. Zipfov zakon pravi, da je najbolj verjetna vrednost približno dvakrat bolj verjetna od druge najbolj verjetne vrednosti in trikrat bolj verjetna od tretje najbolj verjetne vrednosti \cite{zipfs-law}.
 
-Orodje YCSB vrača rezultate v enostavni tekstovni obliki. Od rezultatov vrne skupni čas trajanja, prepustnost (enačba \ref{eq:throughput}), število vseh operacij in različne podatke o latencah (latenca se meri na nivoju vsake operacije posebaj; enačba \ref{eq:latency}). Od latence vrača povprečno vrednost, minimalno in maksimalno vrednost ter 95 in 99 percentil.
+Orodje YCSB vrača rezultate v enostavni tekstovni obliki. Od rezultatov vrne skupni čas trajanja, prepustnost (enačba \ref{eq:throughput}), število vseh operacij in različne podatke o latencah (latenca se meri na nivoju vsake operacije posebej; enačba \ref{eq:latency}). Od latence vrača povprečno vrednost, minimalno in maksimalno vrednost ter 95 in 99 percentil.
 
 \begin{equation} \label{eq:throughput}
 throughput = 1000 * total\_operations / total\_duration\_ms
@@ -1121,7 +1121,7 @@ Hipotezo smo potrdili, kar je razvidno tudi na sliki \ref{img_ycsb_results_top_l
 Podobno zmogljivostno primerjavo so decembra 2017 izvedli na zasebni raziskovalni univerzi v Bruslju \cite{CRDB-2017}. Z orodjem YCSB (verzija 0.12.0) so primerjali obremenitve tipa A, B in C. Ugotovili so, da se podatkovna baza CockroachDB (verzija 1.1.3) v primerjavi s PostgreSQL (verzija 9.6.5) odziva približno 10-krat slabše, kakor PostgreSQL. V njihovem primeru so testno okolje postavili v Amazon oblaku, vsako bazo na treh vozliščih.
 
 \subsection{Hipoteza 2}
-\textit{CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj 3-krat bolj zmogljiv.}
+\textit{CockroachDB bo zaradi linearne skalabilnosti na treh vozliščih skoraj 3-krat bolj zmogljiv kot na enem vozlišču.}
 
 \ \\
 Vsa vozlišča, povezana v CockroachDB gručo, so simetrična, kar pomeni, da vsa vozlišča opravljajo enake naloge. Ob predpostavki, da se uporabniki enakomerno razporedijo preko vseh vozlišč, ter da je obremenitev enakomerna, naj bi bila rast prepustnosti linearna \cite{CRDB-design}.
